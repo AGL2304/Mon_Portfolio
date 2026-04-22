@@ -1,0 +1,32 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: portfolio-backend
+    restart: unless-stopped
+    environment:
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-charbelazon23@gmail.com}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-charbelazob23@gmail.com}
+      JWT_SECRET: ${JWT_SECRET:-change-this-secret-in-production}
+      DATABASE_URL: ${DATABASE_URL:-sqlite:///./data/portfolio.db}
+      CORS_ORIGINS: '${CORS_ORIGINS:-["http://localhost:5173","http://localhost:3000"]}'
+    volumes:
+      - backend_data:/app/data
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: /api
+    container_name: portfolio-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  backend_data:
+

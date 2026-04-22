@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Développeur Full-Stack & DevOps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #151933;
+            --accent-cyan: #00f5ff;
+            --accent-magenta: #ff00ff;
+            --accent-yellow: #ffeb3b;
+            --text-primary: #e8eaed;
+            --text-secondary: #9aa0a6;
+            --grid-color: rgba(0, 245, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 3rem 0;
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2rem;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -2px); }
+            96% { transform: translate(-2px, -2px); }
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-cyan);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0 6rem;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 0.9;
+            letter-spacing: -4px;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-title .line span {
+            display: inline-block;
+            animation: slideUp 0.8s ease-out backwards;
+        }
+
+        .hero-title .line:nth-child(2) span {
+            animation-delay: 0.1s;
+        }
+
+        .hero-title .line:nth-child(3) span {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s 0.3s ease-out backwards;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s 0.4s ease-out backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 2px;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--accent-cyan);
+        }
+
+        /* Section Headers */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::before {
+            content: '//';
+            position: absolute;
+            left: -3rem;
+            color: var(--accent-cyan);
+            opacity: 0.5;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.2);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .project-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            padding: 0.3rem 0.7rem;
+            background: rgba(0, 245, 255, 0.1);
+            color: var(--accent-cyan);
+            border-radius: 2px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: gap 0.3s;
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-left: 3px solid var(--accent-cyan);
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 0 20px rgba(0, 245, 255, 0.2);
+        }
+
+        .skill-category-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-cyan);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent-magenta);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 0, 255, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-text {
+            color: var(--text-secondary);
+        }
+
+        /* Experience & Certification hover effects */
+        .experience-card:hover,
+        .cert-card:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 0 30px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 6rem;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            .section-title::before {
+                display: none;
+            }
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">&lt;/dev&gt;</div>
+                <nav>
+                    <a href="#apropos">À propos</a>
+                    <a href="#experience">Expériences</a>
+                    <a href="#projets">Projets</a>
+                    <a href="#competences">Compétences</a>
+                    <a href="#contact">Contact</a>
+                    <a href="https://github.com/votre-username" target="_blank">GitHub →</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">
+                <span class="line"><span>ANANI Georges</span></span>
+                <span class="line"><span>Lionel</span></span>
+                <span class="line"><span class="highlight">Ingénieur Cybersécurité</span></span>
+            </h1>
+            <p class="hero-subtitle">
+                Passionné par la cybersécurité et l'automatisation DevOps, je conçois et déploie des solutions sécurisées et performantes pour accompagner la transformation digitale des entreprises.
+            </p>
+            <div class="hero-tags">
+                <span class="tag">Cybersécurité</span>
+                <span class="tag">DevOps</span>
+                <span class="tag">Docker/Kubernetes</span>
+                <span class="tag">CI/CD</span>
+                <span class="tag">Python</span>
+                <span class="tag">FastAPI</span>
+            </div>
+            
+            <div class="hero-cta" style="display: flex; gap: 1.5rem; flex-wrap: wrap; animation: fadeInUp 0.8s 0.5s ease-out backwards;">
+                <a href="#projets" class="cta-button primary" style="padding: 1rem 2rem; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta)); color: var(--bg-primary); font-weight: bold; text-decoration: none; border-radius: 4px; transition: all 0.3s; display: inline-block; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">
+                    Voir mes projets
+                </a>
+                <a href="#" class="cta-button secondary" style="padding: 1rem 2rem; background: transparent; border: 2px solid var(--accent-cyan); color: var(--accent-cyan); font-weight: bold; text-decoration: none; border-radius: 4px; transition: all 0.3s; display: inline-block; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">
+                    Télécharger mon CV
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="apropos" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">À propos</h2>
+                <p class="section-subtitle">Mon parcours et mes motivations</p>
+            </div>
+
+            <div class="about-content reveal">
+                <div class="about-text">
+                    <p style="margin-bottom: 1.5rem; color: var(--text-primary); font-size: 1.1rem; line-height: 1.8;">
+                        Je suis actuellement étudiant en <strong style="color: var(--accent-cyan);">4ᵉ année du cycle ingénieur en cybersécurité</strong> à l'École-IT, campus d'Amiens. Je possède une solide expérience en administration système et réseau, ainsi qu'en développement et déploiement d'applications sécurisées.
+                    </p>
+
+                    <div class="education-timeline" style="margin: 3rem 0;">
+                        <div class="timeline-item" style="margin-bottom: 2rem; padding-left: 2rem; border-left: 2px solid var(--accent-cyan); position: relative;">
+                            <div style="position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--accent-cyan); border-radius: 50%;"></div>
+                            <h4 style="color: var(--accent-cyan); font-size: 1.2rem; margin-bottom: 0.5rem;">Cycle Ingénieur – École-IT, Amiens</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Spécialité Cybersécurité / DevOps</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">4ᵉ année en cours</p>
+                        </div>
+                        <div class="timeline-item" style="padding-left: 2rem; border-left: 2px solid var(--accent-cyan); position: relative;">
+                            <div style="position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--accent-cyan); border-radius: 50%;"></div>
+                            <h4 style="color: var(--accent-cyan); font-size: 1.2rem; margin-bottom: 0.5rem;">Licence Informatique</h4>
+                            <p style="color: var(--text-secondary);">Université Ibn Tofail, Kénitra</p>
+                        </div>
+                    </div>
+
+                    <div class="values-section">
+                        <h3 style="color: var(--text-primary); font-size: 1.3rem; margin-bottom: 1rem; font-family: 'Archivo Black', sans-serif;">Mes passions</h3>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <span class="tag">Sécurité informatique</span>
+                            <span class="tag">Automatisation</span>
+                            <span class="tag">Cloud Computing</span>
+                            <span class="tag">Développement Web</span>
+                            <span class="tag">Technologies Open-Source</span>
+                            <span class="tag">Intelligence Artificielle</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Expériences</h2>
+                <p class="section-subtitle">Mes stages et missions professionnelles</p>
+            </div>
+
+            <div class="experience-grid" style="display: grid; gap: 2rem;">
+                <div class="experience-card reveal" style="background: var(--bg-primary); padding: 2rem; border-left: 3px solid var(--accent-cyan); transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 0.5rem;">Stage DevOps</h3>
+                            <p style="color: var(--accent-cyan); font-weight: bold;">METIO</p>
+                        </div>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Mai - Septembre 2025</span>
+                    </div>
+                    <ul style="list-style: none; color: var(--text-secondary); line-height: 1.8;">
+                        <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-cyan);">▸</span>
+                            Containerisation d'applications Node.js avec Docker
+                        </li>
+                        <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-cyan);">▸</span>
+                            Déploiement sur Kubernetes via GKE
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-cyan);">▸</span>
+                            Mise en place d'un pipeline CI/CD avec GitHub Actions
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="experience-card reveal" style="background: var(--bg-primary); padding: 2rem; border-left: 3px solid var(--accent-magenta); transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 0.5rem;">Stage Cybersécurité</h3>
+                            <p style="color: var(--accent-magenta); font-weight: bold;">WildCode-Solutions</p>
+                        </div>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Février - Avril 2025</span>
+                    </div>
+                    <ul style="list-style: none; color: var(--text-secondary); line-height: 1.8;">
+                        <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-magenta);">▸</span>
+                            Audit de sécurité d'applications web
+                        </li>
+                        <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-magenta);">▸</span>
+                            Analyse et correction de vulnérabilités
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-magenta);">▸</span>
+                            Rédaction de rapports techniques et recommandations
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="experience-card reveal" style="background: var(--bg-primary); padding: 2rem; border-left: 3px solid var(--accent-yellow); transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 0.5rem;">Télé-enquêteur</h3>
+                            <p style="color: var(--accent-yellow); font-weight: bold;">Médiamétrie, Amiens</p>
+                        </div>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Mars 2025 - Présent</span>
+                    </div>
+                    <ul style="list-style: none; color: var(--text-secondary); line-height: 1.8;">
+                        <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-yellow);">▸</span>
+                            Collecte et analyse de données
+                        </li>
+                        <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-yellow);">▸</span>
+                            Gestion de questionnaires et suivi qualité
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projets" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Projets</h2>
+                <p class="section-subtitle">Une sélection de mes réalisations techniques</p>
+            </div>
+
+            <div class="category-filter reveal">
+                <button class="filter-btn active" data-category="all">Tous</button>
+                <button class="filter-btn" data-category="devops">DevOps</button>
+                <button class="filter-btn" data-category="security">Sécurité</button>
+                <button class="filter-btn" data-category="web">Web</button>
+                <button class="filter-btn" data-category="ai">IA</button>
+            </div>
+
+            <div class="projects-grid">
+                <!-- EcoLearn AI -->
+                <div class="project-card reveal" data-category="ai web">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">EcoLearn AI</h3>
+                            <p class="project-date">2025</p>
+                        </div>
+                        <div class="project-icon">🎓</div>
+                    </div>
+                    <p class="project-description">
+                        Application web d'apprentissage intelligent avec gestion d'utilisateurs, cours et suivi des progrès. Interface moderne et système de recommandations personnalisées basé sur l'IA.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">FastAPI</span>
+                        <span class="tech-badge">PostgreSQL</span>
+                        <span class="tech-badge">Docker</span>
+                        <span class="tech-badge">React</span>
+                        <span class="tech-badge">Tailwind CSS</span>
+                    </div>
+                    <a href="https://github.com/votre-username/EcolearnIA" class="project-link" target="_blank">Voir sur GitHub →</a>
+                </div>
+
+                <!-- Biblioexchange -->
+                <div class="project-card reveal" data-category="web">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Biblioexchange</h3>
+                            <p class="project-date">Décembre 2024</p>
+                        </div>
+                        <div class="project-icon">📚</div>
+                    </div>
+                    <p class="project-description">
+                        Plateforme web d'échange de livres entre utilisateurs. Système de recherche avancée, gestion des transactions et interface utilisateur intuitive pour faciliter le partage de livres.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Symfony</span>
+                        <span class="tech-badge">Tailwind CSS</span>
+                        <span class="tech-badge">PostgreSQL</span>
+                        <span class="tech-badge">Twig</span>
+                    </div>
+                    <a href="https://github.com/votre-username/BiblioExchange" class="project-link" target="_blank">Voir sur GitHub →</a>
+                </div>
+
+                <!-- Application d'audit en cybersécurité -->
+                <div class="project-card reveal" data-category="security">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Outil d'Audit Cybersécurité</h3>
+                            <p class="project-date">2025</p>
+                        </div>
+                        <div class="project-icon">🛡️</div>
+                    </div>
+                    <p class="project-description">
+                        Outil web pour faciliter les audits de sécurité et la génération automatique de rapports. Intégration d'outils de scanning et d'analyse de vulnérabilités avec tableau de bord interactif.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">PHP</span>
+                        <span class="tech-badge">Laravel</span>
+                        <span class="tech-badge">SQL</span>
+                        <span class="tech-badge">Security Tools</span>
+                    </div>
+                    <a href="#" class="project-link">Voir le projet →</a>
+                </div>
+
+                <!-- CodeArena -->
+                <div class="project-card reveal" data-category="devops web">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">CodeArena</h3>
+                            <p class="project-date">Octobre 2025</p>
+                        </div>
+                        <div class="project-icon">🏆</div>
+                    </div>
+                    <p class="project-description">
+                        Plateforme de compétition de code en temps réel avec sandbox Docker sécurisé, authentification JWT et système de classement multijoueur. Architecture distribuée pour exécution de code isolée.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Vue.js</span>
+                        <span class="tech-badge">Docker</span>
+                        <span class="tech-badge">JWT</span>
+                        <span class="tech-badge">WebSocket</span>
+                    </div>
+                    <a href="https://github.com/votre-username/CodeArena_EcoleIT_Pisc" class="project-link" target="_blank">Voir sur GitHub →</a>
+                </div>
+
+                <!-- CVE Trackers -->
+                <div class="project-card reveal" data-category="security">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">CVE Trackers</h3>
+                            <p class="project-date">Janvier 2025</p>
+                        </div>
+                        <div class="project-icon">🔒</div>
+                    </div>
+                    <p class="project-description">
+                        Système de surveillance et tracking des vulnérabilités (CVE). Agrégation automatique des bases de données de sécurité, alertes en temps réel et analyse de criticité.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">CVE API</span>
+                        <span class="tech-badge">Security</span>
+                        <span class="tech-badge">Automation</span>
+                    </div>
+                    <a href="https://github.com/votre-username/Projet_CVE_Trackers" class="project-link" target="_blank">Voir sur GitHub →</a>
+                </div>
+
+                <!-- SecureVault -->
+                <div class="project-card reveal" data-category="security web">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">SecureVault</h3>
+                            <p class="project-date">Septembre 2025</p>
+                        </div>
+                        <div class="project-icon">🔐</div>
+                    </div>
+                    <p class="project-description">
+                        Gestionnaire de mots de passe sécurisé avec chiffrement end-to-end. Implémentation de protocoles de sécurité avancés et authentification multi-facteurs.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">PHP</span>
+                        <span class="tech-badge">Encryption</span>
+                        <span class="tech-badge">2FA</span>
+                        <span class="tech-badge">MySQL</span>
+                    </div>
+                    <a href="https://github.com/votre-username/securevault" class="project-link" target="_blank">Voir sur GitHub →</a>
+                </div>
+
+                <!-- Travel Guides -->
+                <div class="project-card reveal" data-category="web">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Travel Guides</h3>
+                            <p class="project-date">Juin 2025</p>
+                        </div>
+                        <div class="project-icon">✈️</div>
+                    </div>
+                    <p class="project-description">
+                        Application web de guides de voyage collaboratifs. Interface intuitive avec système de recommandations, géolocalisation et partage communautaire d'itinéraires.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Symfony</span>
+                        <span class="tech-badge">Twig</span>
+                        <span class="tech-badge">PostgreSQL</span>
+                        <span class="tech-badge">API Maps</span>
+                    </div>
+                    <a href="https://github.com/votre-username/Travel_Guides" class="project-link" target="_blank">Voir sur GitHub →</a>
+                </div>
+
+                <!-- CloudNinja AGL -->
+                <div class="project-card reveal" data-category="devops">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">CloudNinja AGL</h3>
+                            <p class="project-date">Juin 2025</p>
+                        </div>
+                        <div class="project-icon">☁️</div>
+                    </div>
+                    <p class="project-description">
+                        Infrastructure cloud automatisée avec scripts de déploiement. CI/CD pipeline, monitoring et orchestration de conteneurs pour environnements de production.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Bash</span>
+                        <span class="tech-badge">Cloud</span>
+                        <span class="tech-badge">CI/CD</span>
+                        <span class="tech-badge">Automation</span>
+                    </div>
+                    <a href="https://github.com/votre-username/cloudninja_agl-" class="project-link" target="_blank">Voir sur GitHub →</a>
+                </div>
+
+                <!-- Projet DevOps -->
+                <div class="project-card reveal" data-category="devops">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Infrastructure DevOps</h3>
+                            <p class="project-date">Mai 2025</p>
+                        </div>
+                        <div class="project-icon">⚙️</div>
+                    </div>
+                    <p class="project-description">
+                        Mise en place d'une infrastructure DevOps complète : containerisation, orchestration, monitoring et automatisation des déploiements avec pipelines CI/CD.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Docker</span>
+                        <span class="tech-badge">Kubernetes</span>
+                        <span class="tech-badge">Jenkins</span>
+                        <span class="tech-badge">Monitoring</span>
+                    </div>
+                    <a href="https://github.com/votre-username/Projet_DevOps" class="project-link" target="_blank">Voir sur GitHub →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="competences" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Compétences</h2>
+                <p class="section-subtitle">Stack technique et domaines d'expertise</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category reveal">
+                    <h3 class="skill-category-title">Langages & Frameworks</h3>
+                    <ul class="skill-list">
+                        <li>Python (FastAPI, Django, Flask)</li>
+                        <li>PHP (Symfony, Laravel)</li>
+                        <li>JavaScript (Node.js, Express.js)</li>
+                        <li>React / Tailwind CSS</li>
+                        <li>SQL (PostgreSQL, MySQL)</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3 class="skill-category-title">DevOps & Cloud</h3>
+                    <ul class="skill-list">
+                        <li>Docker / Kubernetes</li>
+                        <li>GitHub Actions / CI/CD</li>
+                        <li>GKE (Google Kubernetes Engine)</li>
+                        <li>Vagrant / Ansible</li>
+                        <li>Monitoring & Automation</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3 class="skill-category-title">Cybersécurité</h3>
+                    <ul class="skill-list">
+                        <li>Tests d'intrusion</li>
+                        <li>Audit de sécurité</li>
+                        <li>Analyse de vulnérabilités (CVE)</li>
+                        <li>Sécurité réseau</li>
+                        <li>Chiffrement & Authentification</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3 class="skill-category-title">Bases de données</h3>
+                    <ul class="skill-list">
+                        <li>PostgreSQL</li>
+                        <li>MySQL</li>
+                        <li>SQL avancé</li>
+                        <li>Optimisation de requêtes</li>
+                        <li>Modélisation de données</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3 class="skill-category-title">Outils</h3>
+                    <ul class="skill-list">
+                        <li>Git / GitHub</li>
+                        <li>VS Code</li>
+                        <li>Linux (administration système)</li>
+                        <li>Postman</li>
+                        <li>Apache Hop</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3 class="skill-category-title">Soft Skills</h3>
+                    <ul class="skill-list">
+                        <li>Travail en équipe</li>
+                        <li>Rigueur et organisation</li>
+                        <li>Adaptabilité</li>
+                        <li>Résolution de problèmes</li>
+                        <li>Communication technique</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Certifications & Formations</h2>
+                <p class="section-subtitle">Formation continue et développement professionnel</p>
+            </div>
+
+            <div class="certifications-grid" style="display: grid; gap: 2rem;">
+                <div class="cert-card reveal" style="background: var(--bg-primary); padding: 2rem; border: 1px solid rgba(0, 245, 255, 0.3); transition: all 0.3s;">
+                    <div style="display: flex; align-items: start; gap: 1.5rem;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0;">
+                            🎓
+                        </div>
+                        <div style="flex: 1;">
+                            <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.4rem; color: var(--text-primary); margin-bottom: 0.5rem;">Titre d'Architecte des systèmes d'information</h3>
+                            <p style="color: var(--accent-cyan); margin-bottom: 0.5rem;">Option DevOps - École-IT</p>
+                            <p style="color: var(--text-secondary); line-height: 1.7;">Formation pratique approfondie en DevOps et Cloud Computing avec mise en situation réelle sur des projets d'infrastructure.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cert-card reveal" style="background: var(--bg-primary); padding: 2rem; border: 1px solid rgba(255, 0, 255, 0.3); transition: all 0.3s;">
+                    <div style="display: flex; align-items: start; gap: 1.5rem;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent-magenta), var(--accent-cyan)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0;">
+                            💻
+                        </div>
+                        <div style="flex: 1;">
+                            <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.4rem; color: var(--text-primary); margin-bottom: 0.5rem;">Hackathons & Challenges Techniques</h3>
+                            <p style="color: var(--accent-magenta); margin-bottom: 0.5rem;">Cybersécurité</p>
+                            <p style="color: var(--text-secondary); line-height: 1.7;">Participation active à des compétitions de cybersécurité et challenges de code pour développer des compétences pratiques en conditions réelles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Contact</h2>
+                <p class="section-subtitle">Discutons de vos projets</p>
+            </div>
+
+            <div class="contact-grid">
+                <a href="mailto:anani.georges@example.com" class="contact-card reveal">
+                    <div class="contact-icon">📧</div>
+                    <h3 class="contact-title">Email</h3>
+                    <p class="contact-text">anani.georges@example.com</p>
+                </a>
+
+                <a href="https://github.com/votre-username" target="_blank" class="contact-card reveal">
+                    <div class="contact-icon">🐙</div>
+                    <h3 class="contact-title">GitHub</h3>
+                    <p class="contact-text">@votre-username</p>
+                </a>
+
+                <a href="https://linkedin.com/in/anani-georges" target="_blank" class="contact-card reveal">
+                    <div class="contact-icon">💼</div>
+                    <h3 class="contact-title">LinkedIn</h3>
+                    <p class="contact-text">/in/anani-georges</p>
+                </a>
+
+                <div class="contact-card reveal" style="cursor: default;">
+                    <div class="contact-icon">📄</div>
+                    <h3 class="contact-title">CV</h3>
+                    <p class="contact-text">
+                        <a href="#" style="color: var(--accent-cyan); text-decoration: underline;">Télécharger mon CV</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests / Bonus Section -->
+    <section class="section" style="padding: 3rem 0;">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Centres d'intérêt</h2>
+                <p class="section-subtitle">Mes passions au-delà du code</p>
+            </div>
+
+            <div class="interests-grid reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                <div class="interest-item" style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; text-align: center; transition: all 0.3s; cursor: pointer;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🤖</div>
+                    <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-family: 'Archivo Black', sans-serif;">Intelligence Artificielle</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Exploration des dernières innovations en IA</p>
+                </div>
+                
+                <div class="interest-item" style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; text-align: center; transition: all 0.3s; cursor: pointer;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔓</div>
+                    <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-family: 'Archivo Black', sans-serif;">Open Source</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Contribution à la communauté tech</p>
+                </div>
+                
+                <div class="interest-item" style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; text-align: center; transition: all 0.3s; cursor: pointer;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🧩</div>
+                    <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-family: 'Archivo Black', sans-serif;">Jeux de Logique</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Résolution de problèmes complexes</p>
+                </div>
+                
+                <div class="interest-item" style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; text-align: center; transition: all 0.3s; cursor: pointer;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📚</div>
+                    <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-family: 'Archivo Black', sans-serif;">Veille Technologique</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Toujours à jour sur les nouvelles tech</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">© 2026 ANANI Georges Lionel - Ingénieur Cybersécurité & DevOps</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 100;
+                
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Project filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const category = btn.dataset.category;
+
+                // Filter projects
+                projectCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category.includes(category)) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+              });
+
+        // Interest items hover effects
+        const interestItems = document.querySelectorAll('.interest-item');
+        interestItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateY(-10px)';
+                item.style.boxShadow = '0 15px 40px rgba(0, 245, 255, 0.3)';
+                item.style.borderColor = 'var(--accent-cyan)';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateY(0)';
+                item.style.boxShadow = 'none';
+            });
+        });
+
+        // CTA button hover effects
+        const ctaButtons = document.querySelectorAll('.cta-button');
+        ctaButtons.forEach(btn => {
+            if (btn.classList.contains('primary')) {
+                btn.addEventListener('mouseenter', () => {
+                    btn.style.transform = 'translateY(-3px)';
+                    btn.style.boxShadow = '0 10px 30px rgba(0, 245, 255, 0.4)';
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translateY(0)';
+                    btn.style.boxShadow = 'none';
+                });
+            } else if (btn.classList.contains('secondary')) {
+                btn.addEventListener('mouseenter', () => {
+                    btn.style.background = 'var(--accent-cyan)';
+                    btn.style.color = 'var(--bg-primary)';
+                    btn.style.transform = 'translateY(-3px)';
+                    btn.style.boxShadow = '0 10px 30px rgba(0, 245, 255, 0.4)';
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.background = 'transparent';
+                    btn.style.color = 'var(--accent-cyan)';
+                    btn.style.transform = 'translateY(0)';
+                    btn.style.boxShadow = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
