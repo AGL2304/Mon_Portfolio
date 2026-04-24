@@ -1,5 +1,9 @@
-from fastapi import Depends, FastAPI, HTTPException, status
+import os
+import shutil
+
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from .config import get_settings
@@ -7,6 +11,8 @@ from .crud import read_portfolio_content, update_portfolio_content
 from .database import get_db, init_db
 from .schemas import LoginRequest, PortfolioContent, TokenResponse
 from .security import create_access_token, require_admin, verify_admin_credentials
+
+CV_PATH = os.path.join("data", "cv.pdf")
 
 settings = get_settings()
 
@@ -67,4 +73,24 @@ def get_admin_content(db: Session = Depends(get_db)) -> PortfolioContent:
 )
 def put_admin_content(content: PortfolioContent, db: Session = Depends(get_db)) -> PortfolioContent:
     return update_portfolio_content(db, content)
+
+
+@app.post("/api/admin/cv", dependencies=[Depends(require_admin)])
+async def upload_cv(file: UploadFile = File(...), db: Session = Depends(get_db)) -> dict[str, str]:
+    if not file.filename or not file.filename.lower().endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Seuls les fichiers PDF sont acceptes.")
+    os.makedirs("data", exist_ok=True)
+    with open(CV_PATH, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    content = read_portfolio_content(db)
+    content.profile.cv_url = "/api/public/cv"
+    update_portfolio_content(db, content)
+    return {"cv_url": "/api/public/cv"}
+
+
+@app.get("/api/public/cv")
+def download_cv() -> FileResponse:
+    if not os.path.exists(CV_PATH):
+        raise HTTPException(status_code=404, detail="CV non disponible.")
+    return FileResponse(CV_PATH, media_type="application/pdf", filename="CV.pdf")
 
