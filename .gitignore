@@ -1,13 +1,43 @@
-.venv/
+# ── Python ────────────────────────────────────────────
+venv/
 __pycache__/
-*.pyc
-.pytest_cache/
-node_modules/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+.eggs/
 dist/
-coverage/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# ── Node / Frontend ───────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/coverage/
+
+# ── Environment & Secrets ─────────────────────────────
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ── Database & Uploads ────────────────────────────────
 backend/data/
-.DS_Store
+*.db
+*.sqlite3
+
+# ── IDE & Editors ─────────────────────────────────────
 .idea/
 .vscode/
-.env
-.env.example
+*.swp
+*.swo
+
+# ── OS ────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

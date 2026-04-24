@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --bg: #090d1f;
   --bg-alt: #111732;
@@ -260,6 +264,66 @@ nav a:hover {
   background: var(--cyan);
 }
 
+section[id] {
+  scroll-margin-top: 72px;
+}
+
+.cv-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  padding: 0.55rem 1.4rem;
+  border: 1px solid var(--cyan);
+  border-radius: 999px;
+  color: var(--cyan);
+  background: rgba(0, 228, 255, 0.08);
+  font-size: 0.88rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cv-download:hover {
+  background: rgba(0, 228, 255, 0.18);
+  box-shadow: 0 0 20px rgba(0, 228, 255, 0.3);
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 1.6rem;
+  right: 1.6rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--cyan);
+  background: rgba(9, 13, 31, 0.9);
+  color: var(--cyan);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 14px rgba(0, 228, 255, 0.25);
+  z-index: 200;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.scroll-to-top:hover {
+  box-shadow: 0 0 28px rgba(0, 228, 255, 0.55);
+  transform: translateY(-3px);
+}
+
+.scroll-to-top.visible:hover {
+  transform: translateY(-3px);
+}
+
 .site-footer {
   border-top: 1px solid var(--border);
   padding: 1.8rem 0;
@@ -435,6 +499,213 @@ nav a:hover {
 
 .success-text {
   color: var(--success);
+}
+
+/* ── Cyberpunk Animations ──────────────────────────── */
+
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 228, 255, 0.3), 0 0 50px rgba(0, 228, 255, 0.1);
+    border-color: var(--cyan);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 228, 255, 0.65), 0 0 80px rgba(0, 228, 255, 0.25),
+      0 0 120px rgba(255, 79, 216, 0.12);
+    border-color: rgba(255, 79, 216, 0.75);
+  }
+}
+
+@keyframes logo-glitch {
+  0%, 88%, 100% {
+    filter: none;
+    transform: translate(0) skewX(0deg);
+  }
+  89% {
+    filter: hue-rotate(90deg) brightness(1.4);
+    transform: translate(-3px, 0) skewX(-2deg);
+  }
+  90% {
+    filter: hue-rotate(200deg) brightness(1.6);
+    transform: translate(3px, 1px) skewX(2deg);
+  }
+  91% {
+    filter: hue-rotate(300deg) brightness(1.2);
+    transform: translate(-1px, 0) skewX(-0.5deg);
+  }
+  92% {
+    filter: none;
+    transform: translate(0) skewX(0deg);
+  }
+}
+
+@keyframes scan-line {
+  0% { top: -4px; }
+  100% { top: 100vh; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-glitch-in {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: skewX(-8deg) translateX(-12px);
+  }
+  35% {
+    opacity: 1;
+    filter: blur(0);
+    transform: skewX(2deg) translateX(4px);
+  }
+  65% {
+    transform: skewX(-1deg) translateX(-2px);
+  }
+  100% {
+    filter: none;
+    transform: skewX(0) translateX(0);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Scan line sweeping across the viewport */
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  top: -4px;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(transparent, rgba(0, 228, 255, 0.18), transparent);
+  animation: scan-line 10s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Logo glitch loop */
+.logo {
+  display: inline-block;
+  animation: logo-glitch 7s ease-in-out infinite;
+}
+
+/* Nav link underline sweep on hover */
+nav a {
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Hero section load animations */
+.hero-image {
+  animation: fade-in-up 0.6s ease both;
+}
+
+.hero-image img {
+  animation: neon-pulse 3s 0.6s ease-in-out infinite;
+}
+
+.hero h1 {
+  animation: hero-glitch-in 0.8s 0.1s ease both;
+}
+
+.hero h2 {
+  animation: hero-glitch-in 0.8s 0.3s ease both;
+}
+
+.hero h2::after {
+  content: "_";
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+.hero-text {
+  animation: fade-in-up 0.6s 0.5s ease both;
+}
+
+.tag-list {
+  animation: fade-in-up 0.6s 0.7s ease both;
+}
+
+/* Section titles — animated gradient sweep */
+.section-title {
+  background: linear-gradient(120deg, var(--text) 20%, var(--cyan), var(--magenta), var(--text) 80%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Cards — hover glow and lift */
+.panel,
+.project-card {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.panel:hover,
+.project-card:hover {
+  border-color: rgba(0, 228, 255, 0.5);
+  box-shadow: 0 0 22px rgba(0, 228, 255, 0.14), inset 0 0 20px rgba(0, 228, 255, 0.04);
+  transform: translateY(-3px);
+}
+
+/* Chip hover glow */
+.chip {
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.chip:hover {
+  box-shadow: 0 0 14px rgba(0, 228, 255, 0.5);
+  background: rgba(0, 228, 255, 0.22);
+}
+
+/* Filter button smooth transition */
+.filter {
+  font-family: inherit;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+/* Scroll reveal — elements start hidden, animate in on viewport entry */
+[data-scroll] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+[data-scroll].animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 720px) {
