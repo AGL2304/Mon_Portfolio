@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { fetchAdminContent, saveAdminContent } from "../services/api";
+import { fetchAdminContent, saveAdminContent, uploadCV } from "../services/api";
 import { addProject, removeProject } from "../services/projectUtils";
 import type { PortfolioContent, Project } from "../types/portfolio";
 
@@ -13,6 +13,8 @@ export function AdminDashboardPage() {
   const [error, setError] = useState("");
   const [saveState, setSaveState] = useState("");
   const [jsonDraft, setJsonDraft] = useState("");
+  const [cvFile, setCvFile] = useState<File | null>(null);
+  const [cvUploadState, setCvUploadState] = useState("");
 
   useEffect(() => {
     if (!token) {
@@ -161,6 +163,21 @@ export function AdminDashboardPage() {
     setContent(removeProject(content, projectId));
   }
 
+  async function handleCvUpload() {
+    if (!content || !cvFile) return;
+    setCvUploadState("Envoi en cours...");
+    setError("");
+    try {
+      const url = await uploadCV(token, cvFile);
+      setContent({ ...content, profile: { ...content.profile, cv_url: url } });
+      setCvUploadState("CV uploade avec succes.");
+      setCvFile(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur upload CV.");
+      setCvUploadState("");
+    }
+  }
+
   function handleApplyJson() {
     try {
       const parsed = JSON.parse(jsonDraft) as PortfolioContent;
@@ -267,14 +284,33 @@ export function AdminDashboardPage() {
               onChange={(event) => updateProfileField("linkedin_url", event.target.value)}
             />
           </label>
+        </div>
+      </section>
+
+      <section className="admin-section">
+        <h2>CV</h2>
+        <div className="admin-grid two-columns">
           <label>
-            URL CV
+            URL actuelle
+            <input value={content.profile.cv_url} readOnly />
+          </label>
+          <label>
+            Nouveau CV (PDF uniquement)
             <input
-              value={content.profile.cv_url}
-              onChange={(event) => updateProfileField("cv_url", event.target.value)}
+              type="file"
+              accept=".pdf"
+              onChange={(e) => setCvFile(e.target.files?.[0] ?? null)}
             />
           </label>
         </div>
+        <button
+          onClick={handleCvUpload}
+          disabled={!cvFile}
+          style={{ marginTop: "0.8rem" }}
+        >
+          Uploader le CV
+        </button>
+        {cvUploadState ? <p className="success-text">{cvUploadState}</p> : null}
       </section>
 
       <section className="admin-section">

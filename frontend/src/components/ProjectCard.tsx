@@ -1,12 +1,13 @@
+import type { HTMLAttributes } from "react";
 import type { Project } from "../types/portfolio";
 
-interface ProjectCardProps {
+type ProjectCardProps = HTMLAttributes<HTMLElement> & {
   project: Project;
-}
+};
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, ...rest }: ProjectCardProps) {
   return (
-    <article className="project-card">
+    <article className="project-card" {...rest}>
       <div className="project-header">
         <h3>{project.title}</h3>
         <span>{project.date}</span>

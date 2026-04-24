@@ -73,3 +73,28 @@ export async function loginAdmin(email: string, password: string): Promise<strin
   return payload.access_token;
 }
 
+export async function uploadCV(token: string | null, file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(`${API_BASE_URL}/admin/cv`, {
+    method: "POST",
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: formData,
+  });
+
+  if (!response.ok) {
+    let message = "Erreur lors de l'upload du CV.";
+    try {
+      const payload = (await response.json()) as { detail?: string };
+      if (payload.detail) message = payload.detail;
+    } catch {
+      message = response.statusText;
+    }
+    throw new Error(message);
+  }
+
+  const data = (await response.json()) as { cv_url: string };
+  return data.cv_url;
+}
+
