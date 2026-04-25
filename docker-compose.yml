@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     environment:
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Georges@zon23}
-      ADMIN_EMAIL: ${ADMIN_EMAIL:-charbelazob23@gmail.com}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-charbelazon23@gmail.com}
       JWT_SECRET: ${JWT_SECRET:-change-this-secret-in-production}
       DATABASE_URL: ${DATABASE_URL:-sqlite:///./data/portfolio.db}
       CORS_ORIGINS: '${CORS_ORIGINS:-["http://localhost:5173","http://localhost:3000"]}'
