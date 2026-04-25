@@ -13,9 +13,9 @@ def default_portfolio_content() -> dict:
                 "developpement d'applications securisees."
             ),
             "location": "Amiens, France",
-            "email": "charbelazob23@gmail.com",
-            "github_url": "https://github.com/votre-username",
-            "linkedin_url": "https://linkedin.com/in/anani-georges",
+            "email": "charbelazon23@gmail.com",
+            "github_url": "https://github.com/AGL2304",
+            "linkedin_url": "https:linkedin.com/in/georges-lionel-c-a-anani-35256618b",
             "cv_url": "#",
             "profile_image": "",
         },
@@ -72,7 +72,7 @@ def default_portfolio_content() -> dict:
                     "d'utilisateurs, cours et suivi des progres."
                 ),
                 "technologies": ["FastAPI", "PostgreSQL", "Docker", "React", "Tailwind CSS"],
-                "repository_url": "https://github.com/votre-username/EcolearnIA",
+                "repository_url": "https://github.com/AGL2304/EcolearnIA",
             },
             {
                 "id": "biblioexchange",
@@ -81,7 +81,7 @@ def default_portfolio_content() -> dict:
                 "categories": ["web"],
                 "description": "Plateforme web d'echange de livres entre utilisateurs.",
                 "technologies": ["Symfony", "Tailwind CSS", "PostgreSQL", "Twig"],
-                "repository_url": "https://github.com/votre-username/BiblioExchange",
+                "repository_url": "https://github.com/AGL2304/BiblioExchange",
             },
             {
                 "id": "audit-cyber",
@@ -105,7 +105,7 @@ def default_portfolio_content() -> dict:
                     "securise et authentification JWT."
                 ),
                 "technologies": ["Vue.js", "Docker", "JWT", "WebSocket"],
-                "repository_url": "https://github.com/votre-username/CodeArena_EcoleIT_Pisc",
+                "repository_url": "https://github.com/AGL2304/CodeArena_EcoleIT_Pisc",
             },
             {
                 "id": "cve-trackers",
@@ -114,7 +114,7 @@ def default_portfolio_content() -> dict:
                 "categories": ["security"],
                 "description": "Systeme de surveillance des vulnerabilites CVE et alertes.",
                 "technologies": ["Python", "CVE API", "Security", "Automation"],
-                "repository_url": "https://github.com/votre-username/Projet_CVE_Trackers",
+                "repository_url": "https://github.com/AGL2304/Projet_CVE_Trackers",
             },
             {
                 "id": "securevault",
@@ -126,7 +126,7 @@ def default_portfolio_content() -> dict:
                     "end-to-end et authentification multi-facteurs."
                 ),
                 "technologies": ["PHP", "Encryption", "2FA", "MySQL"],
-                "repository_url": "https://github.com/votre-username/securevault",
+                "repository_url": "https://github.com/AGL2304/securevault",
             },
             {
                 "id": "travel-guides",
@@ -135,7 +135,7 @@ def default_portfolio_content() -> dict:
                 "categories": ["web"],
                 "description": "Application web de guides de voyage collaboratifs.",
                 "technologies": ["Symfony", "Twig", "PostgreSQL", "API Maps"],
-                "repository_url": "https://github.com/votre-username/Travel_Guides",
+                "repository_url": "https://github.com/AGL2304/Travel_Guides",
             },
             {
                 "id": "cloudninja-agl",
@@ -147,7 +147,7 @@ def default_portfolio_content() -> dict:
                     "pipeline CI/CD et monitoring."
                 ),
                 "technologies": ["Bash", "Cloud", "CI/CD", "Automation"],
-                "repository_url": "https://github.com/votre-username/cloudninja_agl-",
+                "repository_url": "https://github.com/AGL2304/cloudninja_agl-",
             },
             {
                 "id": "infrastructure-devops",
@@ -159,7 +159,7 @@ def default_portfolio_content() -> dict:
                     "orchestration et automatisation des deploiements."
                 ),
                 "technologies": ["Docker", "Kubernetes", "Jenkins", "Monitoring"],
-                "repository_url": "https://github.com/votre-username/Projet_DevOps",
+                "repository_url": "https://github.com/AGL2304/Projet_DevOps",
             },
         ],
         "skill_categories": [
