@@ -38,8 +38,21 @@ async function request<T>(
   return (await response.json()) as T;
 }
 
+function resolveBackendUrl(path: string): string {
+  if (!path.startsWith("/") || API_BASE_URL.startsWith("/")) return path;
+  try {
+    return new URL(API_BASE_URL).origin + path;
+  } catch {
+    return path;
+  }
+}
+
 export async function fetchPublicContent(): Promise<PortfolioContent> {
-  return request<PortfolioContent>("/public/content");
+  const content = await request<PortfolioContent>("/public/content");
+  if (content.profile.cv_url) {
+    content.profile.cv_url = resolveBackendUrl(content.profile.cv_url);
+  }
+  return content;
 }
 
 export async function fetchAdminContent(token?: string | null): Promise<PortfolioContent> {
