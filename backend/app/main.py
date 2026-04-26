@@ -1,18 +1,14 @@
-import os
-import shutil
-
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import Response
 from sqlalchemy.orm import Session
 
 from .config import get_settings
 from .crud import read_portfolio_content, update_portfolio_content
 from .database import get_db, init_db
+from .models import CVDocument
 from .schemas import LoginRequest, PortfolioContent, TokenResponse
 from .security import create_access_token, require_admin, verify_admin_credentials
-
-CV_PATH = os.path.join("data", "cv.pdf")
 
 settings = get_settings()
 
@@ -79,18 +75,35 @@ def put_admin_content(content: PortfolioContent, db: Session = Depends(get_db)) 
 async def upload_cv(file: UploadFile = File(...), db: Session = Depends(get_db)) -> dict[str, str]:
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Seuls les fichiers PDF sont acceptes.")
-    os.makedirs("data", exist_ok=True)
-    with open(CV_PATH, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+
+    cv_bytes = await file.read()
+
+    cv_doc = db.query(CVDocument).first()
+    if cv_doc:
+        cv_doc.data = cv_bytes
+        cv_doc.filename = file.filename
+    else:
+        cv_doc = CVDocument(data=cv_bytes, filename=file.filename)
+        db.add(cv_doc)
+    db.commit()
+
+    base_url = settings.app_base_url.rstrip("/")
+    cv_url = f"{base_url}/api/public/cv"
+
     content = read_portfolio_content(db)
-    content.profile.cv_url = "/api/public/cv"
+    content.profile.cv_url = cv_url
     update_portfolio_content(db, content)
-    return {"cv_url": "/api/public/cv"}
+    return {"cv_url": cv_url}
 
 
 @app.get("/api/public/cv")
-def download_cv() -> FileResponse:
-    if not os.path.exists(CV_PATH):
+def download_cv(db: Session = Depends(get_db)) -> Response:
+    cv_doc = db.query(CVDocument).first()
+    if not cv_doc:
         raise HTTPException(status_code=404, detail="CV non disponible.")
-    return FileResponse(CV_PATH, media_type="application/pdf", filename="CV.pdf")
+    return Response(
+        content=cv_doc.data,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{cv_doc.filename}"'},
+    )
 

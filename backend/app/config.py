@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     admin_email: str = "admin@example.com"
     admin_password: str = "change-me-please"
 
+    app_base_url: str = ""
+
     cors_origins: list[str] = [
         "http://localhost:5173",
         "http://localhost:3000",
