@@ -1,0 +1,31 @@
+[project]
+name = "portfolio-backend"
+version = "2.0.0"
+description = "Portfolio backend — FastAPI + SQLAlchemy + JWT"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["venv", ".venv", "tests/test_portfolio.db"]
+
+[tool.ruff.lint]
+# E,W = pycodestyle · F = pyflakes · I = isort · B = bugbear
+# UP = pyupgrade · S = bandit (security) · N = pep8-naming
+select = ["E", "W", "F", "I", "B", "UP", "S", "N"]
+ignore = [
+    "E501",  # line length (geree par formatter)
+    "S101",  # assert (utilise dans les tests)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S105", "S106", "S311"]  # passwords/tokens en dur OK dans les tests
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-q --strict-markers"
