@@ -1,7 +1,7 @@
 # Mon_Portfolio — Georges Lionel ANANI
 
-> Portfolio full-stack pour un **Purple Team Engineer** (Cybersécurité & DevSecOps).
-> Page publique + back-office d'administration. Cyberpunk-meets-editorial.
+> Portfolio full-stack pour un **Alternant Cybersécurité GRC** (Gouvernance, Risques & Conformité).
+> Page publique + back-office d'administration. Photo de profil, CV PDF téléchargeable, design premium dark-tech.
 
 [![Status](https://img.shields.io/badge/status-online-22D3EE)](https://github.com/AGL2304/Mon_Portfolio)
 [![Made with](https://img.shields.io/badge/stack-React%20%2B%20FastAPI-8B5CF6)](#stack)
@@ -34,6 +34,10 @@ Ce repo héberge **deux livrables complémentaires** :
 
 ```
 .
+├── assets/                       # 👈 statiques (photo, CV)
+│   ├── profile.jpg               # photo de profil (depuis LinkedIn)
+│   ├── CV_Georges_Lionel_ANANI_GRC.pdf          # CV 1-page (lien hero)
+│   └── CV_Georges_Lionel_ANANI_GRC_complet.pdf  # CV version longue
 ├── backend/                # FastAPI + SQLite + JWT auth
 │   ├── app/
 │   │   ├── main.py         # routes API

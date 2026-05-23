@@ -7,13 +7,16 @@
 
 <div align="center">
 
+<img src="https://media.licdn.com/dms/image/v2/D4D35AQHb2w-YOc7dVw/profile-framedphoto-shrink_400_400/B4DZWv2_mfHkAk-/0/1742412184306?e=1780106400&v=beta&t=dukv_LVatgsM1-v5cuRY0p4zcxSTIJJyBx54fCHOxB4" width="140" height="140" style="border-radius:50%" alt="Georges Lionel ANANI" />
+
 # `>` Georges Lionel ANANI
 
-### Purple Team Engineer · Cybersécurité &amp; DevSecOps
+### Alternant Cybersécurité · Gouvernance, Risques &amp; Conformité (GRC)
 
 [![Profile views](https://komarev.com/ghpvc/?username=AGL2304&label=Profile%20views&color=8B5CF6&style=flat)](https://github.com/AGL2304)
 [![GitHub followers](https://img.shields.io/github/followers/AGL2304?label=Follow&style=social)](https://github.com/AGL2304)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Georges%20Lionel%20ANANI-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/georges-lionel-c-a-anani-35256618b)
+[![TryHackMe](https://tryhackme-badges.s3.amazonaws.com/agl23.png)](https://tryhackme.com/p/agl23)
 [![Email](https://img.shields.io/badge/Email-charbelazon23%40gmail.com-D14836?style=flat&logo=gmail)](mailto:charbelazon23@gmail.com)
 
 </div>
@@ -23,42 +26,53 @@
 ```yaml
 identity:
   name:     Georges Lionel ANANI
-  role:     Purple Team Engineer (in training)
-  location: Amiens, France
-  school:   École-IT — M1 Architecte des Systèmes d'Information
-  option:   DevOps & Cybersécurité
+  role:     Alternant Cybersécurité GRC
+  location: Gentilly (94), France — École à Amiens
+  school:   École-IT — M1 Mastère Architectures Systèmes, Réseaux & Sécurité
   current:  Stagiaire Transformation Numérique & Conformité @ IRFA-APISUP
-  status:   En recherche d'alternance dès Septembre 2026
+  target:   Alternance Cybersécurité GRC dès Septembre 2026
+  rhythm:   3 semaines entreprise / 1 semaine école
+  english:  C1 (certifié Gymglish)
 ```
 
 ## 🎯 Approche
 
-Je travaille à la croisée de **quatre disciplines** : attaque, défense, automatisation et gouvernance.
+Je m'oriente vers les métiers **Gouvernance, Risques &amp; Conformité (GRC)**. Mon objectif : structurer la
+gouvernance, traduire la réglementation en contrôles concrets, et automatiser leur vérification — pour
+que la sécurité tienne dans le temps, pas seulement le jour de l'audit.
 
-| 🔴 **Red Team** | 🔵 **Blue Team** | ⚙️ **DevSecOps** | 📋 **Gouvernance / RGPD** |
+| 📋 **Audit &amp; Compliance** | 🎯 **Risques** | ⚙️ **DevSecOps** | 🛡️ **Pentest &amp; CTI** |
 |---|---|---|---|
-| Web exploitation (SQLi, XSS, SSRF, IDOR) | Log analysis & incident response | Docker / Kubernetes (GKE) | Audit M365 (SharePoint, Teams, Power BI) |
-| Network attacks & lateral movement | CVE tracking & vuln management | CI/CD (GitHub Actions, GitLab) | Cartographie données sensibles |
-| Post-exploitation & persistence | System hardening & policies | IaC (Vagrant, Ansible) | Matrice de risques RGPD |
-| CTF (TryHackMe, HackTheBox, RootMe) | Application security & code audit | Cloud (AWS, GCP) | Conduite du changement & sensibilisation |
-
-> **Pourquoi Purple ?** Parce que comprendre comment ça se casse fait écrire un code qui se casse moins.
-> Et parce qu'un bon contrôle technique sans gouvernance derrière ne tient pas dans le temps.
+| ISO 27001 (SMSI) | EBIOS Risk Manager | Docker / Kubernetes (GKE) | Burp Suite, Nmap, sqlmap |
+| HDS, DORA, NIS 2 | AIPD / PIA · TPRM | GitHub Actions, GitLab CI | Metasploit, OpenVAS, Nessus |
+| RGPD / CNIL, CRA | PCA / PRA | Ansible · IaC | CTI · veille CVE · MITRE ATT&amp;CK |
+| NIST CSF | Comitologie, KPI / KRI | Trivy, Snyk, Semgrep | TryHackMe Top 1% · 185 salles |
 
 ## 💼 Expérience actuelle
 
-**Stagiaire Transformation Numérique & Conformité** — *IRFA-APISUP, Amiens · depuis 01/2026*
+**Stagiaire Transformation Numérique &amp; Conformité** — *IRFA-APISUP, Amiens · depuis 01/2026*
 
 - Cartographié les usages M365 sur **~150 utilisateurs** et **8 entités** → matrice de risques RGPD priorisée en 3 vagues
 - Audité **~200 comptes** SharePoint / Teams → 12 écarts au moindre privilège + plan de remédiation 90 jours alignés PSSI
 - Produit **4 livrables d'audit** et animé **3 sessions** de sensibilisation cybersécurité / RGPD pour publics non-tech
 - Piloté la conduite du changement sur **~40 collaborateurs** : fiches réflexes, FAQ, dashboard KPI / KRI hebdomadaire
 
----
+> **Stages précédents** : DevOps &amp; Dev Web (METIO, ex Iteracode · 04-08/2025) · Cybersécurité Audit &amp; Pentest (WildCode-Solutions · 02-04/2025)
 
 ## 🧰 Stack technique
 
 <div align="center">
+
+**Normes &amp; Réglementations**
+
+![ISO 27001](https://img.shields.io/badge/-ISO%2027001-22D3EE?style=flat)
+![HDS](https://img.shields.io/badge/-HDS-22D3EE?style=flat)
+![DORA](https://img.shields.io/badge/-DORA-22D3EE?style=flat)
+![NIS 2](https://img.shields.io/badge/-NIS%202-8B5CF6?style=flat)
+![RGPD](https://img.shields.io/badge/-RGPD%20%2F%20CNIL-8B5CF6?style=flat)
+![EBIOS RM](https://img.shields.io/badge/-EBIOS%20RM-8B5CF6?style=flat)
+![NIST CSF](https://img.shields.io/badge/-NIST%20CSF-6366F1?style=flat)
+![CRA](https://img.shields.io/badge/-Cyber%20Resilience%20Act-6366F1?style=flat)
 
 **Langages**
 
@@ -73,58 +87,54 @@ Je travaille à la croisée de **quatre disciplines** : attaque, défense, autom
 **Frameworks**
 
 ![FastAPI](https://img.shields.io/badge/-FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![Django](https://img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)
 ![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=black)
 ![Vue.js](https://img.shields.io/badge/-Vue.js-4FC08D?style=flat&logo=vuedotjs&logoColor=white)
 ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)
 ![Laravel](https://img.shields.io/badge/-Laravel-FF2D20?style=flat&logo=laravel&logoColor=white)
 ![Symfony](https://img.shields.io/badge/-Symfony-000000?style=flat&logo=symfony&logoColor=white)
-![Tailwind](https://img.shields.io/badge/-Tailwind-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
 
-**DevOps & Cloud**
+**DevSecOps &amp; Cloud**
 
 ![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat&logo=docker&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/-Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/-GitHub%20Actions-2088FF?style=flat&logo=githubactions&logoColor=white)
 ![GitLab](https://img.shields.io/badge/-GitLab%20CI-FC6D26?style=flat&logo=gitlab&logoColor=white)
-![Nginx](https://img.shields.io/badge/-Nginx-009639?style=flat&logo=nginx&logoColor=white)
-![AWS](https://img.shields.io/badge/-AWS-232F3E?style=flat&logo=amazonaws&logoColor=white)
-![GCP](https://img.shields.io/badge/-GCP-4285F4?style=flat&logo=googlecloud&logoColor=white)
+![Ansible](https://img.shields.io/badge/-Ansible-EE0000?style=flat&logo=ansible&logoColor=white)
+![GCP](https://img.shields.io/badge/-GCP%20(GKE)-4285F4?style=flat&logo=googlecloud&logoColor=white)
 
-**Sécurité**
+**Sécurité &amp; Pentest**
 
 ![Burp Suite](https://img.shields.io/badge/-Burp%20Suite-FF6633?style=flat&logo=burpsuite&logoColor=white)
 ![Metasploit](https://img.shields.io/badge/-Metasploit-2596CD?style=flat&logo=metasploit&logoColor=white)
-![Wireshark](https://img.shields.io/badge/-Wireshark-1679A7?style=flat&logo=wireshark&logoColor=white)
-![OWASP](https://img.shields.io/badge/-OWASP%20ZAP-000000?style=flat&logo=owasp&logoColor=white)
-![Trivy](https://img.shields.io/badge/-Trivy-1904DA?style=flat&logo=aquasecurity&logoColor=white)
-
-**Bases de données**
-
-![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white)
-![MySQL](https://img.shields.io/badge/-MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
-![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)
-![Redis](https://img.shields.io/badge/-Redis-DC382D?style=flat&logo=redis&logoColor=white)
-![SQLite](https://img.shields.io/badge/-SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
+![Nmap](https://img.shields.io/badge/-Nmap-013243?style=flat)
+![sqlmap](https://img.shields.io/badge/-sqlmap-000000?style=flat)
+![OpenVAS](https://img.shields.io/badge/-OpenVAS-1A2D3E?style=flat)
+![Nessus](https://img.shields.io/badge/-Nessus-00C176?style=flat)
+![MITRE ATT&CK](https://img.shields.io/badge/-MITRE%20ATT%26CK-CC0000?style=flat)
+![OWASP](https://img.shields.io/badge/-OWASP%20Top%2010-000000?style=flat&logo=owasp&logoColor=white)
 
 </div>
-
----
 
 ## 🚀 Projets phares
 
 | Projet | Description | Stack |
 |---|---|---|
-| **Portail interne IRFA-APISUP** 🔒 | Portail intranet : tableau de bord KPI/KRI, fiches réflexes, FAQ cyber/RGPD pour ~40 collaborateurs (code interne) | SharePoint · Power BI · React · M365 Graph |
-| [**Secure Chat E2E**](https://github.com/AGL2304/Secure_Chat) | Messagerie chiffrée end-to-end, clé privée stockée navigateur uniquement | FastAPI · JWT · bcrypt · Vite |
-| [**FileShare**](https://github.com/AGL2304/fileshare) | Partage de fichiers sécurisé : JWT, MIME whitelist, rate-limit, S3 | React · Fastify · Prisma · PostgreSQL · Redis |
-| [**Red Teams VS Blue Teams**](https://github.com/AGL2304/Red_Teams_VS_Blue_Teams) | Plateforme de simulation attaque/défense avec scoring temps réel | TypeScript · Docker · WebSocket |
-| [**CVE Tracker**](https://github.com/AGL2304/Projet_CVE_Trackers) | Veille &amp; scoring CVSS des vulnérabilités, dashboard | Next.js · Prisma · Docker |
-| [**CodeArena**](https://github.com/AGL2304/CodeArena_EcoleIT_Pisc) | Compétition de code temps réel, sandbox Docker, JWT | Vue 3 · Node · MongoDB · Socket.io |
-| [**SecureVault**](https://github.com/AGL2304/securevault) | Gestionnaire de mots de passe E2E + 2FA | PHP · MySQL · Crypto |
+| **Workflow n8n — Pharmacie** 🔒 | Orchestration CRUD Notion ↔ Google Workspace pour ~200 patients (HDS / RGPD) | n8n · Notion API · Google Workspace |
+| **Portail interne IRFA-APISUP** 🔒 | Dashboard KPI/KRI, fiches réflexes, FAQ cyber/RGPD pour ~40 collaborateurs | SharePoint · Power BI · React · M365 Graph |
+| [**CVE Tracker** — CTI maison](https://github.com/AGL2304/Projet_CVE_Trackers) | Collecte &amp; qualification de ~50 CVE/jour depuis NVD &amp; MITRE ATT&amp;CK | Next.js 15 · Prisma · Docker · NVD API |
+| [**Secure Chat E2E**](https://github.com/AGL2304/Secure_Chat) | Messagerie chiffrée bout-en-bout (clé privée navigateur, WebSockets) | FastAPI · WebSocket · JWT · bcrypt |
+| [**SecureVault**](https://github.com/AGL2304/securevault) | Gestionnaire de secrets chiffrés, JWT, audit log | Python · FastAPI · PostgreSQL · Chiffrement |
+| **Keystroke Security Auditor** 🔒 | Étude vecteurs d'attaque entrées clavier &amp; contre-mesures | Python · Endpoint Security |
 
-→ Et **12 autres projets** sur [mon GitHub](https://github.com/AGL2304?tab=repositories).
+→ Et **15 autres projets** sur [mon GitHub](https://github.com/AGL2304?tab=repositories).
 
----
+## 🏆 TryHackMe — Top 1% mondial
+
+[**agl23**](https://tryhackme.com/p/agl23) · **185 salles** · **22 badges** · **5 parcours certifiés** :
+
+- 🎯 Red Teaming · Offensive Pentesting · Jr Penetration Tester
+- 🛡️ CompTIA Pentest+ · Web Fundamentals
 
 ## 📊 GitHub Stats
 
@@ -137,29 +147,27 @@ Je travaille à la croisée de **quatre disciplines** : attaque, défense, autom
 
 </div>
 
----
-
 ## 🎯 Objectifs 2026
 
-- [x] Stage Transformation Numérique & Conformité — IRFA-APISUP
-- [ ] **Alternance DevSecOps / GRC dès Septembre 2026**
-- [ ] **eJPT** — eLearnSecurity Junior Penetration Tester
-- [ ] **OSCP** — Offensive Security Certified Professional (long terme)
-- [ ] Contribution active à un projet open-source sécurité
-
----
+- [x] Stage Transformation Numérique &amp; Conformité — IRFA-APISUP
+- [ ] **Alternance Cybersécurité GRC dès Septembre 2026** (3 sem. entreprise / 1 sem. école)
+- [ ] **EBIOS Risk Manager** — certification (formation école Mastère)
+- [ ] **ISO 27001 Lead Implementer** — certification (auto-formation en cours)
+- [ ] Contribution active à un projet open-source sécurité / GRC
 
 ## 📫 On échange ?
 
 - 📧 **Email** : [charbelazon23@gmail.com](mailto:charbelazon23@gmail.com)
+- 📞 **Téléphone** : 06 11 73 73 89
+- 📍 **Adresse** : 103 Raymond Lefebvre, 94250 Gentilly · École à Amiens
 - 💼 **LinkedIn** : [Georges Lionel ANANI](https://www.linkedin.com/in/georges-lionel-c-a-anani-35256618b)
-- 🌍 **Localisation** : Amiens, France
-- 💬 **Langues** : Français (natif) · Anglais (technique)
+- 🚩 **TryHackMe** : [agl23](https://tryhackme.com/p/agl23)
+- 🌍 **Langues** : Français (natif) · Anglais C1 (Gymglish)
 
 <div align="center">
 
 ---
 
-<i>"Comprends comment ça se casse, écris du code qui se casse moins."</i>
+<i>"Structurer la gouvernance, traduire la réglementation en contrôles concrets, automatiser leur vérification — pour que la sécurité tienne dans le temps, pas seulement le jour de l'audit."</i>
 
 </div>
