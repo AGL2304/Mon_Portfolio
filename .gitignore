@@ -41,3 +41,15 @@ backend/data/
 # ── OS ────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+
+# Local Python venv
+backend/.venv/
+backend/data/
+
+# TypeScript incremental build artifacts
+frontend/tsconfig.app.tsbuildinfo
+frontend/tsconfig.node.tsbuildinfo
+
+# Local untracked HTML
+/portfolio.html
+/portfolio_admin.html
