@@ -87,12 +87,9 @@ class PortfolioContent(BaseModel):
 
 
 class LoginRequest(BaseModel):
-    """Login admin. L'email est optionnel pour rester compatible avec un setup
-    base mot-de-passe-seul. Quand l'email est absent, on accepte si le mot de
-    passe correspond a la valeur configuree.
-    """
+    """Login admin : email ET mot de passe obligatoires."""
 
-    email: str | None = None
+    email: str = Field(min_length=3)
     password: str = Field(min_length=1)
 
 

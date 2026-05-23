@@ -23,10 +23,12 @@ services:
     container_name: portfolio-backend
     restart: unless-stopped
     environment:
-      ADMIN_EMAIL: ${ADMIN_EMAIL:-charbelazon23@gmail.com}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-charbelazon23@gmail.com}
-      JWT_SECRET: ${JWT_SECRET:-change-this-secret-in-production}
-      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg2://portfolio:portfolio@db:5432/portfolio}
+      # Variables sensibles : doivent etre definies dans .env (sans valeur par defaut).
+      # Le ":?" fait echouer docker compose si la variable n'est pas fournie.
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?ADMIN_EMAIL is required}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?ADMIN_PASSWORD is required}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL is required}
       APP_BASE_URL: ${APP_BASE_URL:-}
       CORS_ORIGINS: '${CORS_ORIGINS:-["http://localhost:5173","http://localhost:3000","http://localhost:4173"]}'
     depends_on:

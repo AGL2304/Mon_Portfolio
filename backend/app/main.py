@@ -29,12 +29,20 @@ app = FastAPI(
     debug=settings.debug,
 )
 
+# CORS : on n'accepte JAMAIS allow_origins=["*"] avec allow_credentials=True
+# (combinaison interdite par la spec CORS / refusee par les navigateurs).
+# Si aucune origine n'est configuree, on refuse tout cross-origin par defaut.
+if not settings.cors_origins:
+    raise RuntimeError(
+        "CORS_ORIGINS doit etre defini explicitement (liste d'origines autorisees)."
+    )
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins if settings.cors_origins else ["*"],
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 

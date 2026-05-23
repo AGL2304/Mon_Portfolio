@@ -3,9 +3,10 @@
 > Portfolio full-stack pour un **Alternant Cybersécurité GRC** (Gouvernance, Risques & Conformité).
 > Page publique + back-office d'administration. Photo de profil, CV PDF téléchargeable, design premium dark-tech.
 
-[![Status](https://img.shields.io/badge/status-online-22D3EE)](https://github.com/AGL2304/Mon_Portfolio)
-[![Made with](https://img.shields.io/badge/stack-React%20%2B%20FastAPI-8B5CF6)](#stack)
-[![License](https://img.shields.io/badge/license-MIT-10B981)](#)
+[![CI](https://github.com/AGL2304/Mon_Portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/AGL2304/Mon_Portfolio/actions/workflows/ci.yml)
+[![Made with](https://img.shields.io/badge/stack-React%20%2B%20FastAPI-8B5CF6)](#-stack)
+[![License](https://img.shields.io/badge/license-MIT-10B981)](LICENSE)
+[![Security](https://img.shields.io/badge/security-policy-EF4444)](SECURITY.md)
 
 ---
 
@@ -13,24 +14,27 @@
 
 Ce repo héberge **deux livrables complémentaires** :
 
-1. **`portofolio.html`** — un site statique mono-fichier (HTML/CSS/JS pur) qui peut être servi tel quel sur GitHub Pages, Vercel ou Netlify. C'est la version "production légère".
+1. **`portfolio.html`** — un site statique mono-fichier (HTML/CSS/JS pur) qui peut être servi tel quel sur GitHub Pages, Vercel ou Netlify. C'est la version "production légère".
 2. **Une stack React + FastAPI complète** (dossiers `frontend/` et `backend/`) avec une **interface d'administration JWT** qui permet d'éditer profil / projets / expériences / compétences à chaud.
 
 | Mode | Cible | Quand l'utiliser |
 |---|---|---|
-| Statique (`portofolio.html`) | Démo rapide, GitHub Pages | Quand le contenu ne bouge pas |
+| Statique (`portfolio.html`) | Démo rapide, GitHub Pages | Quand le contenu ne bouge pas |
 | Full-stack (React + FastAPI) | Long terme, contenu vivant | Quand tu veux modifier en ligne sans redéployer |
+
+> 📦 Les premières versions sont archivées dans [`legacy/`](legacy/) pour référence historique.
 
 ---
 
 ## 🧱 Stack
 
-- **Frontend** : React + TypeScript + Vite + CSS modulaire
-- **Backend** : FastAPI + SQLAlchemy + SQLite + JWT
+- **Frontend** : React 18 + TypeScript + Vite + CSS modulaire
+- **Backend** : FastAPI + SQLAlchemy + PostgreSQL (SQLite en tests) + JWT
 - **Conteneurisation** : Docker + Docker Compose
-- **CI/CD** : GitLab CI (`.gitlab-ci.yml`)
+- **CI/CD** : GitHub Actions (`.github/workflows/ci.yml`) · GitLab CI miroir (`.gitlab-ci.yml`)
 - **Tests** : `pytest` (backend) · `vitest` (frontend)
 - **Déploiement** : Vercel (frontend) · Railway (backend) — config présente
+- **Sécurité** : voir [SECURITY.md](SECURITY.md) pour la politique de divulgation responsable
 
 ```
 .
@@ -55,10 +59,14 @@ Ce repo héberge **deux livrables complémentaires** :
 │   │   └── styles/         # global.css
 │   ├── Dockerfile
 │   └── nginx.conf
-├── portofolio.html         # 👈 version mono-fichier (premium dark-tech)
+├── portfolio.html          # 👈 version mono-fichier (premium dark-tech)
+├── legacy/                 # anciennes versions HTML archivees
 ├── PROFILE_README.md       # README à copier vers AGL2304/AGL2304
+├── LICENSE                 # MIT
+├── SECURITY.md             # politique de divulgation responsable
 ├── docker-compose.yml
-└── .gitlab-ci.yml
+├── .github/workflows/      # CI GitHub Actions
+└── .gitlab-ci.yml          # miroir GitLab
 ```
 
 ---
@@ -69,16 +77,16 @@ Ce repo héberge **deux livrables complémentaires** :
 
 ```bash
 # ouvre simplement le fichier dans le navigateur
-open portofolio.html      # macOS
-xdg-open portofolio.html  # Linux
-start portofolio.html     # Windows
+open portfolio.html      # macOS
+xdg-open portfolio.html  # Linux
+start portfolio.html     # Windows
 ```
 
 Ou sers-le via un mini serveur HTTP :
 
 ```bash
 python -m http.server 8080
-# puis http://localhost:8080/portofolio.html
+# puis http://localhost:8080/portfolio.html
 ```
 
 ### Option B — Stack complète avec Docker Compose

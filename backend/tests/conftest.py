@@ -12,6 +12,7 @@ os.environ["DATABASE_URL"] = f"sqlite:///{TEST_DB.as_posix()}"
 os.environ["ADMIN_EMAIL"] = "admin@test.local"
 os.environ["ADMIN_PASSWORD"] = "test-admin-password"
 os.environ["JWT_SECRET"] = "test-secret"
+os.environ["CORS_ORIGINS"] = '["http://localhost:5173"]'
 
 from app.config import get_settings  # noqa: E402
 from app.database import Base, get_engine, get_session_factory  # noqa: E402

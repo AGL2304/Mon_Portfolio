@@ -50,6 +50,4 @@ backend/data/
 frontend/tsconfig.app.tsbuildinfo
 frontend/tsconfig.node.tsbuildinfo
 
-# Local untracked HTML
-/portfolio.html
-/portfolio_admin.html
+# (Anciens HTML v1 archives dans legacy/ — pas d'ignore necessaire)

@@ -9,17 +9,18 @@ def test_login_success_with_email_and_password(client):
     assert payload["access_token"]
 
 
-def test_login_success_with_password_only(client):
-    # L'email est optionnel : avec juste le mot de passe ca doit marcher.
+def test_login_failure_without_email(client):
+    # L'email est obligatoire : sans email -> 401.
     response = client.post(
         "/api/auth/login", json={"password": "test-admin-password"}
     )
-    assert response.status_code == 200
+    assert response.status_code in (401, 422)
 
 
 def test_login_failure_wrong_password(client):
     response = client.post(
-        "/api/auth/login", json={"password": "wrong-password"}
+        "/api/auth/login",
+        json={"email": "admin@test.local", "password": "wrong-password"},
     )
     assert response.status_code == 401
 

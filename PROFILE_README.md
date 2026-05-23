@@ -158,11 +158,12 @@ que la sécurité tienne dans le temps, pas seulement le jour de l'audit.
 ## 📫 On échange ?
 
 - 📧 **Email** : [charbelazon23@gmail.com](mailto:charbelazon23@gmail.com)
-- 📞 **Téléphone** : 06 11 73 73 89
-- 📍 **Adresse** : 103 Raymond Lefebvre, 94250 Gentilly · École à Amiens
 - 💼 **LinkedIn** : [Georges Lionel ANANI](https://www.linkedin.com/in/georges-lionel-c-a-anani-35256618b)
 - 🚩 **TryHackMe** : [agl23](https://tryhackme.com/p/agl23)
+- 📍 **Localisation** : Île-de-France · École à Amiens
 - 🌍 **Langues** : Français (natif) · Anglais C1 (Gymglish)
+
+> Téléphone et adresse postale communiqués sur demande via LinkedIn ou email.
 
 <div align="center">
 

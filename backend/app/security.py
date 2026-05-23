@@ -13,14 +13,14 @@ auth_scheme = HTTPBearer(auto_error=False)
 def verify_admin_credentials(email: str | None, password: str) -> bool:
     """Verifie les identifiants admin.
 
-    L'email est optionnel : s'il est fourni, il doit matcher; sinon on accepte
-    juste le mot de passe (utile pour un setup minimal).
+    Email ET mot de passe sont obligatoires. La comparaison utilise
+    `secrets.compare_digest` pour rester resistante aux timing attacks
+    (les deux comparaisons sont toujours executees, meme si email est None).
     """
     settings = get_settings()
-    password_match = secrets.compare_digest(password, settings.admin_password)
-    if email is None:
-        return password_match
-    email_match = secrets.compare_digest(email, settings.admin_email)
+    # On compare toujours les deux pour ne pas leaker via le temps quel champ a echoue.
+    password_match = secrets.compare_digest(password or "", settings.admin_password)
+    email_match = secrets.compare_digest(email or "", settings.admin_email)
     return email_match and password_match
 
 
