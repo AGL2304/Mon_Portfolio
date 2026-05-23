@@ -10,10 +10,17 @@ from .config import get_settings
 auth_scheme = HTTPBearer(auto_error=False)
 
 
-def verify_admin_credentials(email: str, password: str) -> bool:
+def verify_admin_credentials(email: str | None, password: str) -> bool:
+    """Verifie les identifiants admin.
+
+    L'email est optionnel : s'il est fourni, il doit matcher; sinon on accepte
+    juste le mot de passe (utile pour un setup minimal).
+    """
     settings = get_settings()
-    email_match = secrets.compare_digest(email, settings.admin_email)
     password_match = secrets.compare_digest(password, settings.admin_password)
+    if email is None:
+        return password_match
+    email_match = secrets.compare_digest(email, settings.admin_email)
     return email_match and password_match
 
 
@@ -44,4 +51,3 @@ def require_admin(credentials: HTTPAuthorizationCredentials | None = Depends(aut
         raise unauthorized
 
     return "admin"
-

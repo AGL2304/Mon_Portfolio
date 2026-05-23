@@ -13,12 +13,27 @@ Base = declarative_base()
 @lru_cache
 def get_engine():
     settings = get_settings()
-    if settings.database_url.startswith("sqlite:///./"):
-        relative_path = settings.database_url.replace("sqlite:///./", "")
-        Path(relative_path).parent.mkdir(parents=True, exist_ok=True)
+    url = settings.database_url
 
-    connect_args = {"check_same_thread": False} if settings.database_url.startswith("sqlite") else {}
-    return create_engine(settings.database_url, connect_args=connect_args, future=True)
+    # SQLite (utile pour tests + dev rapide) : besoin de connect_args + dossier auto.
+    if url.startswith("sqlite"):
+        if url.startswith("sqlite:///./"):
+            relative_path = url.replace("sqlite:///./", "")
+            Path(relative_path).parent.mkdir(parents=True, exist_ok=True)
+        return create_engine(
+            url,
+            connect_args={"check_same_thread": False},
+            future=True,
+        )
+
+    # PostgreSQL (defaut) : pool sain.
+    return create_engine(
+        url,
+        future=True,
+        pool_pre_ping=True,
+        pool_size=5,
+        max_overflow=10,
+    )
 
 
 @lru_cache
@@ -36,7 +51,6 @@ def get_db() -> Generator[Session, None, None]:
 
 
 def init_db() -> None:
-    from . import models  # noqa: F401
+    from . import models  # noqa: F401  ensure models are registered
 
     Base.metadata.create_all(bind=get_engine())
-

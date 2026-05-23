@@ -9,6 +9,7 @@ const sampleProject: Project = {
   description: "Sample project",
   technologies: ["React"],
   repository_url: "https://example.com",
+  private_note: null,
 };
 
 describe("projectUtils", () => {

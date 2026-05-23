@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export function AdminLoginPage() {
@@ -22,42 +22,71 @@ export function AdminLoginPage() {
       await login(email, password);
       navigate("/admin/dashboard");
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Connexion impossible.";
-      setError(message);
+      setError(err instanceof Error ? err.message : "Connexion impossible.");
     } finally {
       setSubmitting(false);
     }
   }
 
   return (
-    <main className="admin-page">
-      <section className="admin-panel">
-        <h1>Connexion administrateur</h1>
-        <p>Cette zone permet de modifier le contenu de ton portfolio.</p>
-        <form onSubmit={handleSubmit} className="admin-form">
-          <label htmlFor="email">Adresse email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
-          <label htmlFor="password">Mot de passe</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
-          <button type="submit" disabled={submitting}>
-            {submitting ? "Connexion..." : "Se connecter"}
-          </button>
-        </form>
-        {error ? <p className="error-text">{error}</p> : null}
-      </section>
-    </main>
+    <>
+      <div className="ornament-grid" />
+      <div className="ornament-glow-1" />
+      <div className="ornament-glow-2" />
+      <main className="login-page">
+        <div className="login-card">
+          <h1>🔐 Espace administrateur</h1>
+          <p>Édition du contenu du portfolio (profil, projets, expériences, CV, photo).</p>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label className="field-label" htmlFor="email">
+                Email
+              </label>
+              <input
+                id="email"
+                className="field-input"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@example.com"
+                autoComplete="username"
+                required
+              />
+            </div>
+            <div>
+              <label className="field-label" htmlFor="password">
+                Mot de passe
+              </label>
+              <input
+                id="password"
+                className="field-input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={submitting}
+              style={{ width: "100%", justifyContent: "center" }}
+            >
+              {submitting ? "Connexion…" : "Se connecter →"}
+            </button>
+            {error && <div className="banner err">{error}</div>}
+          </form>
+          <p style={{ marginTop: 18, textAlign: "center" }}>
+            <Link
+              to="/"
+              style={{ color: "var(--text-mute)", fontSize: 13, textDecoration: "none" }}
+            >
+              ← Retour au site
+            </Link>
+          </p>
+        </div>
+      </main>
+    </>
   );
 }
-
