@@ -10,19 +10,35 @@
 
 ---
 
+## 🌐 Démo en ligne
+
+- 🇫🇷 **Français** — _déploiement à venir_ → `https://portfolio.agl-anani.dev/`
+- 🇬🇧 **English** — _deployment pending_ → `https://portfolio.agl-anani.dev/portfolio.en.html`
+- 🧪 **Admin (stack React+FastAPI)** — _déploiement à venir_ → `https://portfolio.agl-anani.dev/admin/login`
+
+> 💡 Les URLs ci-dessus sont des **placeholders** : remplacer par l'URL Vercel / Netlify / Cloudflare Pages après déploiement (`vercel --prod` ou push sur la branche `main`).
+
+| Hero français | Hero anglais |
+|---|---|
+| ![Hero FR](assets/screenshots/portfolio-hero-fr.png) | ![Hero EN](assets/screenshots/portfolio-hero-en.png) |
+
+---
+
 ## 🎯 Aperçu
 
-Ce repo héberge **deux livrables complémentaires** :
+Ce repo héberge **trois livrables complémentaires** :
 
-1. **`portfolio.html`** — un site statique mono-fichier (HTML/CSS/JS pur) qui peut être servi tel quel sur GitHub Pages, Vercel ou Netlify. C'est la version "production légère".
+1. **`portfolio.html`** + **`portfolio.en.html`** — site statique mono-fichier (HTML/CSS/JS pur), versions FR et EN avec switcher de langue intégré. Peut être servi tel quel sur GitHub Pages, Vercel ou Netlify.
 2. **Une stack React + FastAPI complète** (dossiers `frontend/` et `backend/`) avec une **interface d'administration JWT** qui permet d'éditer profil / projets / expériences / compétences à chaud.
+3. **Dossier [`grc/`](grc/)** — livrables types Gouvernance Risques & Conformité (matrice ISO 27001 Annexe A, template EBIOS RM, registre RGPD, modèle PSSI) — open-source, MIT.
 
 | Mode | Cible | Quand l'utiliser |
 |---|---|---|
-| Statique (`portfolio.html`) | Démo rapide, GitHub Pages | Quand le contenu ne bouge pas |
+| Statique (`portfolio.html` / `.en.html`) | Démo rapide, GitHub Pages | Quand le contenu ne bouge pas |
 | Full-stack (React + FastAPI) | Long terme, contenu vivant | Quand tu veux modifier en ligne sans redéployer |
+| Livrables GRC (`grc/`) | Recruteurs, étudiants, PME sans RSSI | Pour réutiliser comme socle de mission |
 
-> 📦 Les premières versions sont archivées dans [`legacy/`](legacy/) pour référence historique.
+> 📦 Les premières versions HTML sont archivées dans [`legacy/`](legacy/) pour référence historique.
 
 ---
 
@@ -32,7 +48,9 @@ Ce repo héberge **deux livrables complémentaires** :
 - **Backend** : FastAPI + SQLAlchemy + PostgreSQL (SQLite en tests) + JWT
 - **Conteneurisation** : Docker + Docker Compose
 - **CI/CD** : GitHub Actions (`.github/workflows/ci.yml`) · GitLab CI miroir (`.gitlab-ci.yml`)
-- **Tests** : `pytest` (backend) · `vitest` (frontend)
+- **Tests** : `pytest` (backend) · `vitest` (frontend unitaire) · **Playwright** (E2E)
+- **Qualité** : `ruff` (Python) · `eslint` + `prettier` (TS/JS) · `pre-commit` + `gitleaks`
+- **SEO** : JSON-LD Person + ProfilePage · hreflang FR/EN · OpenGraph + Twitter Cards · favicon SVG dégradé
 - **Déploiement** : Vercel (frontend) · Railway (backend) — config présente
 - **Sécurité** : voir [SECURITY.md](SECURITY.md) pour la politique de divulgation responsable
 
@@ -59,12 +77,15 @@ Ce repo héberge **deux livrables complémentaires** :
 │   │   └── styles/         # global.css
 │   ├── Dockerfile
 │   └── nginx.conf
-├── portfolio.html          # 👈 version mono-fichier (premium dark-tech)
+├── portfolio.html          # 👈 version FR mono-fichier (premium dark-tech)
+├── portfolio.en.html       # 👈 version EN équivalente avec switcher de langue
+├── grc/                    # livrables GRC publics (ISO 27001, EBIOS RM, RGPD, PSSI)
 ├── legacy/                 # anciennes versions HTML archivees
 ├── PROFILE_README.md       # README à copier vers AGL2304/AGL2304
 ├── LICENSE                 # MIT
 ├── SECURITY.md             # politique de divulgation responsable
 ├── docker-compose.yml
+├── .pre-commit-config.yaml # hooks lint + secrets scanner
 ├── .github/workflows/      # CI GitHub Actions
 └── .gitlab-ci.yml          # miroir GitLab
 ```
