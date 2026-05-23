@@ -2,98 +2,118 @@ def default_portfolio_content() -> dict:
     return {
         "profile": {
             "full_name": "ANANI Georges Lionel",
-            "headline": "Ingenieur Cybersecurite et DevOps",
+            "headline": "Purple Team Engineer — Cybersecurite & DevSecOps",
             "short_bio": (
-                "Passionne par la cybersecurite et l'automatisation DevOps, "
-                "je concois et deploie des solutions securisees et performantes."
+                "Etudiant en M1 Architecte des Systemes d'Information a l'Ecole-IT (option DevOps & Cybersecurite). "
+                "J'unifie l'offensif (pentest, exploitation web, CTF) et le defensif (hardening, CVE intel, SOC) "
+                "tout en automatisant le tout via Docker, Kubernetes et CI/CD."
             ),
             "about": (
-                "Etudiant en cycle ingenieur specialise en cybersecurite, "
-                "avec une experience en administration systeme/reseau et "
-                "developpement d'applications securisees."
+                "Mon angle: Purple Team. Comprendre l'attaque pour mieux defendre, et automatiser pour ne plus "
+                "jamais reproduire la meme erreur. En parallele, je developpe des applications full-stack securisees "
+                "en Python (FastAPI), TypeScript (React/Vue) et PHP (Laravel/Symfony), et j'industrialise leur "
+                "deploiement avec Docker, Kubernetes (GKE) et des pipelines CI/CD complets. "
+                "Objectifs: eJPT puis OSCP, et une alternance dans une equipe DevSecOps ou un SOC orientee ingenierie."
             ),
             "location": "Amiens, France",
             "email": "charbelazon23@gmail.com",
             "github_url": "https://github.com/AGL2304",
-            "linkedin_url": "https:linkedin.com/in/georges-lionel-c-a-anani-35256618b",
+            "linkedin_url": "https://www.linkedin.com/in/georges-lionel-c-a-anani-35256618b",
             "cv_url": "#",
             "profile_image": "",
         },
         "hero_tags": [
-            "Cybersecurite",
-            "DevOps",
-            "Docker/Kubernetes",
+            "Purple Team",
+            "Pentest",
+            "DevSecOps",
+            "Docker / Kubernetes",
             "CI/CD",
-            "Python",
-            "FastAPI",
+            "Python · TypeScript · PHP",
+            "Cloud · AWS / GCP",
         ],
         "experiences": [
             {
                 "id": "stage-devops-metio",
-                "title": "Stage DevOps",
+                "title": "Stage DevOps - Containerisation & CI/CD",
                 "company": "METIO",
                 "period": "Mai - Septembre 2025",
                 "highlights": [
-                    "Containerisation d'applications Node.js avec Docker",
-                    "Deploiement sur Kubernetes via GKE",
-                    "Mise en place d'un pipeline CI/CD",
+                    "Containerisation d'applications Node.js avec Docker multi-stage",
+                    "Deploiement sur Kubernetes via GKE (Google Kubernetes Engine)",
+                    "Mise en place d'un pipeline CI/CD complet (build > test > scan > deploy)",
+                    "Monitoring et observabilite du cluster (logs, metriques)",
                 ],
             },
             {
                 "id": "stage-cyber-wildcode",
-                "title": "Stage Cybersecurite",
+                "title": "Stage Cybersecurite - Audit & Remediation",
                 "company": "WildCode-Solutions",
                 "period": "Fevrier - Avril 2025",
                 "highlights": [
-                    "Audit de securite d'applications web",
-                    "Analyse et correction de vulnerabilites",
-                    "Redaction de rapports techniques et recommandations",
+                    "Audits de securite d'applications web (methodologie OWASP Top 10)",
+                    "Analyse, exploitation et correction de vulnerabilites (SQLi, XSS, IDOR)",
+                    "Redaction de rapports techniques avec recommandations priorisees",
                 ],
             },
             {
                 "id": "tele-enqueteur-mediametrie",
-                "title": "Tele-enqueteur",
+                "title": "Tele-enqueteur - Data Collection",
                 "company": "Mediametrie, Amiens",
                 "period": "Mars 2025 - Present",
                 "highlights": [
-                    "Collecte et analyse de donnees",
-                    "Gestion de questionnaires et suivi qualite",
+                    "Collecte structuree et analyse de donnees pour etudes d'audience",
+                    "Gestion de questionnaires et controle qualite des donnees",
                 ],
             },
         ],
         "projects": [
             {
-                "id": "ecolearn-ai",
-                "title": "EcoLearn AI",
-                "date": "2025",
-                "categories": ["ai", "web"],
+                "id": "secure-chat",
+                "title": "Secure Chat E2E",
+                "date": "Mai 2026",
+                "categories": ["security", "web"],
                 "description": (
-                    "Application web d'apprentissage intelligent avec gestion "
-                    "d'utilisateurs, cours et suivi des progres."
+                    "Application de messagerie chiffree end-to-end. La cle privee ne quitte jamais le navigateur "
+                    "et les messages stockes sont chiffres. FastAPI + JWT + bcrypt cote serveur, SPA Vite cote client."
                 ),
-                "technologies": ["FastAPI", "PostgreSQL", "Docker", "React", "Tailwind CSS"],
-                "repository_url": "https://github.com/AGL2304/EcolearnIA",
+                "technologies": ["FastAPI", "JWT", "bcrypt", "SQLAlchemy", "Vite", "TailwindCSS"],
+                "repository_url": "https://github.com/AGL2304/Secure_Chat",
             },
             {
-                "id": "biblioexchange",
-                "title": "Biblioexchange",
-                "date": "Decembre 2024",
-                "categories": ["web"],
-                "description": "Plateforme web d'echange de livres entre utilisateurs.",
-                "technologies": ["Symfony", "Tailwind CSS", "PostgreSQL", "Twig"],
-                "repository_url": "https://github.com/AGL2304/BiblioExchange",
+                "id": "fileshare",
+                "title": "FileShare",
+                "date": "Mai 2026",
+                "categories": ["security", "web", "devops"],
+                "description": (
+                    "Plateforme de partage de fichiers securisee : auth JWT (access 15min + refresh 7j), liens "
+                    "partageables avec mot de passe, MIME whitelist, rate-limiting, storage S3-compatible."
+                ),
+                "technologies": ["React", "TypeScript", "Fastify", "Prisma", "PostgreSQL", "Redis", "Docker"],
+                "repository_url": "https://github.com/AGL2304/fileshare",
             },
             {
-                "id": "audit-cyber",
-                "title": "Outil d'Audit Cybersecurite",
-                "date": "2025",
+                "id": "red-blue-teams",
+                "title": "Red Teams VS Blue Teams",
+                "date": "Avril 2026",
                 "categories": ["security"],
                 "description": (
-                    "Outil web pour faciliter les audits de securite et la generation "
-                    "automatique de rapports."
+                    "Plateforme de simulation attaque/defense pour entrainer Red & Blue Teams. "
+                    "Scenarios reproductibles, scoring temps reel et debriefs apres-action."
                 ),
-                "technologies": ["PHP", "Laravel", "SQL", "Security Tools"],
-                "repository_url": None,
+                "technologies": ["TypeScript", "Node.js", "Docker", "WebSocket"],
+                "repository_url": "https://github.com/AGL2304/Red_Teams_VS_Blue_Teams",
+            },
+            {
+                "id": "cve-trackers",
+                "title": "CVE Tracker",
+                "date": "Janvier 2026",
+                "categories": ["security", "devops"],
+                "description": (
+                    "Systeme de veille et gestion des vulnerabilites CVE : agregation, scoring CVSS, alertes "
+                    "et dashboard. Deployable en un docker-compose."
+                ),
+                "technologies": ["Next.js 15", "TypeScript", "Prisma", "SQLite", "Docker"],
+                "repository_url": "https://github.com/AGL2304/Projet_CVE_Trackers",
             },
             {
                 "id": "codearena",
@@ -101,20 +121,11 @@ def default_portfolio_content() -> dict:
                 "date": "Octobre 2025",
                 "categories": ["devops", "web"],
                 "description": (
-                    "Plateforme de competition de code en temps reel avec sandbox Docker "
-                    "securise et authentification JWT."
+                    "Plateforme de competition de code en temps reel avec sandbox Docker pour execution securisee "
+                    "du code utilisateur, leaderboard multijoueur via Socket.io et auth JWT."
                 ),
-                "technologies": ["Vue.js", "Docker", "JWT", "WebSocket"],
+                "technologies": ["Vue 3", "Pinia", "Node.js", "Express", "MongoDB", "Socket.io", "Docker"],
                 "repository_url": "https://github.com/AGL2304/CodeArena_EcoleIT_Pisc",
-            },
-            {
-                "id": "cve-trackers",
-                "title": "CVE Trackers",
-                "date": "Janvier 2025",
-                "categories": ["security"],
-                "description": "Systeme de surveillance des vulnerabilites CVE et alertes.",
-                "technologies": ["Python", "CVE API", "Security", "Automation"],
-                "repository_url": "https://github.com/AGL2304/Projet_CVE_Trackers",
             },
             {
                 "id": "securevault",
@@ -122,18 +133,33 @@ def default_portfolio_content() -> dict:
                 "date": "Septembre 2025",
                 "categories": ["security", "web"],
                 "description": (
-                    "Gestionnaire de mots de passe securise avec chiffrement "
-                    "end-to-end et authentification multi-facteurs."
+                    "Gestionnaire de mots de passe securise avec chiffrement end-to-end cote client et "
+                    "authentification multi-facteurs."
                 ),
                 "technologies": ["PHP", "Encryption", "2FA", "MySQL"],
                 "repository_url": "https://github.com/AGL2304/securevault",
+            },
+            {
+                "id": "parcours-qr",
+                "title": "Parcours QR Code",
+                "date": "Aout 2025",
+                "categories": ["web"],
+                "description": (
+                    "Application Laravel de creation de parcours de visite interactifs via QR codes - "
+                    "pensee pour musees et tourisme culturel."
+                ),
+                "technologies": ["Laravel", "Blade", "PHP", "MySQL"],
+                "repository_url": "https://github.com/AGL2304/parcours_qr_code",
             },
             {
                 "id": "travel-guides",
                 "title": "Travel Guides",
                 "date": "Juin 2025",
                 "categories": ["web"],
-                "description": "Application web de guides de voyage collaboratifs.",
+                "description": (
+                    "Guides de voyage collaboratifs developpes avec Symfony et Twig. Carte interactive, "
+                    "contributions communautaires et profils utilisateurs."
+                ),
                 "technologies": ["Symfony", "Twig", "PostgreSQL", "API Maps"],
                 "repository_url": "https://github.com/AGL2304/Travel_Guides",
             },
@@ -143,10 +169,10 @@ def default_portfolio_content() -> dict:
                 "date": "Juin 2025",
                 "categories": ["devops"],
                 "description": (
-                    "Infrastructure cloud automatisee avec scripts de deploiement, "
-                    "pipeline CI/CD et monitoring."
+                    "Application Node.js + scripts d'automatisation cloud avec CI GitHub Actions, "
+                    "endpoints REST et health checks integres."
                 ),
-                "technologies": ["Bash", "Cloud", "CI/CD", "Automation"],
+                "technologies": ["Node.js", "Express", "Bash", "GitHub Actions"],
                 "repository_url": "https://github.com/AGL2304/cloudninja_agl-",
             },
             {
@@ -155,11 +181,23 @@ def default_portfolio_content() -> dict:
                 "date": "Mai 2025",
                 "categories": ["devops"],
                 "description": (
-                    "Infrastructure DevOps complete avec containerisation, "
-                    "orchestration et automatisation des deploiements."
+                    "Infrastructure DevOps complete : containerisation, orchestration, automatisation des "
+                    "deploiements et pipeline CI/CD bout-en-bout."
                 ),
                 "technologies": ["Docker", "Kubernetes", "Jenkins", "Monitoring"],
                 "repository_url": "https://github.com/AGL2304/Projet_DevOps",
+            },
+            {
+                "id": "biblioexchange",
+                "title": "BiblioExchange",
+                "date": "Decembre 2024",
+                "categories": ["web"],
+                "description": (
+                    "Plateforme d'echange de livres entre utilisateurs : auth, catalogue, transactions, "
+                    "recherche et profils."
+                ),
+                "technologies": ["Symfony", "Twig", "PostgreSQL", "TailwindCSS"],
+                "repository_url": "https://github.com/AGL2304/BiblioExchange",
             },
         ],
         "skill_categories": [
@@ -168,85 +206,102 @@ def default_portfolio_content() -> dict:
                 "title": "Langages et Frameworks",
                 "items": [
                     "Python (FastAPI, Django, Flask)",
-                    "PHP (Symfony, Laravel)",
-                    "JavaScript (Node.js, Express.js)",
-                    "React / Tailwind CSS",
-                    "SQL (PostgreSQL, MySQL)",
+                    "TypeScript (React, Vue.js, Node.js)",
+                    "PHP (Laravel, Symfony)",
+                    "Java, C/C++, Bash",
+                    "SQL (PostgreSQL, MySQL, SQLite)",
                 ],
             },
             {
                 "id": "devops-cloud",
                 "title": "DevOps et Cloud",
                 "items": [
-                    "Docker / Kubernetes",
-                    "CI/CD",
-                    "GKE (Google Kubernetes Engine)",
-                    "Vagrant / Ansible",
-                    "Monitoring et Automation",
+                    "Docker / Kubernetes (GKE)",
+                    "CI/CD (GitHub Actions, GitLab CI)",
+                    "IaC (Vagrant, Ansible)",
+                    "Cloud (AWS, GCP)",
+                    "Monitoring et observabilite",
                 ],
             },
             {
                 "id": "cybersecurite",
                 "title": "Cybersecurite",
                 "items": [
-                    "Tests d'intrusion",
-                    "Audit de securite",
-                    "Analyse de vulnerabilites (CVE)",
-                    "Securite reseau",
-                    "Chiffrement et authentification",
+                    "Pentest / Red Team (Burp, Metasploit, Nmap, SQLmap)",
+                    "Defense / Blue Team (Wireshark, Splunk, OWASP ZAP)",
+                    "Scanners (Trivy, Snyk, Semgrep)",
+                    "Crypto (JWT, bcrypt, AES, E2EE)",
+                    "CTF (TryHackMe, HackTheBox, RootMe)",
                 ],
             },
             {
                 "id": "bases-donnees",
                 "title": "Bases de donnees",
                 "items": [
-                    "PostgreSQL",
-                    "MySQL",
-                    "SQL avance",
-                    "Optimisation de requetes",
-                    "Modelisation de donnees",
+                    "PostgreSQL, MySQL, SQLite",
+                    "Redis (cache, sessions)",
+                    "MongoDB (NoSQL)",
+                    "ORM (Prisma, SQLAlchemy, Eloquent)",
+                    "Modelisation et optimisation",
                 ],
             },
             {
                 "id": "outils",
-                "title": "Outils",
+                "title": "Outils et OS",
                 "items": [
-                    "Git / GitHub",
-                    "VS Code",
-                    "Linux (administration systeme)",
-                    "Postman",
-                    "Apache Hop",
+                    "Git / GitHub / GitLab",
+                    "Linux (admin systeme Debian, Ubuntu)",
+                    "VS Code, Postman",
+                    "Apache Hop (ETL)",
+                    "Nginx, Apache, Traefik",
                 ],
             },
             {
                 "id": "soft-skills",
                 "title": "Soft Skills",
                 "items": [
-                    "Travail en equipe",
-                    "Rigueur et organisation",
-                    "Adaptabilite",
-                    "Resolution de problemes",
-                    "Communication technique",
+                    "Travail en equipe pluridisciplinaire",
+                    "Rigueur et esprit d'analyse",
+                    "Adaptabilite et autonomie",
+                    "Resolution de problemes complexes",
+                    "Communication technique et vulgarisation",
                 ],
             },
         ],
         "certifications": [
             {
                 "id": "architecte-si",
-                "title": "Titre d'Architecte des systemes d'information",
-                "subtitle": "Option DevOps - Ecole-IT",
+                "title": "Architecte des Systemes d'Information",
+                "subtitle": "Ecole-IT - Option DevOps & Cybersecurite - 2024/2026",
                 "description": (
-                    "Formation pratique approfondie en DevOps et Cloud Computing "
-                    "avec mise en situation reelle."
+                    "Cursus pratique approfondi en architecture SI, DevOps, cloud et securite "
+                    "offensive/defensive avec mises en situation reelles."
                 ),
             },
             {
                 "id": "hackathons-cyber",
-                "title": "Hackathons et Challenges Techniques",
-                "subtitle": "Cybersecurite",
+                "title": "Hackathons & CTF",
+                "subtitle": "TryHackMe - HackTheBox - RootMe",
                 "description": (
-                    "Participation active a des competitions de cybersecurite "
-                    "et challenges de code."
+                    "Participation active a des competitions de cybersecurite et des challenges de code, "
+                    "en equipe et solo."
+                ),
+            },
+            {
+                "id": "ejpt",
+                "title": "eJPT - eLearnSecurity Junior Penetration Tester",
+                "subtitle": "En preparation - 2026",
+                "description": (
+                    "Certification pratique de pentest junior : recon, exploitation, post-exploitation, pivoting."
+                ),
+            },
+            {
+                "id": "oscp",
+                "title": "OSCP - Offensive Security Certified Professional",
+                "subtitle": "Objectif 2026/2027",
+                "description": (
+                    "Certification de reference en pentest offensif (24h d'examen pratique). "
+                    "Preparation via labs HTB et PG."
                 ),
             },
         ],
@@ -254,23 +309,22 @@ def default_portfolio_content() -> dict:
             {
                 "id": "ia",
                 "title": "Intelligence Artificielle",
-                "description": "Exploration des dernieres innovations en IA.",
+                "description": "LLMs, agents, automatisation des workflows.",
             },
             {
                 "id": "open-source",
                 "title": "Open Source",
-                "description": "Contribution a la communaute tech.",
+                "description": "Contribution et veille active sur l'ecosysteme.",
             },
             {
                 "id": "jeux-logique",
                 "title": "Jeux de logique",
-                "description": "Resolution de problemes complexes.",
+                "description": "CTF, puzzles, echecs - resolution de problemes.",
             },
             {
                 "id": "veille-tech",
                 "title": "Veille technologique",
-                "description": "Suivi continu des nouvelles technologies.",
+                "description": "Threat intel, RSS, blogs securite et infra.",
             },
         ],
     }
-
