@@ -1,63 +1,112 @@
-# Portfolio Full-Stack (React + FastAPI)
+# Mon_Portfolio — Georges Lionel ANANI
 
-Reorganisation complete du projet a partir de `portofolio.html` comme reference visuelle et de contenu.
+> Portfolio full-stack pour un **Alternant Cybersécurité GRC** (Gouvernance, Risques & Conformité).
+> Page publique + back-office d'administration. Photo de profil, CV PDF téléchargeable, design premium dark-tech.
 
-## Stack
+[![Status](https://img.shields.io/badge/status-online-22D3EE)](https://github.com/AGL2304/Mon_Portfolio)
+[![Made with](https://img.shields.io/badge/stack-React%20%2B%20FastAPI-8B5CF6)](#stack)
+[![License](https://img.shields.io/badge/license-MIT-10B981)](#)
 
-- Frontend: React + TypeScript + Vite
-- Backend: FastAPI + Python + SQLite
-- CI/CD: GitLab CI (`.gitlab-ci.yml`)
-- Conteneurisation: Docker + Docker Compose
-- Tests unitaires: `pytest` (backend) et `vitest` (frontend)
+---
 
-## Structure
+## 🎯 Aperçu
 
-```text
+Ce repo héberge **deux livrables complémentaires** :
+
+1. **`portofolio.html`** — un site statique mono-fichier (HTML/CSS/JS pur) qui peut être servi tel quel sur GitHub Pages, Vercel ou Netlify. C'est la version "production légère".
+2. **Une stack React + FastAPI complète** (dossiers `frontend/` et `backend/`) avec une **interface d'administration JWT** qui permet d'éditer profil / projets / expériences / compétences à chaud.
+
+| Mode | Cible | Quand l'utiliser |
+|---|---|---|
+| Statique (`portofolio.html`) | Démo rapide, GitHub Pages | Quand le contenu ne bouge pas |
+| Full-stack (React + FastAPI) | Long terme, contenu vivant | Quand tu veux modifier en ligne sans redéployer |
+
+---
+
+## 🧱 Stack
+
+- **Frontend** : React + TypeScript + Vite + CSS modulaire
+- **Backend** : FastAPI + SQLAlchemy + SQLite + JWT
+- **Conteneurisation** : Docker + Docker Compose
+- **CI/CD** : GitLab CI (`.gitlab-ci.yml`)
+- **Tests** : `pytest` (backend) · `vitest` (frontend)
+- **Déploiement** : Vercel (frontend) · Railway (backend) — config présente
+
+```
 .
-|-- backend/
-|   |-- app/
-|   |-- tests/
-|   |-- Dockerfile
-|   `-- requirements.txt
-|-- frontend/
-|   |-- src/
-|   |-- Dockerfile
-|   `-- nginx.conf
-|-- docker-compose.yml
-|-- .gitlab-ci.yml
-|-- .env.example
-`-- portofolio.html
+├── assets/                       # 👈 statiques (photo, CV)
+│   ├── profile.jpg               # photo de profil (depuis LinkedIn)
+│   ├── CV_Georges_Lionel_ANANI_GRC.pdf          # CV 1-page (lien hero)
+│   └── CV_Georges_Lionel_ANANI_GRC_complet.pdf  # CV version longue
+├── backend/                # FastAPI + SQLite + JWT auth
+│   ├── app/
+│   │   ├── main.py         # routes API
+│   │   ├── seed_data.py    # contenu par défaut (profil, projets, etc.)
+│   │   ├── models.py       # SQLAlchemy
+│   │   └── security.py     # JWT, hashing
+│   ├── tests/
+│   ├── Dockerfile
+│   └── requirements.txt
+├── frontend/               # React + TS + Vite
+│   ├── src/
+│   │   ├── pages/          # HomePage, AdminDashboardPage, AdminLoginPage
+│   │   ├── components/     # ProjectCard, ProtectedRoute
+│   │   ├── services/       # API client
+│   │   └── styles/         # global.css
+│   ├── Dockerfile
+│   └── nginx.conf
+├── portofolio.html         # 👈 version mono-fichier (premium dark-tech)
+├── PROFILE_README.md       # README à copier vers AGL2304/AGL2304
+├── docker-compose.yml
+└── .gitlab-ci.yml
 ```
 
-## Fonctionnalites
+---
 
-- Page publique portfolio basee sur tes informations.
-- Espace admin protege par mot de passe (JWT).
-- Modification facile:
-  - Formulaire profil.
-  - Gestion des projets (ajout/modification/suppression).
-  - Editeur JSON complet pour modifier aussi experiences, competences, certifications, centres d'interet.
+## ⚡ Démarrage rapide
 
-## Configuration
+### Option A — Version statique (10 secondes)
 
-1. Copier `.env.example` en `.env`.
-2. Changer au minimum:
-   - `ADMIN_PASSWORD`
-   - `JWT_SECRET`
+```bash
+# ouvre simplement le fichier dans le navigateur
+open portofolio.html      # macOS
+xdg-open portofolio.html  # Linux
+start portofolio.html     # Windows
+```
 
-## Lancement en local (sans Docker)
+Ou sers-le via un mini serveur HTTP :
 
-Backend:
+```bash
+python -m http.server 8080
+# puis http://localhost:8080/portofolio.html
+```
+
+### Option B — Stack complète avec Docker Compose
+
+```bash
+cp .env.example .env
+# édite ADMIN_PASSWORD et JWT_SECRET
+docker compose up --build
+```
+
+- 🌐 **Frontend** : http://localhost:3000
+- 🔌 **API** : http://localhost:8000/api
+- 🔐 **Admin** : http://localhost:3000/admin/login
+
+### Option C — En local sans Docker
+
+**Backend**
 
 ```bash
 cd backend
 python -m venv .venv
-.venv/Scripts/activate
+source .venv/bin/activate            # Linux/macOS
+# .venv/Scripts/activate             # Windows
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-Frontend:
+**Frontend**
 
 ```bash
 cd frontend
@@ -65,34 +114,58 @@ npm install
 npm run dev
 ```
 
-- Frontend: `http://localhost:5173`
-- API: `http://localhost:8000/api`
-- Login admin: `http://localhost:5173/admin/login`
+---
 
-## Lancement avec Docker Compose
+## 🔐 Espace admin
 
-```bash
-docker compose up --build
-```
+L'interface `/admin/login` permet (après authentification JWT) de modifier en direct :
 
-- Frontend: `http://localhost:3000`
-- API backend: `http://localhost:8000/api`
-- Zone admin: `http://localhost:3000/admin/login`
+- Profil (nom, headline, bio, photo, liens sociaux)
+- Liste des projets (CRUD complet)
+- Expériences professionnelles
+- Catégories de compétences
+- Certifications
+- Centres d'intérêt
+- Éditeur JSON brut pour les modifications avancées
 
-## Tests unitaires
+> ⚠️ **Sécurité** : change toujours `ADMIN_PASSWORD` et `JWT_SECRET` avant tout déploiement.
 
-Backend:
+---
 
-```bash
-cd backend
-pytest
-```
-
-Frontend:
+## 🧪 Tests
 
 ```bash
-cd frontend
-npm test
+# Backend
+cd backend && pytest
+
+# Frontend
+cd frontend && npm test
 ```
 
-# Mon_Portfolio
+---
+
+## 🚢 Déploiement
+
+| Cible | Config | Branche |
+|---|---|---|
+| Frontend → **Vercel** | `frontend/vercel.json` | `main` |
+| Backend → **Railway** | `railway.json` | `main` |
+| Tous services → **Docker** | `docker-compose.yml` | n/a |
+| CI/CD → **GitLab** | `.gitlab-ci.yml` | n/a |
+
+---
+
+## 📖 À propos
+
+Réalisé par **Georges Lionel ANANI** — Étudiant M1 Architecte des SI à l'École-IT (option DevOps & Cybersécurité).
+
+- 🐙 GitHub : [@AGL2304](https://github.com/AGL2304)
+- 💼 LinkedIn : [Georges Lionel ANANI](https://www.linkedin.com/in/georges-lionel-c-a-anani-35256618b)
+- ✉️ Email : [charbelazon23@gmail.com](mailto:charbelazon23@gmail.com)
+- 📍 Amiens, France
+
+---
+
+<div align="center">
+  <sub>Construit avec ♥ et un peu de café · MIT License</sub>
+</div>
