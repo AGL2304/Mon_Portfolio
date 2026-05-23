@@ -97,6 +97,31 @@ def default_portfolio_content() -> dict:
         ],
         "projects": [
             {
+                "id": "audit-juiceshop-purple-team",
+                "title": "Audit OWASP Juice Shop - Purple Team (M1PPAW)",
+                "date": "Avril 2026",
+                "categories": ["security", "grc"],
+                "description": (
+                    "Audit de securite Red/Purple/Blue Team de 4 jours sur OWASP Juice Shop v6.2.0 "
+                    "(equipe M1PPAW de 4 membres, role Red Team Lead). "
+                    "Methodologie PTES + OWASP Testing Guide v4.2. "
+                    "5 vulnerabilites identifiees : SQLi UNION-based (CVSS 9.8), SQLi bypass auth "
+                    "(CVSS 9.1), IDOR (CVSS 8.1), FTP null byte bypass (CVSS 7.5), XSS stocke avec "
+                    "vol de JWT admin (CVSS 7.2). "
+                    "Compromission complete en <30 min : dump de 22 comptes, crack de 4 mots de passe "
+                    "(admin123), exfiltration de fichiers FTP (KeePass, bytecode). "
+                    "Defense Blue Team : WAF Nginx + ModSecurity (8 regles custom), SIEM ELK Stack, "
+                    "rate limiting. Validation Purple Team : 16 tests automatises, score 9/16 (56%) "
+                    "avec plan de remediation a 14/16 (87%)."
+                ),
+                "technologies": [
+                    "Kali Linux", "Burp Suite", "sqlmap", "John the Ripper", "Hashcat",
+                    "Nginx", "ModSecurity", "ELK Stack", "Docker", "Python", "OWASP Top 10",
+                ],
+                "repository_url": None,
+                "private_note": "Rapport d'audit confidentiel - disponible sur demande",
+            },
+            {
                 "id": "n8n-pharmacie",
                 "title": "Workflow n8n - Pharmacie (HDS / RGPD)",
                 "date": "Avril 2026",
@@ -237,6 +262,123 @@ def default_portfolio_content() -> dict:
                 "private_note": None,
             },
             {
+                "id": "travel-guides",
+                "title": "Travel Guides",
+                "date": "Juin 2025",
+                "categories": ["web"],
+                "description": (
+                    "Guides de voyage collaboratifs developpes avec Symfony et Twig. Carte interactive, "
+                    "contributions communautaires et profils utilisateurs."
+                ),
+                "technologies": ["Symfony", "Twig", "PostgreSQL", "API Maps"],
+                "repository_url": "https://github.com/AGL2304/Travel_Guides",
+                "private_note": None,
+            },
+            {
+                "id": "cloudninja-agl",
+                "title": "CloudNinja AGL",
+                "date": "Juin 2025",
+                "categories": ["devops"],
+                "description": (
+                    "Application Node.js + scripts d'automatisation cloud avec CI GitHub Actions, "
+                    "endpoints REST et health checks integres."
+                ),
+                "technologies": ["Node.js", "Express", "Bash", "GitHub Actions"],
+                "repository_url": "https://github.com/AGL2304/cloudninja_agl-",
+                "private_note": None,
+            },
+            {
+                "id": "infrastructure-devops",
+                "title": "Infrastructure DevOps",
+                "date": "Mai 2025",
+                "categories": ["devops"],
+                "description": (
+                    "Infrastructure DevOps complete : containerisation, orchestration, automatisation "
+                    "des deploiements et pipeline CI/CD bout-en-bout."
+                ),
+                "technologies": ["Docker", "Kubernetes", "Jenkins", "Monitoring"],
+                "repository_url": "https://github.com/AGL2304/Projet_DevOps",
+                "private_note": None,
+            },
+            {
+                "id": "mon-app-simple",
+                "title": "MonAppSimple",
+                "date": "Mai 2025",
+                "categories": ["web"],
+                "description": (
+                    "Application JavaScript minimaliste pour experimenter rapidement des concepts "
+                    "front-end et tester des pipelines de deploiement."
+                ),
+                "technologies": ["JavaScript", "HTML", "CSS"],
+                "repository_url": "https://github.com/AGL2304/MonAppSimple",
+                "private_note": None,
+            },
+            {
+                "id": "mon-projet-devops",
+                "title": "MonProjetDevOps",
+                "date": "Mai 2025",
+                "categories": ["devops"],
+                "description": (
+                    "Stack Dockerisee pour tester orchestration et environnements multi-conteneurs : "
+                    "labo personnel DevOps."
+                ),
+                "technologies": ["Dockerfile", "Docker Compose"],
+                "repository_url": "https://github.com/AGL2304/MonProjetDevOps",
+                "private_note": None,
+            },
+            {
+                "id": "reservations-agl",
+                "title": "Reservations AGL",
+                "date": "Mai 2025",
+                "categories": ["web"],
+                "description": (
+                    "Systeme de reservation web en PHP avec gestion des creneaux, utilisateurs et "
+                    "statuts de reservation."
+                ),
+                "technologies": ["PHP", "MySQL", "Bootstrap"],
+                "repository_url": "https://github.com/AGL2304/Reservations_AGL",
+                "private_note": None,
+            },
+            {
+                "id": "todo-app",
+                "title": "ToDo App",
+                "date": "Mars 2025",
+                "categories": ["web"],
+                "description": (
+                    "Application de gestion de taches en PHP - CRUD complet, etats, filtres, "
+                    "persistance MySQL."
+                ),
+                "technologies": ["PHP", "MySQL"],
+                "repository_url": "https://github.com/AGL2304/ToDo_App",
+                "private_note": None,
+            },
+            {
+                "id": "docker-twitter",
+                "title": "Docker Twitter",
+                "date": "Mars 2025",
+                "categories": ["devops", "web"],
+                "description": (
+                    "Clone Twitter dockerise : application PHP, base de donnees et reverse proxy "
+                    "orchestres via Docker Compose."
+                ),
+                "technologies": ["PHP", "Docker", "MySQL", "Nginx"],
+                "repository_url": "https://github.com/AGL2304/docker_twitter",
+                "private_note": None,
+            },
+            {
+                "id": "battle-python",
+                "title": "Battle Python",
+                "date": "Mars 2025",
+                "categories": ["game"],
+                "description": (
+                    "Mini-jeu de combat en console implemente en Python pour exercer les patterns "
+                    "OO et la gestion d'etat."
+                ),
+                "technologies": ["Python"],
+                "repository_url": "https://github.com/AGL2304/Battle_python",
+                "private_note": None,
+            },
+            {
                 "id": "biblioexchange",
                 "title": "BiblioExchange",
                 "date": "Decembre 2024",
@@ -247,6 +389,19 @@ def default_portfolio_content() -> dict:
                 ),
                 "technologies": ["Symfony", "Twig", "PostgreSQL", "TailwindCSS"],
                 "repository_url": "https://github.com/AGL2304/BiblioExchange",
+                "private_note": None,
+            },
+            {
+                "id": "snake-game",
+                "title": "Snake Game",
+                "date": "Decembre 2024",
+                "categories": ["game"],
+                "description": (
+                    "Implementation Java du classique Snake : moteur de jeu, rendu, collisions, "
+                    "score persistant."
+                ),
+                "technologies": ["Java", "Swing"],
+                "repository_url": "https://github.com/AGL2304/Snake_game",
                 "private_note": None,
             },
         ],
