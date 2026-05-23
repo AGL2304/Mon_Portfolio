@@ -29,13 +29,13 @@
             --text-soft: #b0b0c8;
             --text-mute: #6e6e88;
 
-            --accent: #8B5CF6;      /* purple (Purple Team) */
-            --accent-2: #6366F1;    /* indigo */
-            --accent-3: #22D3EE;    /* cyan accent (defensive blue) */
-            --accent-warn: #F97316; /* orange (offensive red) */
-            --accent-ok: #10B981;   /* green */
+            --accent: #8B5CF6;
+            --accent-2: #6366F1;
+            --accent-3: #22D3EE;
+            --accent-warn: #F97316;
+            --accent-ok: #10B981;
+            --accent-danger: #EF4444;
             --grad: linear-gradient(135deg, #8B5CF6 0%, #6366F1 50%, #22D3EE 100%);
-            --grad-red: linear-gradient(135deg, #F97316 0%, #EF4444 100%);
 
             --radius: 14px;
             --radius-sm: 10px;
@@ -99,6 +99,7 @@
             box-shadow: var(--shadow-glow);
             font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 14px; color: #0a0a12;
         }
+        .nav-actions { display: flex; align-items: center; gap: 16px; }
         .nav-links { display: flex; gap: 26px; align-items: center; }
         .nav-links a {
             color: var(--text-soft); text-decoration: none; font-size: 14px; font-weight: 500;
@@ -112,6 +113,13 @@
             transition: transform .2s, box-shadow .2s;
         }
         .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(139, 92, 246, 0.55); }
+        .nav-admin {
+            background: none; border: 1px solid var(--border); color: var(--text-mute);
+            width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+            display: grid; place-items: center; font-size: 16px;
+            transition: color .2s, border-color .2s, transform .3s;
+        }
+        .nav-admin:hover { color: var(--accent); border-color: var(--accent); transform: rotate(60deg); }
         .nav-toggle {
             display: none; background: none; border: 1px solid var(--border-strong); color: var(--text);
             padding: 6px 10px; border-radius: 8px; cursor: pointer;
@@ -164,11 +172,15 @@
             padding: 12px 22px; border-radius: 12px; font-weight: 600; font-size: 14px;
             text-decoration: none; cursor: pointer; border: 1px solid transparent;
             transition: transform .2s, box-shadow .2s, background .2s, border-color .2s;
+            font-family: 'Inter', sans-serif;
         }
         .btn-primary { background: var(--grad); color: #0a0a12; box-shadow: 0 8px 28px rgba(139, 92, 246, 0.35); }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(139, 92, 246, 0.55); }
         .btn-ghost { background: rgba(255,255,255,0.02); border-color: var(--border-strong); color: var(--text); }
         .btn-ghost:hover { background: rgba(139,92,246,0.08); border-color: var(--accent); }
+        .btn-danger { background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
+        .btn-danger:hover { background: rgba(239, 68, 68, 0.2); }
+        .btn-sm { padding: 8px 14px; font-size: 13px; }
 
         .hero-metrics {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
@@ -200,7 +212,7 @@
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot.red { background: #ff5f56; } .dot.amber { background: #ffbd2e; } .dot.green { background: #27c93f; }
         .terminal-title { margin-left: 8px; color: var(--text-mute); font-size: 12px; }
-        .terminal-body { padding: 18px; line-height: 1.7; }
+        .terminal-body { padding: 18px; line-height: 1.7; min-height: 360px; }
         .t-prompt { color: var(--accent-3); }
         .t-cmd { color: var(--text); }
         .t-out { color: var(--text-soft); }
@@ -255,9 +267,7 @@
             background: var(--grad); color: #0a0a12; border-color: transparent;
             box-shadow: 0 6px 22px rgba(139, 92, 246, 0.35);
         }
-        .filter-count {
-            font-size: 11px; opacity: 0.75; margin-left: 6px;
-        }
+        .filter-count { font-size: 11px; opacity: 0.75; margin-left: 6px; }
 
         /* --- Project grid --- */
         .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -270,8 +280,7 @@
             background: linear-gradient(180deg, rgba(28, 28, 54, 0.4), rgba(15, 15, 26, 0.6));
             padding: 22px; display: flex; flex-direction: column; gap: 14px;
             transition: transform .3s cubic-bezier(.2,.7,.3,1), border-color .25s, box-shadow .3s;
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 0; transform: translateY(20px);
             animation: fadeIn .6s forwards;
         }
         @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
@@ -286,26 +295,17 @@
         .project:hover::before { opacity: 1; }
 
         .project-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-        .project-cat-dot {
-            display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px;
-            vertical-align: middle;
-        }
+        .project-cat-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
         .cat-security .project-cat-dot { background: var(--accent-warn); }
         .cat-devops .project-cat-dot { background: var(--accent-3); }
         .cat-web .project-cat-dot { background: var(--accent); }
-        .cat-ai .project-cat-dot { background: var(--accent-ok); }
+        .cat-grc .project-cat-dot { background: #f43f5e; }
         .cat-game .project-cat-dot { background: #f43f5e; }
 
-        .project-cat {
-            font-family: 'JetBrains Mono', monospace; font-size: 11px;
-            text-transform: uppercase; letter-spacing: 1px; color: var(--text-mute);
-        }
+        .project-cat { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mute); }
         .project-date { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-mute); }
 
-        .project-title {
-            font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.22rem;
-            letter-spacing: -0.5px; line-height: 1.2;
-        }
+        .project-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.22rem; letter-spacing: -0.5px; line-height: 1.2; }
         .project-desc { color: var(--text-soft); font-size: 13.5px; line-height: 1.55; flex: 1; }
         .tech-row { display: flex; flex-wrap: wrap; gap: 6px; }
         .tech {
@@ -325,8 +325,10 @@
             transition: gap .2s;
         }
         .project-link:hover { gap: 10px; }
-        .project-stars {
-            font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-mute);
+        .project-stars { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-mute); }
+        .project-private {
+            font-family: 'JetBrains Mono', monospace; font-size: 11px;
+            color: var(--text-mute); display: inline-flex; align-items: center; gap: 4px;
         }
 
         /* --- Experience timeline --- */
@@ -336,21 +338,28 @@
             width: 2px; background: linear-gradient(180deg, var(--accent), transparent);
         }
         .tl-item {
-            position: relative; padding: 18px 22px;
+            position: relative; padding: 22px 26px;
             margin-bottom: 18px; border: 1px solid var(--border); border-radius: var(--radius);
             background: rgba(255,255,255,0.02);
         }
         .tl-item::before {
-            content: ''; position: absolute; left: -27px; top: 28px;
+            content: ''; position: absolute; left: -27px; top: 32px;
             width: 14px; height: 14px; border-radius: 50%;
             background: var(--grad); box-shadow: 0 0 0 4px var(--bg);
         }
-        .tl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+        .tl-item.is-current::before {
+            box-shadow: 0 0 0 4px var(--bg), 0 0 0 8px rgba(16, 185, 129, 0.3);
+            animation: pulseGreen 2s infinite;
+        }
+        @keyframes pulseGreen { 50% { box-shadow: 0 0 0 4px var(--bg), 0 0 0 12px rgba(16, 185, 129, 0); } }
+        .tl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
         .tl-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; }
-        .tl-company { color: var(--accent); font-weight: 600; font-size: 14px; }
-        .tl-period { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-mute); }
+        .tl-company { color: var(--accent); font-weight: 600; font-size: 14px; margin-bottom: 10px; }
+        .tl-company .tl-loc { color: var(--text-mute); font-weight: 400; font-size: 13px; margin-left: 4px; }
+        .tl-period { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-mute); white-space: nowrap; }
+        .tl-period.current { color: var(--accent-ok); }
         .tl-list { list-style: none; padding: 0; margin: 0; }
-        .tl-list li { color: var(--text-soft); font-size: 14px; padding-left: 18px; position: relative; margin-bottom: 6px; }
+        .tl-list li { color: var(--text-soft); font-size: 14px; padding-left: 18px; position: relative; margin-bottom: 8px; line-height: 1.55; }
         .tl-list li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
 
         /* --- Skills --- */
@@ -419,10 +428,7 @@
                 rgba(15, 15, 26, 0.6);
             padding: 50px 40px; text-align: center;
         }
-        .contact-title {
-            font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-            font-size: clamp(1.8rem, 3.4vw, 2.6rem); letter-spacing: -1px; margin-bottom: 12px;
-        }
+        .contact-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(1.8rem, 3.4vw, 2.6rem); letter-spacing: -1px; margin-bottom: 12px; }
         .contact-sub { color: var(--text-soft); margin-bottom: 28px; }
         .contact-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 
@@ -444,6 +450,89 @@
         .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
         .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+        /* --- Admin modal --- */
+        .modal-backdrop {
+            position: fixed; inset: 0; background: rgba(5, 5, 10, 0.7);
+            backdrop-filter: blur(8px); z-index: 100;
+            display: none; align-items: center; justify-content: center;
+            padding: 24px;
+        }
+        .modal-backdrop.open { display: flex; animation: fadeBd .25s ease; }
+        @keyframes fadeBd { from { opacity: 0; } to { opacity: 1; } }
+        .modal {
+            background: linear-gradient(180deg, #15152a, #0f0f1a);
+            border: 1px solid var(--border-strong); border-radius: 18px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6), var(--shadow-glow);
+            width: 100%; max-width: 760px; max-height: 90vh;
+            display: flex; flex-direction: column;
+            animation: slideUp .3s ease;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-head {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 24px; border-bottom: 1px solid var(--border);
+        }
+        .modal-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; }
+        .modal-title small { display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-mute); font-weight: 400; margin-top: 2px; }
+        .modal-close {
+            background: none; border: 1px solid var(--border); color: var(--text-soft);
+            width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+        }
+        .modal-close:hover { color: var(--accent-danger); border-color: var(--accent-danger); }
+        .modal-body { padding: 24px; overflow-y: auto; flex: 1; }
+        .modal-foot {
+            display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;
+            padding: 18px 24px; border-top: 1px solid var(--border);
+            background: rgba(0,0,0,0.2);
+        }
+
+        .field { margin-bottom: 18px; }
+        .field label { display: block; font-size: 12px; font-weight: 600; color: var(--text-soft); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .field input, .field textarea {
+            width: 100%; padding: 12px 14px;
+            border: 1px solid var(--border-strong); border-radius: 10px;
+            background: rgba(10,10,18,0.6); color: var(--text);
+            font-family: 'Inter', sans-serif; font-size: 14px;
+            transition: border-color .2s, background .2s;
+        }
+        .field textarea {
+            font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.55;
+            resize: vertical; min-height: 360px;
+        }
+        .field input:focus, .field textarea:focus {
+            outline: none; border-color: var(--accent); background: rgba(139, 92, 246, 0.06);
+        }
+        .field .hint { font-size: 12px; color: var(--text-mute); margin-top: 6px; }
+        .field .err { font-size: 12px; color: var(--accent-danger); margin-top: 6px; }
+
+        .admin-banner {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.18), rgba(139, 92, 246, 0.18));
+            border-bottom: 1px solid var(--accent-ok);
+            color: var(--text); padding: 10px 24px;
+            font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+            display: none; align-items: center; justify-content: space-between; gap: 12px;
+        }
+        .admin-banner.open { display: flex; }
+        .admin-banner button {
+            background: rgba(255,255,255,0.06); border: 1px solid var(--border-strong);
+            color: var(--text); padding: 4px 10px; border-radius: 6px; cursor: pointer;
+            font-family: inherit; font-size: 12px;
+        }
+        .admin-banner button:hover { background: rgba(255,255,255,0.12); }
+
+        .toast {
+            position: fixed; bottom: 24px; right: 24px;
+            padding: 12px 18px; border-radius: 10px;
+            background: var(--bg-elev-2); border: 1px solid var(--border-strong);
+            box-shadow: var(--shadow-1); color: var(--text); font-size: 13px;
+            z-index: 200; transform: translateY(20px); opacity: 0;
+            transition: transform .25s, opacity .25s;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.ok { border-color: var(--accent-ok); }
+        .toast.err { border-color: var(--accent-danger); }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             .reveal, .project, .ornament-glow-1, .ornament-glow-2 { animation: none !important; transition: none !important; }
@@ -456,6 +545,14 @@
     <div class="ornament-glow-1"></div>
     <div class="ornament-glow-2"></div>
 
+    <div class="admin-banner" id="adminBanner">
+        <span>🔓 Mode admin actif — vous éditez la version locale (localStorage)</span>
+        <div style="display:flex; gap:8px;">
+            <button id="adminOpenBtn">Ouvrir l'éditeur</button>
+            <button id="adminLogoutBtn">Logout</button>
+        </div>
+    </div>
+
     <!-- ============= NAV ============= -->
     <nav class="top">
         <div class="nav-inner">
@@ -463,14 +560,17 @@
                 <span class="brand-mark">A</span>
                 <span>ANANI · Georges Lionel</span>
             </a>
-            <button class="nav-toggle" aria-label="Menu" id="navToggle">☰</button>
-            <div class="nav-links" id="navLinks">
-                <a href="#about">À propos</a>
-                <a href="#projects">Projets</a>
-                <a href="#experience">Expérience</a>
-                <a href="#skills">Stack</a>
-                <a href="#certifications">Formation</a>
-                <a href="#contact" class="nav-cta">Me contacter</a>
+            <div class="nav-actions">
+                <button class="nav-toggle" aria-label="Menu" id="navToggle">☰</button>
+                <div class="nav-links" id="navLinks">
+                    <a href="#about">À propos</a>
+                    <a href="#projects">Projets</a>
+                    <a href="#experience">Expérience</a>
+                    <a href="#skills">Stack</a>
+                    <a href="#certifications">Formation</a>
+                    <a href="#contact" class="nav-cta">Me contacter</a>
+                </div>
+                <button class="nav-admin" id="adminTrigger" title="Espace admin" aria-label="Espace admin">⚙</button>
             </div>
         </div>
     </nav>
@@ -481,7 +581,7 @@
             <div>
                 <div class="hero-eyebrow">
                     <span class="pulse"></span>
-                    <span>Disponible — Stage / Alternance · Été 2026</span>
+                    <span id="heroAvailability">En recherche — Alternance dès Septembre 2026</span>
                 </div>
                 <h1 class="hero-title">
                     Purple Team <br />
@@ -494,12 +594,12 @@
                     j'automatise les déploiements et je traque les vulnérabilités du SI à l'applicatif.
                 </p>
                 <div class="hero-tags">
-                    <span class="chip">Pentest</span>
+                    <span class="chip">Purple Team</span>
                     <span class="chip">DevSecOps</span>
+                    <span class="chip">RGPD · Audit</span>
                     <span class="chip">Docker / K8s</span>
                     <span class="chip">CI/CD</span>
                     <span class="chip">Python · TS · PHP</span>
-                    <span class="chip">Cloud · AWS / GCP</span>
                 </div>
                 <div class="hero-cta">
                     <a href="#projects" class="btn btn-primary">Voir mes projets →</a>
@@ -508,11 +608,11 @@
 
                 <div class="hero-metrics">
                     <div class="metric">
-                        <div class="metric-num" data-count="18">18+</div>
+                        <div class="metric-num" id="metricProjects">18+</div>
                         <div class="metric-label">Projets publiés</div>
                     </div>
                     <div class="metric">
-                        <div class="metric-num" data-count="3">3</div>
+                        <div class="metric-num" id="metricExp">4</div>
                         <div class="metric-label">Expériences pro</div>
                     </div>
                     <div class="metric">
@@ -548,18 +648,19 @@
                 <div class="about-text reveal">
                     <p>
                         Je suis <strong>Georges Lionel ANANI</strong>, étudiant en cycle ingénieur à l'École-IT (Master
-                        Architecte des Systèmes d'Information, option DevOps & Cybersécurité), basé à <strong>Amiens</strong>.
+                        Architecte des Systèmes d'Information, option DevOps &amp; Cybersécurité), basé à <strong>Amiens</strong>.
                     </p>
                     <p>
-                        Mon approche unifie l'<strong>offensif</strong> (pentest web, exploitation, CTF) et le
-                        <strong>défensif</strong> (audit, hardening, threat intel, CVE management). En parallèle, je
-                        développe des applications full-stack sécurisées en Python, TypeScript et PHP, et j'industrialise
-                        leur déploiement avec Docker, Kubernetes et des pipelines CI/CD.
+                        Mon approche unifie l'<strong>offensif</strong> (pentest web, exploitation, CTF), le
+                        <strong>défensif</strong> (audit, hardening, threat intel, CVE management) et la
+                        <strong>conformité</strong> (RGPD, PSSI, audit M365). En parallèle, je développe des applications
+                        full-stack sécurisées en Python, TypeScript et PHP, et j'industrialise leur déploiement avec
+                        Docker, Kubernetes et des pipelines CI/CD.
                     </p>
                     <p>
-                        Objectif court terme : <strong>eJPT puis OSCP</strong>, et une alternance dans une équipe
-                        DevSecOps ou un SOC orienté ingénierie. Je cherche un environnement qui prend la sécurité
-                        <em>au sérieux dès la conception</em>, pas en patch après coup.
+                        Objectif immédiat : <strong>alternance dès septembre 2026</strong> dans une équipe DevSecOps,
+                        un SOC orienté ingénierie ou un cabinet d'audit cyber/RGPD. Je vise ensuite les certifications
+                        <strong>eJPT puis OSCP</strong>.
                     </p>
                 </div>
 
@@ -580,9 +681,9 @@
                         <div class="focus-desc">Docker, Kubernetes, GitHub/GitLab CI, IaC, scans Trivy / Snyk / OWASP ZAP.</div>
                     </div>
                     <div class="focus">
-                        <span class="focus-icon">🧠</span>
-                        <div class="focus-title">Code &amp; Architecture</div>
-                        <div class="focus-desc">Python / FastAPI, TypeScript / React, PHP / Laravel · API REST sécurisées.</div>
+                        <span class="focus-icon">📋</span>
+                        <div class="focus-title">Gouvernance &amp; RGPD</div>
+                        <div class="focus-desc">Cartographie données, matrices de risques, audit droits, sensibilisation.</div>
                     </div>
                 </div>
             </div>
@@ -594,16 +695,16 @@
         <div class="container">
             <div class="section-head reveal">
                 <span class="section-eyebrow">// 02. Projets</span>
-                <h2 class="section-title">18 projets publiés. <span style="color: var(--text-soft); font-weight: 500;">De la crypto E2E au sandbox Docker.</span></h2>
-                <p class="section-sub">Sélection des projets open-source disponibles sur mon GitHub — filtrés par domaine.</p>
+                <h2 class="section-title" id="projectsTitle">Projets publiés.</h2>
+                <p class="section-sub">Sélection de projets open-source &amp; pro disponibles — filtrés par domaine.</p>
             </div>
 
             <div class="filters reveal" id="filters">
-                <button class="filter-btn active" data-filter="all">Tous <span class="filter-count">(18)</span></button>
+                <button class="filter-btn active" data-filter="all">Tous</button>
                 <button class="filter-btn" data-filter="security">Sécurité</button>
+                <button class="filter-btn" data-filter="grc">Gouv. / RGPD</button>
                 <button class="filter-btn" data-filter="devops">DevOps</button>
                 <button class="filter-btn" data-filter="web">Web</button>
-                <button class="filter-btn" data-filter="ai">IA</button>
                 <button class="filter-btn" data-filter="game">Jeux / Labs</button>
             </div>
 
@@ -617,55 +718,10 @@
             <div class="section-head reveal">
                 <span class="section-eyebrow">// 03. Expérience</span>
                 <h2 class="section-title">Parcours pro.</h2>
-                <p class="section-sub">Du terrain client à l'infra Kubernetes : trois expériences complémentaires.</p>
+                <p class="section-sub">Du terrain (audit M365 / RGPD) à l'infra Kubernetes — quatre expériences complémentaires.</p>
             </div>
 
-            <div class="timeline">
-                <div class="tl-item reveal">
-                    <div class="tl-head">
-                        <div>
-                            <div class="tl-title">Stage DevOps · containerisation &amp; CI/CD</div>
-                            <div class="tl-company">METIO</div>
-                        </div>
-                        <div class="tl-period">Mai → Septembre 2025</div>
-                    </div>
-                    <ul class="tl-list">
-                        <li>Containerisation d'applications Node.js avec Docker multi-stage.</li>
-                        <li>Déploiement sur Kubernetes via GKE (Google Kubernetes Engine).</li>
-                        <li>Mise en place d'un pipeline CI/CD complet (build → test → scan → deploy).</li>
-                        <li>Monitoring et observabilité du cluster (logs, métriques).</li>
-                    </ul>
-                </div>
-
-                <div class="tl-item reveal">
-                    <div class="tl-head">
-                        <div>
-                            <div class="tl-title">Stage Cybersécurité · audit &amp; remédiation</div>
-                            <div class="tl-company">WildCode-Solutions</div>
-                        </div>
-                        <div class="tl-period">Février → Avril 2025</div>
-                    </div>
-                    <ul class="tl-list">
-                        <li>Audits de sécurité d'applications web (méthodologie OWASP Top 10).</li>
-                        <li>Analyse, exploitation et correction de vulnérabilités (SQLi, XSS, IDOR).</li>
-                        <li>Rédaction de rapports techniques avec recommandations priorisées.</li>
-                    </ul>
-                </div>
-
-                <div class="tl-item reveal">
-                    <div class="tl-head">
-                        <div>
-                            <div class="tl-title">Télé-enquêteur · data collection</div>
-                            <div class="tl-company">Médiamétrie, Amiens</div>
-                        </div>
-                        <div class="tl-period">Mars 2025 — Présent</div>
-                    </div>
-                    <ul class="tl-list">
-                        <li>Collecte structurée et analyse de données pour études d'audience.</li>
-                        <li>Gestion de questionnaires et contrôle qualité des données collectées.</li>
-                    </ul>
-                </div>
-            </div>
+            <div class="timeline" id="timeline"></div>
         </div>
     </section>
 
@@ -675,15 +731,12 @@
             <div class="section-head reveal">
                 <span class="section-eyebrow">// 04. Stack technique</span>
                 <h2 class="section-title">Ma boîte à outils.</h2>
-                <p class="section-sub">Langages, frameworks, plateformes cloud et arsenal sécurité — du backend au pentest.</p>
+                <p class="section-sub">Langages, frameworks, plateformes cloud, arsenal sécurité et outils de gouvernance.</p>
             </div>
 
             <div class="skills-grid">
                 <div class="skill-card reveal">
-                    <div class="skill-head">
-                        <div class="skill-icon">⌨️</div>
-                        <div class="skill-title">Langages</div>
-                    </div>
+                    <div class="skill-head"><div class="skill-icon">⌨️</div><div class="skill-title">Langages</div></div>
                     <ul class="skill-items">
                         <li>Python · FastAPI, Django, Flask</li>
                         <li>TypeScript · React, Vue.js, Node</li>
@@ -694,10 +747,7 @@
                 </div>
 
                 <div class="skill-card reveal">
-                    <div class="skill-head">
-                        <div class="skill-icon">🚀</div>
-                        <div class="skill-title">DevOps &amp; Cloud</div>
-                    </div>
+                    <div class="skill-head"><div class="skill-icon">🚀</div><div class="skill-title">DevOps &amp; Cloud</div></div>
                     <ul class="skill-items">
                         <li>Docker · Compose · multi-stage builds</li>
                         <li>Kubernetes · GKE · Helm</li>
@@ -708,10 +758,7 @@
                 </div>
 
                 <div class="skill-card reveal">
-                    <div class="skill-head">
-                        <div class="skill-icon">🛡️</div>
-                        <div class="skill-title">Cybersécurité</div>
-                    </div>
+                    <div class="skill-head"><div class="skill-icon">🛡️</div><div class="skill-title">Cybersécurité</div></div>
                     <ul class="skill-items">
                         <li>Offensif · Burp Suite, Metasploit, Nmap, SQLmap</li>
                         <li>Défensif · Wireshark, Splunk, OWASP ZAP</li>
@@ -722,10 +769,18 @@
                 </div>
 
                 <div class="skill-card reveal">
-                    <div class="skill-head">
-                        <div class="skill-icon">🗄️</div>
-                        <div class="skill-title">Bases de données</div>
-                    </div>
+                    <div class="skill-head"><div class="skill-icon">📋</div><div class="skill-title">Gouvernance &amp; RGPD</div></div>
+                    <ul class="skill-items">
+                        <li>Audit M365 · SharePoint, Teams, Power BI</li>
+                        <li>Cartographie données sensibles &amp; matrices risques</li>
+                        <li>Principe du moindre privilège</li>
+                        <li>RGPD · PSSI · plans de remédiation</li>
+                        <li>Sensibilisation &amp; conduite du changement</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal">
+                    <div class="skill-head"><div class="skill-icon">🗄️</div><div class="skill-title">Bases de données</div></div>
                     <ul class="skill-items">
                         <li>PostgreSQL · MySQL · SQLite</li>
                         <li>Redis · cache &amp; sessions</li>
@@ -736,30 +791,13 @@
                 </div>
 
                 <div class="skill-card reveal">
-                    <div class="skill-head">
-                        <div class="skill-icon">🛠️</div>
-                        <div class="skill-title">Outils &amp; OS</div>
-                    </div>
-                    <ul class="skill-items">
-                        <li>Git · GitHub, GitLab</li>
-                        <li>Linux · admin système (Debian, Ubuntu)</li>
-                        <li>VS Code · Postman · Insomnia</li>
-                        <li>Apache Hop · ETL</li>
-                        <li>Nginx · Apache · Traefik</li>
-                    </ul>
-                </div>
-
-                <div class="skill-card reveal">
-                    <div class="skill-head">
-                        <div class="skill-icon">🤝</div>
-                        <div class="skill-title">Soft Skills</div>
-                    </div>
+                    <div class="skill-head"><div class="skill-icon">🤝</div><div class="skill-title">Soft Skills</div></div>
                     <ul class="skill-items">
                         <li>Travail en équipe pluridisciplinaire</li>
-                        <li>Rigueur · esprit d'analyse</li>
+                        <li>Vulgarisation tech pour publics non-tech</li>
                         <li>Adaptabilité &amp; autonomie</li>
-                        <li>Résolution de problèmes complexes</li>
-                        <li>Communication technique &amp; vulgarisation</li>
+                        <li>Rigueur · esprit d'analyse</li>
+                        <li>Reporting KPI / KRI</li>
                     </ul>
                 </div>
             </div>
@@ -781,7 +819,7 @@
                     <div>
                         <div class="cert-title">Architecte des Systèmes d'Information</div>
                         <div class="cert-sub">École-IT · Option DevOps &amp; Cybersécurité · 2024-2026</div>
-                        <div class="cert-desc">Cursus pratique approfondi en architecture SI, DevOps, cloud computing et sécurité offensive/défensive avec mises en situation réelles.</div>
+                        <div class="cert-desc">Cursus pratique approfondi en architecture SI, DevOps, cloud et sécurité offensive/défensive avec mises en situation réelles.</div>
                     </div>
                 </div>
                 <div class="cert reveal">
@@ -821,26 +859,10 @@
             </div>
 
             <div class="interests">
-                <div class="interest reveal">
-                    <span class="interest-emoji">🤖</span>
-                    <div class="interest-title">Intelligence Artificielle</div>
-                    <div class="interest-desc">LLMs, agents, automatisation.</div>
-                </div>
-                <div class="interest reveal">
-                    <span class="interest-emoji">🌐</span>
-                    <div class="interest-title">Open Source</div>
-                    <div class="interest-desc">Contribution &amp; veille active.</div>
-                </div>
-                <div class="interest reveal">
-                    <span class="interest-emoji">🧩</span>
-                    <div class="interest-title">Jeux de logique</div>
-                    <div class="interest-desc">CTF, puzzles, échecs.</div>
-                </div>
-                <div class="interest reveal">
-                    <span class="interest-emoji">📡</span>
-                    <div class="interest-title">Veille technologique</div>
-                    <div class="interest-desc">Threat intel, RSS, blogs sec.</div>
-                </div>
+                <div class="interest reveal"><span class="interest-emoji">🤖</span><div class="interest-title">IA</div><div class="interest-desc">LLMs, agents, automatisation.</div></div>
+                <div class="interest reveal"><span class="interest-emoji">🌐</span><div class="interest-title">Open Source</div><div class="interest-desc">Contribution &amp; veille active.</div></div>
+                <div class="interest reveal"><span class="interest-emoji">🧩</span><div class="interest-title">Jeux de logique</div><div class="interest-desc">CTF, puzzles, échecs.</div></div>
+                <div class="interest reveal"><span class="interest-emoji">📡</span><div class="interest-title">Veille technologique</div><div class="interest-desc">Threat intel, RSS, blogs sec.</div></div>
             </div>
         </div>
     </section>
@@ -851,7 +873,8 @@
             <div class="contact-card reveal">
                 <h2 class="contact-title">On échange ?</h2>
                 <p class="contact-sub">
-                    Stage, alternance, mission freelance, ou juste pour parler sécurité — toute proposition est lue.
+                    Alternance DevSecOps / GRC dès septembre 2026, mission freelance, ou juste pour parler sécurité —
+                    toute proposition est lue.
                 </p>
                 <div class="contact-actions">
                     <a href="mailto:charbelazon23@gmail.com" class="btn btn-primary">✉ charbelazon23@gmail.com</a>
@@ -862,7 +885,6 @@
         </div>
     </section>
 
-    <!-- ============= FOOTER ============= -->
     <footer>
         <div class="container">
             <div class="socials">
@@ -874,172 +896,336 @@
         </div>
     </footer>
 
-    <script>
-        // ---------- DATA: 18 projects ----------
-        const PROJECTS = [
-            {
-                id: 'secure-chat', title: 'Secure Chat E2E', date: 'Mai 2026', cats: ['security','web'],
-                desc: "Application de messagerie chiffrée end-to-end. La clé privée ne quitte jamais le navigateur et les messages stockés sont chiffrés. FastAPI + JWT + bcrypt côté serveur, SPA Vite côté client.",
-                tech: ['FastAPI','JWT','bcrypt','SQLAlchemy','Vite','TailwindCSS'],
-                repo: 'https://github.com/AGL2304/Secure_Chat'
-            },
-            {
-                id: 'fileshare', title: 'FileShare', date: 'Mai 2026', cats: ['security','web','devops'],
-                desc: "Plateforme de partage de fichiers sécurisée : auth JWT (access 15min + refresh 7j), liens partageables avec mot de passe, MIME whitelist, rate-limiting, storage S3-compatible.",
-                tech: ['React','TypeScript','Fastify','Prisma','PostgreSQL','Redis','Docker'],
-                repo: 'https://github.com/AGL2304/fileshare'
-            },
-            {
-                id: 'red-blue-teams', title: 'Red Teams VS Blue Teams', date: 'Avril 2026', cats: ['security'],
-                desc: "Plateforme de simulation attaque/défense pour entraîner Red & Blue Teams. Scénarios reproductibles, scoring temps réel et debriefs après-action.",
-                tech: ['TypeScript','Node.js','Docker','WebSocket'],
-                repo: 'https://github.com/AGL2304/Red_Teams_VS_Blue_Teams'
-            },
-            {
-                id: 'cve-trackers', title: 'CVE Tracker', date: 'Janvier 2026', cats: ['security','devops'],
-                desc: "Système de veille et gestion des vulnérabilités CVE : agrégation, scoring CVSS, alertes et dashboard. Déployable en un docker-compose.",
-                tech: ['Next.js 15','TypeScript','Prisma','SQLite','Docker'],
-                repo: 'https://github.com/AGL2304/Projet_CVE_Trackers'
-            },
-            {
-                id: 'codearena', title: 'CodeArena', date: 'Octobre 2025', cats: ['devops','web'],
-                desc: "Plateforme de compétition de code temps réel avec sandbox Docker pour exécution sécurisée du code utilisateur, leaderboard multijoueur via Socket.io et auth JWT.",
-                tech: ['Vue 3','Pinia','Node.js','Express','MongoDB','Socket.io','Docker'],
-                repo: 'https://github.com/AGL2304/CodeArena_EcoleIT_Pisc'
-            },
-            {
-                id: 'securevault', title: 'SecureVault', date: 'Septembre 2025', cats: ['security','web'],
-                desc: "Gestionnaire de mots de passe avec chiffrement end-to-end côté client et authentification multi-facteurs. Aucune donnée sensible ne touche le serveur en clair.",
-                tech: ['PHP','Encryption','2FA','MySQL'],
-                repo: 'https://github.com/AGL2304/securevault'
-            },
-            {
-                id: 'parcours-qr', title: 'Parcours QR Code', date: 'Août 2025', cats: ['web'],
-                desc: "Application Laravel permettant de créer des parcours de visite interactifs via QR codes — pensée pour musées et tourisme culturel.",
-                tech: ['Laravel','Blade','PHP','MySQL'],
-                repo: 'https://github.com/AGL2304/parcours_qr_code'
-            },
-            {
-                id: 'travel-guides', title: 'Travel Guides', date: 'Juin 2025', cats: ['web'],
-                desc: "Guides de voyage collaboratifs développés avec Symfony et Twig. Carte interactive, contributions communautaires et profils utilisateurs.",
-                tech: ['Symfony','Twig','PostgreSQL','API Maps'],
-                repo: 'https://github.com/AGL2304/Travel_Guides'
-            },
-            {
-                id: 'cloudninja', title: 'CloudNinja AGL', date: 'Juin 2025', cats: ['devops'],
-                desc: "Application Node.js + scripts d'automatisation cloud avec CI GitHub Actions, endpoints REST et health checks intégrés.",
-                tech: ['Node.js','Express','Bash','GitHub Actions'],
-                repo: 'https://github.com/AGL2304/cloudninja_agl-'
-            },
-            {
-                id: 'projet-devops', title: 'Projet DevOps', date: 'Mai 2025', cats: ['devops'],
-                desc: "Infrastructure DevOps complète : containerisation, orchestration, automatisation des déploiements et pipeline CI/CD bout-en-bout.",
-                tech: ['Docker','Kubernetes','Jenkins','Monitoring'],
-                repo: 'https://github.com/AGL2304/Projet_DevOps'
-            },
-            {
-                id: 'mon-app-simple', title: 'MonAppSimple', date: 'Mai 2025', cats: ['web'],
-                desc: "Application JavaScript minimaliste pour expérimenter rapidement des concepts front-end et tester des pipelines de déploiement.",
-                tech: ['JavaScript','HTML','CSS'],
-                repo: 'https://github.com/AGL2304/MonAppSimple'
-            },
-            {
-                id: 'mon-projet-devops', title: 'MonProjetDevOps', date: 'Mai 2025', cats: ['devops'],
-                desc: "Stack Dockerisée pour tester orchestration et environnements multi-conteneurs : labo personnel DevOps.",
-                tech: ['Dockerfile','Docker Compose'],
-                repo: 'https://github.com/AGL2304/MonProjetDevOps'
-            },
-            {
-                id: 'reservations', title: 'Reservations AGL', date: 'Mai 2025', cats: ['web'],
-                desc: "Système de réservation web en PHP avec gestion des créneaux, utilisateurs et statuts de réservation.",
-                tech: ['PHP','MySQL','Bootstrap'],
-                repo: 'https://github.com/AGL2304/Reservations_AGL'
-            },
-            {
-                id: 'todo-app', title: 'ToDo App', date: 'Mars 2025', cats: ['web'],
-                desc: "Application de gestion de tâches en PHP — CRUD complet, états, filtres, persistance MySQL.",
-                tech: ['PHP','MySQL'],
-                repo: 'https://github.com/AGL2304/ToDo_App'
-            },
-            {
-                id: 'docker-twitter', title: 'Docker Twitter', date: 'Mars 2025', cats: ['devops','web'],
-                desc: "Clone Twitter dockerisé : application PHP, base de données et reverse proxy orchestrés via Docker Compose.",
-                tech: ['PHP','Docker','MySQL','Nginx'],
-                repo: 'https://github.com/AGL2304/docker_twitter'
-            },
-            {
-                id: 'battle-python', title: 'Battle Python', date: 'Mars 2025', cats: ['game'],
-                desc: "Mini-jeu de combat en console implémenté en Python pour exercer les patterns OO et la gestion d'état.",
-                tech: ['Python'],
-                repo: 'https://github.com/AGL2304/Battle_python'
-            },
-            {
-                id: 'biblio-exchange', title: 'BiblioExchange', date: 'Décembre 2024', cats: ['web'],
-                desc: "Plateforme d'échange de livres entre utilisateurs : auth, catalogue, transactions, recherche et profils. Stack Symfony.",
-                tech: ['Symfony','Twig','PostgreSQL','TailwindCSS'],
-                repo: 'https://github.com/AGL2304/BiblioExchange'
-            },
-            {
-                id: 'snake-game', title: 'Snake Game', date: 'Décembre 2024', cats: ['game'],
-                desc: "Implémentation Java du classique Snake : moteur de jeu, rendu, collisions, score persistant.",
-                tech: ['Java','Swing'],
-                repo: 'https://github.com/AGL2304/Snake_game'
-            },
-        ];
+    <!-- ============= ADMIN MODAL ============= -->
+    <div class="modal-backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+        <div class="modal">
+            <div class="modal-head">
+                <div>
+                    <div class="modal-title" id="adminModalTitle">Espace admin</div>
+                    <small id="adminModalSubtitle">Édition locale (localStorage) — pour une admin cross-device, utiliser la stack React+FastAPI</small>
+                </div>
+                <button class="modal-close" id="adminModalClose" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal-body" id="adminModalBody"></div>
+            <div class="modal-foot" id="adminModalFoot"></div>
+        </div>
+    </div>
 
-        // ---------- Render projects ----------
-        const CAT_LABELS = { security: 'Sécurité', devops: 'DevOps', web: 'Web', ai: 'IA', game: 'Lab' };
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================================
+        //  DEFAULT DATA  (édité via l'admin → écrit dans localStorage)
+        // ============================================================
+        const DEFAULTS = {
+            profile: {
+                full_name: "Georges Lionel ANANI",
+                email: "charbelazon23@gmail.com",
+                github_url: "https://github.com/AGL2304",
+                linkedin_url: "https://www.linkedin.com/in/georges-lionel-c-a-anani-35256618b",
+                availability: "En recherche — Alternance dès Septembre 2026",
+                location: "Amiens, France"
+            },
+            experiences: [
+                {
+                    id: 'irfa-apisup', current: true,
+                    title: 'Stagiaire Transformation Numérique & Conformité',
+                    company: 'IRFA-APISUP',
+                    location: 'Amiens',
+                    period: 'Janvier 2026 — Aujourd\'hui',
+                    bullets: [
+                        "Cartographié les usages Microsoft 365 (SharePoint, Teams, Power BI) sur ~150 utilisateurs et 8 entités — cartographie des données sensibles et matrice de risques RGPD priorisée en 3 vagues.",
+                        "Audité les droits d'accès SharePoint et Teams sur ~200 comptes, identifié 12 écarts au principe du moindre privilège et formalisé un plan de remédiation à 90 jours en cohérence avec la PSSI.",
+                        "Conçu 4 livrables d'audit (cartographies, matrice de risques, recommandations priorisées) et animé 3 sessions de sensibilisation cybersécurité RGPD vulgarisées pour publics non techniques (RH, finance, direction).",
+                        "Piloté la conduite du changement auprès de ~40 collaborateurs — supports pédagogiques (fiches réflexes, FAQ) et reporting d'avancement dans un tableau de bord KPI / KRI hebdomadaire."
+                    ]
+                },
+                {
+                    id: 'metio-devops',
+                    title: 'Stagiaire DevOps & Développement Web',
+                    company: 'METIO (ex Iteracode)',
+                    location: 'Amiens',
+                    period: 'Mai — Septembre 2025',
+                    bullets: [
+                        "Containerisation d'applications Node.js avec Docker multi-stage.",
+                        "Déploiement sur Kubernetes via GKE (Google Kubernetes Engine).",
+                        "Mise en place d'un pipeline CI/CD complet (build → test → scan → deploy).",
+                        "Monitoring et observabilité du cluster (logs, métriques)."
+                    ]
+                },
+                {
+                    id: 'wildcode-cyber',
+                    title: 'Stage Cybersécurité — Audit & Remédiation',
+                    company: 'WildCode-Solutions',
+                    location: 'Remote',
+                    period: 'Février — Avril 2025',
+                    bullets: [
+                        "Audits de sécurité d'applications web (méthodologie OWASP Top 10).",
+                        "Analyse, exploitation et correction de vulnérabilités (SQLi, XSS, IDOR).",
+                        "Rédaction de rapports techniques avec recommandations priorisées."
+                    ]
+                },
+                {
+                    id: 'mediametrie',
+                    title: 'Télé-enquêteur — Data Collection',
+                    company: 'Médiamétrie',
+                    location: 'Amiens',
+                    period: 'Mars 2025 — Présent',
+                    bullets: [
+                        "Collecte structurée et analyse de données pour études d'audience.",
+                        "Gestion de questionnaires et contrôle qualité des données collectées."
+                    ]
+                }
+            ],
+            projects: [
+                {
+                    id: 'portail-irfa', title: 'Portail interne IRFA-APISUP', date: 'Mars 2026', cats: ['grc','web'],
+                    desc: "Conception et développement du portail interne pour IRFA-APISUP : tableau de bord KPI / KRI hebdomadaire, fiches réflexes, FAQ cybersécurité et zone documentaire de conduite du changement (~40 collaborateurs).",
+                    tech: ['SharePoint','Power BI','React','TypeScript','M365 Graph API'],
+                    repo: null, private_note: "Projet interne · code non public"
+                },
+                {
+                    id: 'secure-chat', title: 'Secure Chat E2E', date: 'Mai 2026', cats: ['security','web'],
+                    desc: "Application de messagerie chiffrée end-to-end. La clé privée ne quitte jamais le navigateur et les messages stockés sont chiffrés. FastAPI + JWT + bcrypt côté serveur, SPA Vite côté client.",
+                    tech: ['FastAPI','JWT','bcrypt','SQLAlchemy','Vite','TailwindCSS'],
+                    repo: 'https://github.com/AGL2304/Secure_Chat'
+                },
+                {
+                    id: 'fileshare', title: 'FileShare', date: 'Mai 2026', cats: ['security','web','devops'],
+                    desc: "Plateforme de partage de fichiers sécurisée : auth JWT (access 15min + refresh 7j), liens partageables avec mot de passe, MIME whitelist, rate-limiting, storage S3-compatible.",
+                    tech: ['React','TypeScript','Fastify','Prisma','PostgreSQL','Redis','Docker'],
+                    repo: 'https://github.com/AGL2304/fileshare'
+                },
+                {
+                    id: 'red-blue-teams', title: 'Red Teams VS Blue Teams', date: 'Avril 2026', cats: ['security'],
+                    desc: "Plateforme de simulation attaque/défense pour entraîner Red & Blue Teams. Scénarios reproductibles, scoring temps réel et debriefs après-action.",
+                    tech: ['TypeScript','Node.js','Docker','WebSocket'],
+                    repo: 'https://github.com/AGL2304/Red_Teams_VS_Blue_Teams'
+                },
+                {
+                    id: 'cve-trackers', title: 'CVE Tracker', date: 'Janvier 2026', cats: ['security','devops'],
+                    desc: "Système de veille et gestion des vulnérabilités CVE : agrégation, scoring CVSS, alertes et dashboard. Déployable en un docker-compose.",
+                    tech: ['Next.js 15','TypeScript','Prisma','SQLite','Docker'],
+                    repo: 'https://github.com/AGL2304/Projet_CVE_Trackers'
+                },
+                {
+                    id: 'codearena', title: 'CodeArena', date: 'Octobre 2025', cats: ['devops','web'],
+                    desc: "Plateforme de compétition de code temps réel avec sandbox Docker pour exécution sécurisée du code utilisateur, leaderboard multijoueur via Socket.io et auth JWT.",
+                    tech: ['Vue 3','Pinia','Node.js','Express','MongoDB','Socket.io','Docker'],
+                    repo: 'https://github.com/AGL2304/CodeArena_EcoleIT_Pisc'
+                },
+                {
+                    id: 'securevault', title: 'SecureVault', date: 'Septembre 2025', cats: ['security','web'],
+                    desc: "Gestionnaire de mots de passe avec chiffrement end-to-end côté client et authentification multi-facteurs. Aucune donnée sensible ne touche le serveur en clair.",
+                    tech: ['PHP','Encryption','2FA','MySQL'],
+                    repo: 'https://github.com/AGL2304/securevault'
+                },
+                {
+                    id: 'parcours-qr', title: 'Parcours QR Code', date: 'Août 2025', cats: ['web'],
+                    desc: "Application Laravel permettant de créer des parcours de visite interactifs via QR codes — pensée pour musées et tourisme culturel.",
+                    tech: ['Laravel','Blade','PHP','MySQL'],
+                    repo: 'https://github.com/AGL2304/parcours_qr_code'
+                },
+                {
+                    id: 'travel-guides', title: 'Travel Guides', date: 'Juin 2025', cats: ['web'],
+                    desc: "Guides de voyage collaboratifs développés avec Symfony et Twig. Carte interactive, contributions communautaires et profils utilisateurs.",
+                    tech: ['Symfony','Twig','PostgreSQL','API Maps'],
+                    repo: 'https://github.com/AGL2304/Travel_Guides'
+                },
+                {
+                    id: 'cloudninja', title: 'CloudNinja AGL', date: 'Juin 2025', cats: ['devops'],
+                    desc: "Application Node.js + scripts d'automatisation cloud avec CI GitHub Actions, endpoints REST et health checks intégrés.",
+                    tech: ['Node.js','Express','Bash','GitHub Actions'],
+                    repo: 'https://github.com/AGL2304/cloudninja_agl-'
+                },
+                {
+                    id: 'projet-devops', title: 'Projet DevOps', date: 'Mai 2025', cats: ['devops'],
+                    desc: "Infrastructure DevOps complète : containerisation, orchestration, automatisation des déploiements et pipeline CI/CD bout-en-bout.",
+                    tech: ['Docker','Kubernetes','Jenkins','Monitoring'],
+                    repo: 'https://github.com/AGL2304/Projet_DevOps'
+                },
+                {
+                    id: 'mon-app-simple', title: 'MonAppSimple', date: 'Mai 2025', cats: ['web'],
+                    desc: "Application JavaScript minimaliste pour expérimenter rapidement des concepts front-end et tester des pipelines de déploiement.",
+                    tech: ['JavaScript','HTML','CSS'],
+                    repo: 'https://github.com/AGL2304/MonAppSimple'
+                },
+                {
+                    id: 'mon-projet-devops', title: 'MonProjetDevOps', date: 'Mai 2025', cats: ['devops'],
+                    desc: "Stack Dockerisée pour tester orchestration et environnements multi-conteneurs : labo personnel DevOps.",
+                    tech: ['Dockerfile','Docker Compose'],
+                    repo: 'https://github.com/AGL2304/MonProjetDevOps'
+                },
+                {
+                    id: 'reservations', title: 'Reservations AGL', date: 'Mai 2025', cats: ['web'],
+                    desc: "Système de réservation web en PHP avec gestion des créneaux, utilisateurs et statuts de réservation.",
+                    tech: ['PHP','MySQL','Bootstrap'],
+                    repo: 'https://github.com/AGL2304/Reservations_AGL'
+                },
+                {
+                    id: 'todo-app', title: 'ToDo App', date: 'Mars 2025', cats: ['web'],
+                    desc: "Application de gestion de tâches en PHP — CRUD complet, états, filtres, persistance MySQL.",
+                    tech: ['PHP','MySQL'],
+                    repo: 'https://github.com/AGL2304/ToDo_App'
+                },
+                {
+                    id: 'docker-twitter', title: 'Docker Twitter', date: 'Mars 2025', cats: ['devops','web'],
+                    desc: "Clone Twitter dockerisé : application PHP, base de données et reverse proxy orchestrés via Docker Compose.",
+                    tech: ['PHP','Docker','MySQL','Nginx'],
+                    repo: 'https://github.com/AGL2304/docker_twitter'
+                },
+                {
+                    id: 'battle-python', title: 'Battle Python', date: 'Mars 2025', cats: ['game'],
+                    desc: "Mini-jeu de combat en console implémenté en Python pour exercer les patterns OO et la gestion d'état.",
+                    tech: ['Python'],
+                    repo: 'https://github.com/AGL2304/Battle_python'
+                },
+                {
+                    id: 'biblio-exchange', title: 'BiblioExchange', date: 'Décembre 2024', cats: ['web'],
+                    desc: "Plateforme d'échange de livres entre utilisateurs : auth, catalogue, transactions, recherche et profils. Stack Symfony.",
+                    tech: ['Symfony','Twig','PostgreSQL','TailwindCSS'],
+                    repo: 'https://github.com/AGL2304/BiblioExchange'
+                },
+                {
+                    id: 'snake-game', title: 'Snake Game', date: 'Décembre 2024', cats: ['game'],
+                    desc: "Implémentation Java du classique Snake : moteur de jeu, rendu, collisions, score persistant.",
+                    tech: ['Java','Swing'],
+                    repo: 'https://github.com/AGL2304/Snake_game'
+                }
+            ]
+        };
+
+        // ============================================================
+        //  STATE
+        // ============================================================
+        const STORAGE_KEY = 'portfolio.content.v1';
+        const PASSWORD_KEY = 'portfolio.admin.passhash.v1';
+        const SESSION_KEY = 'portfolio.admin.session.v1';
+
+        let DATA = loadData();
+        let isAdmin = sessionStorage.getItem(SESSION_KEY) === '1';
+        let rio = null; // IntersectionObserver, initialized lazily in attachReveal()
+        let currentFilter = 'all';
+
+        function loadData() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return structuredClone(DEFAULTS);
+                const parsed = JSON.parse(raw);
+                // shallow merge with defaults so older saves keep working
+                return {
+                    profile: { ...DEFAULTS.profile, ...(parsed.profile || {}) },
+                    experiences: Array.isArray(parsed.experiences) ? parsed.experiences : DEFAULTS.experiences,
+                    projects: Array.isArray(parsed.projects) ? parsed.projects : DEFAULTS.projects
+                };
+            } catch (e) {
+                console.warn('Bad localStorage portfolio data, falling back to defaults', e);
+                return structuredClone(DEFAULTS);
+            }
+        }
+
+        function saveData(d) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+        }
+
+        function resetData() {
+            localStorage.removeItem(STORAGE_KEY);
+            DATA = structuredClone(DEFAULTS);
+            renderAll();
+        }
+
+        // ============================================================
+        //  RENDER
+        // ============================================================
+        const CAT_LABELS = { security: 'Sécurité', devops: 'DevOps', web: 'Web', grc: 'Gouv. / RGPD', game: 'Lab' };
         function catClass(cats) {
             if (cats.includes('security')) return 'cat-security';
-            if (cats.includes('devops'))   return 'cat-devops';
-            if (cats.includes('ai'))       return 'cat-ai';
-            if (cats.includes('game'))     return 'cat-game';
+            if (cats.includes('grc')) return 'cat-grc';
+            if (cats.includes('devops')) return 'cat-devops';
+            if (cats.includes('game')) return 'cat-game';
             return 'cat-web';
         }
         function primaryCat(cats) {
             if (cats.includes('security')) return 'Sécurité';
-            if (cats.includes('devops'))   return 'DevOps';
-            if (cats.includes('ai'))       return 'IA';
-            if (cats.includes('game'))     return 'Lab';
+            if (cats.includes('grc')) return 'GRC / RGPD';
+            if (cats.includes('devops')) return 'DevOps';
+            if (cats.includes('game')) return 'Lab';
             return 'Web';
         }
-        function renderProjects(filter = 'all') {
-            const grid = document.getElementById('projects-grid');
-            const filtered = filter === 'all' ? PROJECTS : PROJECTS.filter(p => p.cats.includes(filter));
-            grid.innerHTML = filtered.map((p, i) => `
-                <article class="project ${catClass(p.cats)}" style="animation-delay: ${i * 50}ms;">
+
+        function renderHero() {
+            document.getElementById('heroAvailability').textContent = DATA.profile.availability;
+            document.getElementById('metricProjects').textContent = DATA.projects.length + '+';
+            document.getElementById('metricExp').textContent = String(DATA.experiences.length);
+        }
+
+        function renderExperiences() {
+            const c = document.getElementById('timeline');
+            c.innerHTML = DATA.experiences.map(e => `
+                <div class="tl-item reveal ${e.current ? 'is-current' : ''}">
+                    <div class="tl-head">
+                        <div>
+                            <div class="tl-title">${escapeHtml(e.title)}</div>
+                            <div class="tl-company">${escapeHtml(e.company)}${e.location ? ` <span class="tl-loc">— ${escapeHtml(e.location)}</span>` : ''}</div>
+                        </div>
+                        <div class="tl-period ${e.current ? 'current' : ''}">${escapeHtml(e.period)}</div>
+                    </div>
+                    <ul class="tl-list">
+                        ${(e.bullets || []).map(b => `<li>${escapeHtml(b)}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+            attachReveal();
+        }
+
+        function renderProjects() {
+            const filtered = currentFilter === 'all'
+                ? DATA.projects
+                : DATA.projects.filter(p => p.cats.includes(currentFilter));
+
+            document.getElementById('projects-grid').innerHTML = filtered.map((p, i) => `
+                <article class="project ${catClass(p.cats)}" style="animation-delay: ${i * 40}ms;">
                     <div class="project-head">
                         <div>
                             <div class="project-cat"><span class="project-cat-dot"></span>${primaryCat(p.cats)}</div>
-                            <h3 class="project-title" style="margin-top:6px;">${p.title}</h3>
+                            <h3 class="project-title" style="margin-top:6px;">${escapeHtml(p.title)}</h3>
                         </div>
-                        <span class="project-date">${p.date}</span>
+                        <span class="project-date">${escapeHtml(p.date)}</span>
                     </div>
-                    <p class="project-desc">${p.desc}</p>
+                    <p class="project-desc">${escapeHtml(p.desc)}</p>
                     <div class="tech-row">
-                        ${p.tech.map(t => `<span class="tech">${t}</span>`).join('')}
+                        ${(p.tech || []).map(t => `<span class="tech">${escapeHtml(t)}</span>`).join('')}
                     </div>
                     <div class="project-foot">
-                        <a class="project-link" href="${p.repo}" target="_blank" rel="noopener">Voir sur GitHub →</a>
-                        <span class="project-stars">open source</span>
+                        ${p.repo
+                            ? `<a class="project-link" href="${p.repo}" target="_blank" rel="noopener">Voir sur GitHub →</a><span class="project-stars">open source</span>`
+                            : `<span class="project-private">🔒 ${escapeHtml(p.private_note || 'Projet interne')}</span><span class="project-stars">privé</span>`
+                        }
                     </div>
                 </article>
             `).join('');
-        }
-        renderProjects();
 
-        // Update filter button counts
+            updateFilterCounts();
+        }
+
         function updateFilterCounts() {
-            const counts = { all: PROJECTS.length, security: 0, devops: 0, web: 0, ai: 0, game: 0 };
-            PROJECTS.forEach(p => p.cats.forEach(c => { if (counts[c] !== undefined) counts[c]++; }));
+            const counts = { all: DATA.projects.length, security: 0, devops: 0, web: 0, grc: 0, game: 0 };
+            DATA.projects.forEach(p => p.cats.forEach(c => { if (counts[c] !== undefined) counts[c]++; }));
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 const f = btn.getAttribute('data-filter');
                 const n = counts[f] ?? 0;
-                const baseLabel = btn.firstChild.nodeValue.trim();
+                const baseLabel = btn.getAttribute('data-label') || btn.firstChild.nodeValue.trim();
+                btn.setAttribute('data-label', baseLabel);
                 btn.innerHTML = `${baseLabel} <span class="filter-count">(${n})</span>`;
             });
         }
-        updateFilterCounts();
+
+        function renderAll() {
+            renderHero();
+            renderExperiences();
+            renderProjects();
+        }
+        renderAll();
 
         // Filter clicks
         document.getElementById('filters').addEventListener('click', (e) => {
@@ -1047,10 +1233,20 @@
             if (!btn) return;
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            renderProjects(btn.getAttribute('data-filter'));
+            currentFilter = btn.getAttribute('data-filter');
+            renderProjects();
         });
 
-        // ---------- Terminal typing ----------
+        function escapeHtml(s) {
+            return String(s ?? '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // ============================================================
+        //  TERMINAL TYPING
+        // ============================================================
         const TERMINAL_LINES = [
             '<span class="t-prompt">georges@purple-team</span>:<span class="t-key">~</span>$ <span class="t-cmd">whoami</span>',
             '<span class="t-out">→ Georges Lionel ANANI · M1 Architecte SI · École-IT</span>',
@@ -1060,59 +1256,53 @@
             '<span class="t-out">  "role":   "<span class="t-key">Purple Team Engineer</span>",</span>',
             '<span class="t-out">  "red":    ["pentest", "exploitation", "CTF"],</span>',
             '<span class="t-out">  "blue":   ["SOC", "hardening", "CVE intel"],</span>',
+            '<span class="t-out">  "grc":    ["RGPD", "audit M365", "PSSI"],</span>',
             '<span class="t-out">  "devops": ["Docker", "K8s", "CI/CD", "IaC"]</span>',
             '<span class="t-out">}</span>',
             '',
             '<span class="t-prompt">georges@purple-team</span>:<span class="t-key">~</span>$ <span class="t-cmd">./status.sh</span>',
-            '<span class="t-ok">✓</span> <span class="t-out">Open to internships &amp; collaborations</span>',
-            '<span class="t-ok">✓</span> <span class="t-out">Currently preparing eJPT</span>',
-            '<span class="t-warn">!</span> <span class="t-out">OSCP loading...</span>',
+            '<span class="t-ok">✓</span> <span class="t-out">Stage en cours · IRFA-APISUP (Transformation Numérique &amp; Conformité)</span>',
+            '<span class="t-ok">✓</span> <span class="t-out">Alternance dispo · Septembre 2026</span>',
+            '<span class="t-warn">!</span> <span class="t-out">eJPT in progress · OSCP loading...</span>',
             ''
         ];
         const body = document.getElementById('terminalBody');
-        let lineIdx = 0, charIdx = 0;
+        let lineIdx = 0;
         function typeNext() {
             if (lineIdx >= TERMINAL_LINES.length) {
                 body.innerHTML += '<span class="cursor"></span>';
                 return;
             }
             const line = TERMINAL_LINES[lineIdx];
-            if (line === '') {
-                body.innerHTML += '<br>';
-                lineIdx++; charIdx = 0;
-                setTimeout(typeNext, 80);
-                return;
-            }
-            // For HTML lines, just inject the whole line (otherwise tags break).
-            body.innerHTML += line + '<br>';
-            lineIdx++; charIdx = 0;
-            setTimeout(typeNext, 280);
+            body.innerHTML += line === '' ? '<br>' : line + '<br>';
+            lineIdx++;
+            setTimeout(typeNext, line === '' ? 80 : 240);
         }
-        // Trigger when terminal is in view
         const term = document.getElementById('terminal');
         const tio = new IntersectionObserver((es) => {
-            es.forEach(e => {
-                if (e.isIntersecting) {
-                    setTimeout(typeNext, 400);
-                    tio.disconnect();
-                }
-            });
+            es.forEach(e => { if (e.isIntersecting) { setTimeout(typeNext, 400); tio.disconnect(); } });
         }, { threshold: 0.3 });
         tio.observe(term);
 
-        // ---------- Reveal-on-scroll ----------
-        const reveals = document.querySelectorAll('.reveal');
-        const rio = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('is-visible');
-                    rio.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.12 });
-        reveals.forEach(r => rio.observe(r));
+        // ============================================================
+        //  REVEAL-ON-SCROLL  (rio is declared up top to avoid TDZ)
+        // ============================================================
+        function attachReveal() {
+            if (!rio) {
+                rio = new IntersectionObserver((entries) => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add('is-visible');
+                            rio.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.12 });
+            }
+            document.querySelectorAll('.reveal:not(.is-visible)').forEach(r => rio.observe(r));
+        }
+        attachReveal();
 
-        // ---------- Mobile nav ----------
+        // Mobile nav toggle
         document.getElementById('navToggle').addEventListener('click', () => {
             document.getElementById('navLinks').classList.toggle('open');
         });
@@ -1120,8 +1310,228 @@
             a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
         });
 
-        // ---------- Year ----------
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ============================================================
+        //  ADMIN — auth (SHA-256, localStorage-only), editor, persistence
+        // ============================================================
+        async function sha256(text) {
+            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function toast(msg, type = 'ok') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast show ' + type;
+            setTimeout(() => t.classList.remove('show'), 2400);
+        }
+
+        const modal = document.getElementById('adminModal');
+        const modalBody = document.getElementById('adminModalBody');
+        const modalFoot = document.getElementById('adminModalFoot');
+
+        function openModal() { modal.classList.add('open'); }
+        function closeModal() { modal.classList.remove('open'); }
+        document.getElementById('adminModalClose').addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+        document.getElementById('adminTrigger').addEventListener('click', () => {
+            if (isAdmin) showEditor(); else showAuth();
+            openModal();
+        });
+
+        // Reflect admin banner
+        function refreshAdminBanner() {
+            document.getElementById('adminBanner').classList.toggle('open', isAdmin);
+        }
+        refreshAdminBanner();
+
+        document.getElementById('adminOpenBtn').addEventListener('click', () => { showEditor(); openModal(); });
+        document.getElementById('adminLogoutBtn').addEventListener('click', () => {
+            sessionStorage.removeItem(SESSION_KEY);
+            isAdmin = false;
+            refreshAdminBanner();
+            toast('Déconnecté', 'ok');
+        });
+
+        // Auth UI ---------------------------------------------------
+        async function showAuth() {
+            const hasPwd = !!localStorage.getItem(PASSWORD_KEY);
+            modalBody.innerHTML = hasPwd ? authLoginHtml() : authSetupHtml();
+            modalFoot.innerHTML = `<button class="btn btn-ghost btn-sm" id="cancelAuth">Annuler</button>`;
+            document.getElementById('cancelAuth').addEventListener('click', closeModal);
+
+            if (hasPwd) {
+                document.getElementById('btnLogin').addEventListener('click', tryLogin);
+                document.getElementById('pwdInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryLogin(); });
+                document.getElementById('btnForget').addEventListener('click', () => {
+                    if (confirm('Supprimer le mot de passe enregistré et réinitialiser ? (le contenu local est conservé)')) {
+                        localStorage.removeItem(PASSWORD_KEY);
+                        showAuth();
+                    }
+                });
+            } else {
+                document.getElementById('btnSetup').addEventListener('click', trySetup);
+            }
+        }
+
+        function authSetupHtml() {
+            return `
+                <div style="margin-bottom: 18px;">
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight:700; margin-bottom:6px;">🔐 Premier accès — définissez un mot de passe</h3>
+                    <p style="color: var(--text-soft); font-size:13.5px;">
+                        Ce mot de passe protège l'éditeur du portfolio dans <strong>ce navigateur</strong>.
+                        Il est stocké sous forme de hash SHA-256 dans localStorage. Aucune vraie authentification serveur :
+                        ce panneau n'est qu'une commodité pour ne pas ouvrir l'éditeur par erreur.
+                    </p>
+                </div>
+                <div class="field">
+                    <label>Nouveau mot de passe</label>
+                    <input type="password" id="newPwd" placeholder="Min. 8 caractères" autocomplete="new-password" />
+                </div>
+                <div class="field">
+                    <label>Confirmation</label>
+                    <input type="password" id="newPwd2" placeholder="Re-saisir le mot de passe" autocomplete="new-password" />
+                    <div class="err" id="setupErr" style="display:none;"></div>
+                </div>
+                <button class="btn btn-primary btn-sm" id="btnSetup">Définir et entrer</button>
+            `;
+        }
+        function authLoginHtml() {
+            return `
+                <div style="margin-bottom: 18px;">
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight:700; margin-bottom:6px;">🔐 Authentification admin</h3>
+                    <p style="color: var(--text-soft); font-size:13.5px;">Édition locale du portfolio — réservé au propriétaire.</p>
+                </div>
+                <div class="field">
+                    <label>Mot de passe</label>
+                    <input type="password" id="pwdInput" placeholder="Mot de passe" autocomplete="current-password" />
+                    <div class="err" id="loginErr" style="display:none;">Mot de passe incorrect.</div>
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn btn-primary btn-sm" id="btnLogin">Se connecter</button>
+                    <button class="btn btn-ghost btn-sm" id="btnForget">Mot de passe oublié</button>
+                </div>
+            `;
+        }
+        async function trySetup() {
+            const p1 = document.getElementById('newPwd').value;
+            const p2 = document.getElementById('newPwd2').value;
+            const err = document.getElementById('setupErr');
+            err.style.display = 'none';
+            if (p1.length < 8) { err.textContent = 'Au moins 8 caractères.'; err.style.display = 'block'; return; }
+            if (p1 !== p2)    { err.textContent = 'Les deux champs ne correspondent pas.'; err.style.display = 'block'; return; }
+            const h = await sha256(p1);
+            localStorage.setItem(PASSWORD_KEY, h);
+            sessionStorage.setItem(SESSION_KEY, '1');
+            isAdmin = true;
+            refreshAdminBanner();
+            toast('Mot de passe défini · vous êtes connecté', 'ok');
+            showEditor();
+        }
+        async function tryLogin() {
+            const stored = localStorage.getItem(PASSWORD_KEY);
+            const typed  = await sha256(document.getElementById('pwdInput').value);
+            if (stored && stored === typed) {
+                sessionStorage.setItem(SESSION_KEY, '1');
+                isAdmin = true;
+                refreshAdminBanner();
+                toast('Connecté', 'ok');
+                showEditor();
+            } else {
+                document.getElementById('loginErr').style.display = 'block';
+            }
+        }
+
+        // Editor UI -------------------------------------------------
+        function showEditor() {
+            modalBody.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-bottom:14px; flex-wrap:wrap;">
+                    <div>
+                        <h3 style="font-family:'Space Grotesk',sans-serif; font-weight:700;">🛠️ Éditeur de contenu</h3>
+                        <p style="color: var(--text-soft); font-size:13px;">
+                            Modifie le JSON ci-dessous puis clique <strong>Enregistrer</strong>. Les changements sont
+                            persistés dans <code>localStorage</code> et appliqués immédiatement.
+                        </p>
+                    </div>
+                    <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                        <button class="btn btn-ghost btn-sm" id="btnExport">⬇ Export JSON</button>
+                        <button class="btn btn-ghost btn-sm" id="btnImport">⬆ Import JSON</button>
+                        <input type="file" id="fileImport" accept="application/json" style="display:none;" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Contenu (JSON)</label>
+                    <textarea id="jsonEditor" spellcheck="false">${escapeHtml(JSON.stringify(DATA, null, 2))}</textarea>
+                    <div class="hint">Schéma : <code>{ profile, experiences[], projects[] }</code> — voir DEFAULTS dans le code source.</div>
+                    <div class="err" id="editorErr" style="display:none;"></div>
+                </div>
+            `;
+            modalFoot.innerHTML = `
+                <button class="btn btn-danger btn-sm" id="btnReset">🗑 Réinitialiser</button>
+                <button class="btn btn-ghost btn-sm" id="btnClose">Annuler</button>
+                <button class="btn btn-primary btn-sm" id="btnSave">💾 Enregistrer</button>
+            `;
+
+            document.getElementById('btnSave').addEventListener('click', saveEditor);
+            document.getElementById('btnClose').addEventListener('click', closeModal);
+            document.getElementById('btnReset').addEventListener('click', () => {
+                if (confirm('Effacer toutes les modifications locales et revenir au contenu d\'origine ?')) {
+                    resetData(); toast('Contenu réinitialisé', 'ok'); closeModal();
+                }
+            });
+            document.getElementById('btnExport').addEventListener('click', exportJson);
+            document.getElementById('btnImport').addEventListener('click', () => document.getElementById('fileImport').click());
+            document.getElementById('fileImport').addEventListener('change', importJsonFile);
+        }
+
+        function saveEditor() {
+            const txt = document.getElementById('jsonEditor').value;
+            const err = document.getElementById('editorErr');
+            err.style.display = 'none';
+            let parsed;
+            try { parsed = JSON.parse(txt); }
+            catch (e) { err.textContent = 'JSON invalide : ' + e.message; err.style.display = 'block'; return; }
+            if (!parsed.profile || !Array.isArray(parsed.experiences) || !Array.isArray(parsed.projects)) {
+                err.textContent = 'Le JSON doit contenir { profile, experiences[], projects[] }.';
+                err.style.display = 'block'; return;
+            }
+            DATA = {
+                profile: { ...DEFAULTS.profile, ...parsed.profile },
+                experiences: parsed.experiences,
+                projects: parsed.projects
+            };
+            saveData(DATA);
+            renderAll();
+            toast('Modifications enregistrées', 'ok');
+            closeModal();
+        }
+
+        function exportJson() {
+            const blob = new Blob([JSON.stringify(DATA, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'portfolio-content.json';
+            a.click();
+            URL.revokeObjectURL(a.href);
+            toast('Export téléchargé', 'ok');
+        }
+        function importJsonFile(e) {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            const r = new FileReader();
+            r.onload = () => {
+                document.getElementById('jsonEditor').value = r.result;
+                toast('Fichier chargé — clique Enregistrer pour appliquer', 'ok');
+            };
+            r.readAsText(file);
+        }
+
+        // Hidden URL trigger: ?admin=1 opens admin directly
+        if (new URLSearchParams(location.search).get('admin') === '1') {
+            setTimeout(() => { document.getElementById('adminTrigger').click(); }, 200);
+        }
     </script>
 </body>
 </html>

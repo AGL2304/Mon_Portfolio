@@ -2,18 +2,23 @@ def default_portfolio_content() -> dict:
     return {
         "profile": {
             "full_name": "ANANI Georges Lionel",
-            "headline": "Purple Team Engineer — Cybersecurite & DevSecOps",
+            "headline": "Purple Team Engineer - Cybersecurite, GRC & DevSecOps",
             "short_bio": (
                 "Etudiant en M1 Architecte des Systemes d'Information a l'Ecole-IT (option DevOps & Cybersecurite). "
-                "J'unifie l'offensif (pentest, exploitation web, CTF) et le defensif (hardening, CVE intel, SOC) "
-                "tout en automatisant le tout via Docker, Kubernetes et CI/CD."
+                "En stage chez IRFA-APISUP (Transformation Numerique & Conformite) - audit M365, RGPD, PSSI. "
+                "J'unifie l'offensif (pentest, exploitation web, CTF), le defensif (hardening, CVE intel) et "
+                "la gouvernance (RGPD, audit droits, sensibilisation), le tout automatise via Docker, Kubernetes et CI/CD. "
+                "Disponible en alternance des septembre 2026."
             ),
             "about": (
-                "Mon angle: Purple Team. Comprendre l'attaque pour mieux defendre, et automatiser pour ne plus "
-                "jamais reproduire la meme erreur. En parallele, je developpe des applications full-stack securisees "
-                "en Python (FastAPI), TypeScript (React/Vue) et PHP (Laravel/Symfony), et j'industrialise leur "
-                "deploiement avec Docker, Kubernetes (GKE) et des pipelines CI/CD complets. "
-                "Objectifs: eJPT puis OSCP, et une alternance dans une equipe DevSecOps ou un SOC orientee ingenierie."
+                "Mon angle : Purple Team. Comprendre l'attaque pour mieux defendre, automatiser pour ne plus "
+                "reproduire la meme erreur, et structurer la gouvernance pour que la securite tienne dans le temps. "
+                "Mon stage actuel chez IRFA-APISUP m'a permis de cartographier les usages M365 sur ~150 utilisateurs, "
+                "d'auditer ~200 comptes SharePoint/Teams et de piloter la conduite du changement aupres de ~40 collaborateurs. "
+                "En parallele, je developpe des applications full-stack securisees en Python (FastAPI), TypeScript "
+                "(React/Vue) et PHP (Laravel/Symfony), et j'industrialise leur deploiement avec Docker, Kubernetes (GKE) "
+                "et des pipelines CI/CD complets. "
+                "Objectifs : alternance DevSecOps/GRC des septembre 2026, eJPT puis OSCP."
             ),
             "location": "Amiens, France",
             "email": "charbelazon23@gmail.com",
@@ -24,18 +29,30 @@ def default_portfolio_content() -> dict:
         },
         "hero_tags": [
             "Purple Team",
-            "Pentest",
             "DevSecOps",
+            "RGPD & Audit M365",
+            "Pentest",
             "Docker / Kubernetes",
             "CI/CD",
             "Python · TypeScript · PHP",
-            "Cloud · AWS / GCP",
         ],
         "experiences": [
             {
+                "id": "stage-irfa-apisup",
+                "title": "Stagiaire Transformation Numerique & Conformite",
+                "company": "IRFA-APISUP, Amiens",
+                "period": "Janvier 2026 - Aujourd'hui",
+                "highlights": [
+                    "Cartographie des usages Microsoft 365 (SharePoint, Teams, Power BI) sur ~150 utilisateurs et 8 entites - cartographie des donnees sensibles et matrice de risques RGPD priorisee en 3 vagues",
+                    "Audit des droits d'acces SharePoint et Teams sur ~200 comptes - 12 ecarts au principe du moindre privilege identifies et plan de remediation a 90 jours en coherence avec la PSSI",
+                    "Conception de 4 livrables d'audit (cartographies, matrice de risques, recommandations priorisees) et animation de 3 sessions de sensibilisation cybersecurite/RGPD vulgarisees pour publics non techniques (RH, finance, direction)",
+                    "Pilotage de la conduite du changement aupres de ~40 collaborateurs - supports pedagogiques (fiches reflexes, FAQ) et reporting d'avancement dans un tableau de bord KPI/KRI hebdomadaire",
+                ],
+            },
+            {
                 "id": "stage-devops-metio",
-                "title": "Stage DevOps - Containerisation & CI/CD",
-                "company": "METIO",
+                "title": "Stagiaire DevOps & Developpement Web",
+                "company": "METIO (ex Iteracode), Amiens",
                 "period": "Mai - Septembre 2025",
                 "highlights": [
                     "Containerisation d'applications Node.js avec Docker multi-stage",
@@ -67,6 +84,19 @@ def default_portfolio_content() -> dict:
             },
         ],
         "projects": [
+            {
+                "id": "portail-irfa-apisup",
+                "title": "Portail interne IRFA-APISUP",
+                "date": "Mars 2026",
+                "categories": ["grc", "web"],
+                "description": (
+                    "Conception et developpement du portail interne pour IRFA-APISUP : "
+                    "tableau de bord KPI/KRI hebdomadaire, fiches reflexes, FAQ cybersecurite "
+                    "et zone documentaire de conduite du changement (~40 collaborateurs)."
+                ),
+                "technologies": ["SharePoint", "Power BI", "React", "TypeScript", "M365 Graph API"],
+                "repository_url": None,
+            },
             {
                 "id": "secure-chat",
                 "title": "Secure Chat E2E",

@@ -27,21 +27,32 @@ identity:
   location: Amiens, France
   school:   École-IT — M1 Architecte des Systèmes d'Information
   option:   DevOps & Cybersécurité
-  status:   Open to internships & alternance · 2026
+  current:  Stagiaire Transformation Numérique & Conformité @ IRFA-APISUP
+  status:   En recherche d'alternance dès Septembre 2026
 ```
 
 ## 🎯 Approche
 
-Je travaille à la croisée de **trois disciplines** : l'attaque, la défense, et l'automatisation.
+Je travaille à la croisée de **quatre disciplines** : attaque, défense, automatisation et gouvernance.
 
-| 🔴 **Red Team** | 🔵 **Blue Team** | ⚙️ **DevSecOps** |
-|---|---|---|
-| Web exploitation (SQLi, XSS, SSRF, IDOR) | Log analysis & incident response | Docker / Kubernetes (GKE) |
-| Network attacks & lateral movement | CVE tracking & vuln management | CI/CD (GitHub Actions, GitLab) |
-| Post-exploitation & persistence | System hardening & policies | IaC (Vagrant, Ansible) |
-| CTF (TryHackMe, HackTheBox, RootMe) | Application security & code audit | Cloud (AWS, GCP) |
+| 🔴 **Red Team** | 🔵 **Blue Team** | ⚙️ **DevSecOps** | 📋 **Gouvernance / RGPD** |
+|---|---|---|---|
+| Web exploitation (SQLi, XSS, SSRF, IDOR) | Log analysis & incident response | Docker / Kubernetes (GKE) | Audit M365 (SharePoint, Teams, Power BI) |
+| Network attacks & lateral movement | CVE tracking & vuln management | CI/CD (GitHub Actions, GitLab) | Cartographie données sensibles |
+| Post-exploitation & persistence | System hardening & policies | IaC (Vagrant, Ansible) | Matrice de risques RGPD |
+| CTF (TryHackMe, HackTheBox, RootMe) | Application security & code audit | Cloud (AWS, GCP) | Conduite du changement & sensibilisation |
 
 > **Pourquoi Purple ?** Parce que comprendre comment ça se casse fait écrire un code qui se casse moins.
+> Et parce qu'un bon contrôle technique sans gouvernance derrière ne tient pas dans le temps.
+
+## 💼 Expérience actuelle
+
+**Stagiaire Transformation Numérique & Conformité** — *IRFA-APISUP, Amiens · depuis 01/2026*
+
+- Cartographié les usages M365 sur **~150 utilisateurs** et **8 entités** → matrice de risques RGPD priorisée en 3 vagues
+- Audité **~200 comptes** SharePoint / Teams → 12 écarts au moindre privilège + plan de remédiation 90 jours alignés PSSI
+- Produit **4 livrables d'audit** et animé **3 sessions** de sensibilisation cybersécurité / RGPD pour publics non-tech
+- Piloté la conduite du changement sur **~40 collaborateurs** : fiches réflexes, FAQ, dashboard KPI / KRI hebdomadaire
 
 ---
 
@@ -103,6 +114,7 @@ Je travaille à la croisée de **trois disciplines** : l'attaque, la défense, e
 
 | Projet | Description | Stack |
 |---|---|---|
+| **Portail interne IRFA-APISUP** 🔒 | Portail intranet : tableau de bord KPI/KRI, fiches réflexes, FAQ cyber/RGPD pour ~40 collaborateurs (code interne) | SharePoint · Power BI · React · M365 Graph |
 | [**Secure Chat E2E**](https://github.com/AGL2304/Secure_Chat) | Messagerie chiffrée end-to-end, clé privée stockée navigateur uniquement | FastAPI · JWT · bcrypt · Vite |
 | [**FileShare**](https://github.com/AGL2304/fileshare) | Partage de fichiers sécurisé : JWT, MIME whitelist, rate-limit, S3 | React · Fastify · Prisma · PostgreSQL · Redis |
 | [**Red Teams VS Blue Teams**](https://github.com/AGL2304/Red_Teams_VS_Blue_Teams) | Plateforme de simulation attaque/défense avec scoring temps réel | TypeScript · Docker · WebSocket |
@@ -129,9 +141,10 @@ Je travaille à la croisée de **trois disciplines** : l'attaque, la défense, e
 
 ## 🎯 Objectifs 2026
 
+- [x] Stage Transformation Numérique & Conformité — IRFA-APISUP
+- [ ] **Alternance DevSecOps / GRC dès Septembre 2026**
 - [ ] **eJPT** — eLearnSecurity Junior Penetration Tester
 - [ ] **OSCP** — Offensive Security Certified Professional (long terme)
-- [ ] Alternance DevSecOps ou SOC ingénierie
 - [ ] Contribution active à un projet open-source sécurité
 
 ---
