@@ -35,4 +35,3 @@ describe("projectUtils", () => {
     expect(next.projects).toHaveLength(0);
   });
 });
-

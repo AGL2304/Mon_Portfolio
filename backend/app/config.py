@@ -10,9 +10,7 @@ class Settings(BaseSettings):
     debug: bool = False
 
     # PostgreSQL par defaut. SQLite reste accepte pour les tests / dev rapide.
-    database_url: str = (
-        "postgresql+psycopg2://portfolio:portfolio@localhost:5432/portfolio"
-    )
+    database_url: str = "postgresql+psycopg2://portfolio:portfolio@localhost:5432/portfolio"
 
     jwt_secret: str = "change-this-secret-in-production"
     jwt_algorithm: str = "HS256"
@@ -25,8 +23,8 @@ class Settings(BaseSettings):
     app_base_url: str = ""
 
     # Limites uploads (octets)
-    max_cv_size: int = 10 * 1024 * 1024       # 10 MB
-    max_photo_size: int = 5 * 1024 * 1024     # 5 MB
+    max_cv_size: int = 10 * 1024 * 1024  # 10 MB
+    max_photo_size: int = 5 * 1024 * 1024  # 5 MB
     allowed_photo_mimetypes: list[str] = [
         "image/jpeg",
         "image/png",

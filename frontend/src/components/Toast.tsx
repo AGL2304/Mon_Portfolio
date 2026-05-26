@@ -23,11 +23,7 @@ export function Toast({ toast, duration = 2400 }: ToastProps) {
 
   if (!toast) return null;
 
-  return (
-    <div className={`toast ${visible ? "show" : ""} ${toast.type}`}>
-      {toast.message}
-    </div>
-  );
+  return <div className={`toast ${visible ? "show" : ""} ${toast.type}`}>{toast.message}</div>;
 }
 
 export function useToast() {

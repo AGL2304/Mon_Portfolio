@@ -16,10 +16,19 @@ select = ["E", "W", "F", "I", "B", "UP", "S", "N"]
 ignore = [
     "E501",  # line length (geree par formatter)
     "S101",  # assert (utilise dans les tests)
+    # B008 : FastAPI utilise `Depends()` / `File()` en arguments par defaut
+    # comme pattern d'injection. Ce n'est pas un bug — c'est le bon usage.
+    "B008",
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**/*.py" = ["S105", "S106", "S311"]  # passwords/tokens en dur OK dans les tests
+# Tests : mots de passe et tokens en dur acceptables
+"tests/**/*.py" = ["S105", "S106", "S311"]
+# config.py : les valeurs par defaut sont des placeholders EXPLICITES
+# qui indiquent a l'utilisateur de les changer en production.
+"app/config.py" = ["S105"]
+# schemas.py : "bearer" est le type de token OAuth2 standard, pas un mot de passe.
+"app/schemas.py" = ["S105"]
 
 [tool.ruff.format]
 quote-style = "double"

@@ -115,8 +115,17 @@ def default_portfolio_content() -> dict:
                     "avec plan de remediation a 14/16 (87%)."
                 ),
                 "technologies": [
-                    "Kali Linux", "Burp Suite", "sqlmap", "John the Ripper", "Hashcat",
-                    "Nginx", "ModSecurity", "ELK Stack", "Docker", "Python", "OWASP Top 10",
+                    "Kali Linux",
+                    "Burp Suite",
+                    "sqlmap",
+                    "John the Ripper",
+                    "Hashcat",
+                    "Nginx",
+                    "ModSecurity",
+                    "ELK Stack",
+                    "Docker",
+                    "Python",
+                    "OWASP Top 10",
                 ],
                 "repository_url": None,
                 "private_note": "Rapport d'audit confidentiel - disponible sur demande",
@@ -161,7 +170,14 @@ def default_portfolio_content() -> dict:
                     "Demarche alignee avec les exigences de veille sur les menaces emergentes (NIS 2, "
                     "DORA, CRA)."
                 ),
-                "technologies": ["Next.js 15", "TypeScript", "Prisma", "SQLite", "Docker", "NVD API"],
+                "technologies": [
+                    "Next.js 15",
+                    "TypeScript",
+                    "Prisma",
+                    "SQLite",
+                    "Docker",
+                    "NVD API",
+                ],
                 "repository_url": "https://github.com/AGL2304/Projet_CVE_Trackers",
                 "private_note": None,
             },
@@ -190,7 +206,13 @@ def default_portfolio_content() -> dict:
                     "repos, authentification JWT, audit log des acces. Illustration de security by design "
                     "appliquee a la gestion de donnees sensibles."
                 ),
-                "technologies": ["Python", "FastAPI", "PostgreSQL", "JWT", "Chiffrement symetrique"],
+                "technologies": [
+                    "Python",
+                    "FastAPI",
+                    "PostgreSQL",
+                    "JWT",
+                    "Chiffrement symetrique",
+                ],
                 "repository_url": "https://github.com/AGL2304/securevault",
                 "private_note": None,
             },
@@ -218,7 +240,15 @@ def default_portfolio_content() -> dict:
                     "liens partageables avec mot de passe, MIME whitelist, rate-limiting, storage "
                     "S3-compatible."
                 ),
-                "technologies": ["React", "TypeScript", "Fastify", "Prisma", "PostgreSQL", "Redis", "Docker"],
+                "technologies": [
+                    "React",
+                    "TypeScript",
+                    "Fastify",
+                    "Prisma",
+                    "PostgreSQL",
+                    "Redis",
+                    "Docker",
+                ],
                 "repository_url": "https://github.com/AGL2304/fileshare",
                 "private_note": None,
             },
@@ -244,7 +274,15 @@ def default_portfolio_content() -> dict:
                     "Plateforme de competition de code en temps reel avec sandbox Docker pour execution "
                     "securisee du code utilisateur, leaderboard multijoueur via Socket.io et auth JWT."
                 ),
-                "technologies": ["Vue 3", "Pinia", "Node.js", "Express", "MongoDB", "Socket.io", "Docker"],
+                "technologies": [
+                    "Vue 3",
+                    "Pinia",
+                    "Node.js",
+                    "Express",
+                    "MongoDB",
+                    "Socket.io",
+                    "Docker",
+                ],
                 "repository_url": "https://github.com/AGL2304/CodeArena_EcoleIT_Pisc",
                 "private_note": None,
             },

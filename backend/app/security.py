@@ -1,5 +1,5 @@
-from datetime import datetime, timedelta, timezone
 import secrets
+from datetime import UTC, datetime, timedelta
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -26,7 +26,7 @@ def verify_admin_credentials(email: str | None, password: str) -> bool:
 
 def create_access_token() -> str:
     settings = get_settings()
-    expire = datetime.now(timezone.utc) + timedelta(minutes=settings.token_expire_minutes)
+    expire = datetime.now(UTC) + timedelta(minutes=settings.token_expire_minutes)
     payload = {"sub": "admin", "exp": expire}
     return jwt.encode(payload, settings.jwt_secret, algorithm=settings.jwt_algorithm)
 

@@ -39,7 +39,10 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      # Contexte = racine du repo pour pouvoir copier les portfolios statiques
+      # et le dossier grc/ dans l'image nginx.
+      context: .
+      dockerfile: ./frontend/Dockerfile
       args:
         VITE_API_URL: ${VITE_API_URL:-/api}
     container_name: portfolio-frontend
