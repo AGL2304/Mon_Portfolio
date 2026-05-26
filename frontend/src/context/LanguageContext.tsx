@@ -1,3 +1,8 @@
+/* eslint-disable react-refresh/only-export-components --
+ * Pattern Provider + hook(s) dans le meme fichier : volontaire pour
+ * garder la cohesion. Impact = full reload au lieu de HMR sur ce fichier
+ * en dev, ce qui est acceptable pour un portfolio de cette taille.
+ */
 import {
   createContext,
   ReactNode,
