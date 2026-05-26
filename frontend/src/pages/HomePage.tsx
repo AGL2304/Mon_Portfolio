@@ -2,17 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ProjectCard } from "../components/ProjectCard";
 import { Terminal } from "../components/Terminal";
+import { useLanguage, useT } from "../context/LanguageContext";
+import type { TranslationDict } from "../i18n/translations";
 import { fetchPublicContent } from "../services/api";
 import type { PortfolioContent } from "../types/portfolio";
-
-const FILTERS: { id: string; label: string }[] = [
-  { id: "all", label: "Tous" },
-  { id: "grc", label: "GRC / Conformité" },
-  { id: "security", label: "Sécurité / Pentest" },
-  { id: "devops", label: "DevOps" },
-  { id: "web", label: "Web" },
-  { id: "game", label: "Labs" },
-];
 
 const SKILL_ICONS: Record<string, string> = {
   "normes-reglementations": "📜",
@@ -28,31 +21,32 @@ const SKILL_ICONS: Record<string, string> = {
 
 const CERT_ICONS = ["🎓", "💻", "📐", "🧮", "🚩", "🎯", "📘", "🌐"];
 
-function buildTerminalLines(content: PortfolioContent): string[] {
+function buildTerminalLines(content: PortfolioContent, t: TranslationDict): string[] {
   const role = content.profile.headline || "Cybersécurité";
+  const tt = t.terminal;
+  const current = content.experiences.find((e) => e.current);
   return [
-    '<span class="t-prompt">georges@grc-lab</span>:<span class="t-key">~</span>$ <span class="t-cmd">whoami</span>',
-    `<span class="t-out">→ ${escapeHtml(content.profile.full_name)} · ${escapeHtml(content.profile.tagline || role)}</span>`,
+    `<span class="t-prompt">${tt.promptHost}</span>:<span class="t-key">~</span>$ <span class="t-cmd">${tt.cmdWhoami}</span>`,
+    `<span class="t-out">${escapeHtml(tt.whoamiOut(content.profile.full_name, content.profile.tagline || role))}</span>`,
     "",
-    '<span class="t-prompt">georges@grc-lab</span>:<span class="t-key">~</span>$ <span class="t-cmd">cat profile.json | jq</span>',
+    `<span class="t-prompt">${tt.promptHost}</span>:<span class="t-key">~</span>$ <span class="t-cmd">${tt.cmdProfile}</span>`,
     '<span class="t-out">{</span>',
-    `<span class="t-out">  "target":   "<span class="t-key">${escapeHtml(role)}</span>",</span>`,
+    `<span class="t-out">  "target":   "<span class="t-key">${escapeHtml(tt.targetLabel)}</span> · ${escapeHtml(tt.targetSuffix)}",</span>`,
+    `<span class="t-out">  "rhythm":   "${escapeHtml(tt.rhythm)}",</span>`,
     `<span class="t-out">  "status":   "${escapeHtml(content.profile.availability || "")}",</span>`,
     `<span class="t-out">  "english":  "${escapeHtml(content.profile.english_level || "")}",</span>`,
-    '<span class="t-out">  "normes":   ["ISO 27001", "HDS", "DORA", "NIS 2", "RGPD"],</span>',
+    '<span class="t-out">  "norms":    ["ISO 27001", "HDS", "DORA", "NIS 2", "RGPD"],</span>',
     '<span class="t-out">  "tryhackme":"<span class="t-key">Top 1%</span> · agl23"</span>',
     '<span class="t-out">}</span>',
     "",
-    '<span class="t-prompt">georges@grc-lab</span>:<span class="t-key">~</span>$ <span class="t-cmd">./status.sh</span>',
-    ...(content.experiences.find((e) => e.current)
+    `<span class="t-prompt">${tt.promptHost}</span>:<span class="t-key">~</span>$ <span class="t-cmd">${tt.cmdStatus}</span>`,
+    ...(current
       ? [
-          `<span class="t-ok">✓</span> <span class="t-out">Stage en cours · ${escapeHtml(
-            content.experiences.find((e) => e.current)?.company || "",
-          )}</span>`,
+          `<span class="t-ok">✓</span> <span class="t-out">${escapeHtml(tt.currentInternship(current.company))}</span>`,
         ]
       : []),
-    '<span class="t-ok">✓</span> <span class="t-out">EBIOS Risk Manager · ISO 27001 Lead Implementer (en cours)</span>',
-    '<span class="t-warn">!</span> <span class="t-out">Ouvert aux entretiens — réponse sous 24h</span>',
+    `<span class="t-ok">✓</span> <span class="t-out">${escapeHtml(tt.cert)}</span>`,
+    `<span class="t-warn">!</span> <span class="t-out">${escapeHtml(tt.openToInterviews)}</span>`,
     "",
   ];
 }
@@ -67,6 +61,8 @@ function escapeHtml(s: string): string {
 }
 
 export function HomePage() {
+  const t = useT();
+  const { lang, toggleLang } = useLanguage();
   const [content, setContent] = useState<PortfolioContent | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
@@ -113,6 +109,18 @@ export function HomePage() {
     return () => obs.disconnect();
   }, [content]);
 
+  const FILTERS = useMemo(
+    () => [
+      { id: "all", label: t.projects.filterAll },
+      { id: "grc", label: t.projects.filterGrc },
+      { id: "security", label: t.projects.filterSecurity },
+      { id: "devops", label: t.projects.filterDevops },
+      { id: "web", label: t.projects.filterWeb },
+      { id: "game", label: t.projects.filterLabs },
+    ],
+    [t],
+  );
+
   const filteredProjects = useMemo(() => {
     if (!content) return [];
     if (filter === "all") return content.projects;
@@ -131,12 +139,12 @@ export function HomePage() {
   }, [content]);
 
   if (loading) {
-    return <main className="page-state">Chargement du portfolio…</main>;
+    return <main className="page-state">{t.common.loading}</main>;
   }
   if (error || !content) {
     return (
       <main className="page-state error">
-        Impossible de charger le portfolio.
+        {t.common.loadError}
         <span>{error}</span>
       </main>
     );
@@ -152,6 +160,9 @@ export function HomePage() {
     .join("")
     .toUpperCase();
   const currentExp = content.experiences.find((e) => e.current);
+
+  const langButtonLabel = lang === "fr" ? "EN" : "FR";
+  const langButtonTitle = lang === "fr" ? t.common.switchToEN : t.common.switchToFR;
 
   return (
     <>
@@ -187,31 +198,49 @@ export function HomePage() {
             <button
               className="nav-toggle"
               onClick={() => setNavOpen((v) => !v)}
-              aria-label="Menu"
+              aria-label={t.nav.menu}
             >
               ☰
             </button>
             <div className={`nav-links ${navOpen ? "open" : ""}`}>
               <a href="#about" onClick={() => setNavOpen(false)}>
-                À propos
+                {t.nav.about}
               </a>
               <a href="#projects" onClick={() => setNavOpen(false)}>
-                Projets
+                {t.nav.projects}
               </a>
               <a href="#experience" onClick={() => setNavOpen(false)}>
-                Expérience
+                {t.nav.experience}
               </a>
               <a href="#skills" onClick={() => setNavOpen(false)}>
-                Stack
+                {t.nav.skills}
               </a>
               <a href="#certifications" onClick={() => setNavOpen(false)}>
-                Formation
+                {t.nav.certifications}
+              </a>
+              <a href="#grc" onClick={() => setNavOpen(false)}>
+                {t.nav.grc}
               </a>
               <a href="#contact" className="nav-cta" onClick={() => setNavOpen(false)}>
-                Me contacter
+                {t.nav.contact}
               </a>
             </div>
-            <Link to="/admin/login" className="nav-admin" title="Espace admin">
+            <button
+              type="button"
+              className="nav-admin"
+              onClick={toggleLang}
+              title={langButtonTitle}
+              aria-label={langButtonTitle}
+              style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "11px",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              {langButtonLabel}
+            </button>
+            <Link to="/admin/login" className="nav-admin" title={t.nav.adminPanel}>
               ⚙
             </Link>
           </div>
@@ -231,7 +260,7 @@ export function HomePage() {
                 )}
                 <span
                   className="hero-avatar-online"
-                  title={profile.availability || "Disponible"}
+                  title={profile.availability || t.hero.availableTitle}
                 />
               </div>
               <div className="hero-id-meta">
@@ -246,9 +275,10 @@ export function HomePage() {
             </div>
 
             <h1 className="hero-title">
-              Alternant <span className="grad">GRC.</span>
+              {t.hero.titleLine1 && <>{t.hero.titleLine1} </>}
+              <span className="grad">{t.hero.titleLine1Tag}</span>
               <br />
-              Cybersécurité · Conformité · Risques.
+              {t.hero.titleLine2}
             </h1>
 
             <p
@@ -266,11 +296,11 @@ export function HomePage() {
 
             <div className="hero-cta">
               <a href="#projects" className="btn btn-primary">
-                Voir mes projets →
+                {t.hero.ctaProjects}
               </a>
               {cvUrl && (
                 <a href={cvUrl} download className="btn btn-ghost">
-                  📄 Télécharger mon CV
+                  {t.hero.ctaCV}
                 </a>
               )}
               {profile.github_url && (
@@ -288,24 +318,24 @@ export function HomePage() {
             <div className="hero-metrics">
               <div className="metric">
                 <div className="metric-num">{content.projects.length}+</div>
-                <div className="metric-label">Projets</div>
+                <div className="metric-label">{t.hero.metricProjects}</div>
               </div>
               <div className="metric">
                 <div className="metric-num">{content.experiences.length}</div>
-                <div className="metric-label">Stages cyber/DevOps</div>
+                <div className="metric-label">{t.hero.metricInternships}</div>
               </div>
               <div className="metric">
                 <div className="metric-num">185</div>
-                <div className="metric-label">Salles TryHackMe</div>
+                <div className="metric-label">{t.hero.metricThm}</div>
               </div>
               <div className="metric">
                 <div className="metric-num">C1</div>
-                <div className="metric-label">Anglais · Gymglish</div>
+                <div className="metric-label">{t.hero.metricEnglish}</div>
               </div>
             </div>
           </div>
 
-          <Terminal lines={buildTerminalLines(content)} title="~/grc-profile.sh — zsh" />
+          <Terminal lines={buildTerminalLines(content, t)} title="~/grc-profile.sh — zsh" />
         </div>
       </section>
 
@@ -313,25 +343,24 @@ export function HomePage() {
       <section id="about">
         <div className="container">
           <div className="section-head" data-reveal>
-            <span className="section-eyebrow">// 01. À propos</span>
+            <span className="section-eyebrow">{t.about.eyebrow}</span>
             <h2 className="section-title">
-              Audit, risques, automatisation — <span className="grad">le triangle de la sécu durable.</span>
+              {t.about.titleStart} <span className="grad">{t.about.titleEnd}</span>
             </h2>
-            <p className="section-sub">
-              Mon objectif : structurer la gouvernance, traduire la réglementation en contrôles concrets,
-              et automatiser leur vérification — pour que la sécurité tienne dans le temps, pas seulement
-              le jour de l'audit.
-            </p>
+            <p className="section-sub">{t.about.sub}</p>
           </div>
 
           <div className="about-grid">
             <div className="about-text" data-reveal>
-              {profile.about.split(/\n+/).filter(Boolean).map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+              {profile.about
+                .split(/\n+/)
+                .filter(Boolean)
+                .map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
               {currentExp && (
                 <p>
-                  <strong>Stage en cours :</strong> {currentExp.title} chez{" "}
+                  <strong>{t.about.currentLabel}</strong> {currentExp.title} {t.about.currentMiddle}{" "}
                   <strong>{currentExp.company}</strong> ({currentExp.period}).
                 </p>
               )}
@@ -340,31 +369,23 @@ export function HomePage() {
             <div className="focus-grid" data-reveal>
               <div className="focus">
                 <span className="focus-icon">📋</span>
-                <div className="focus-title">Audit &amp; Compliance</div>
-                <div className="focus-desc">
-                  ISO 27001 (SMSI), HDS, DORA, NIS 2, RGPD, CRA, NIST CSF.
-                </div>
+                <div className="focus-title">{t.about.focus.auditTitle}</div>
+                <div className="focus-desc">{t.about.focus.auditDesc}</div>
               </div>
               <div className="focus">
                 <span className="focus-icon">🎯</span>
-                <div className="focus-title">Risques</div>
-                <div className="focus-desc">
-                  EBIOS RM, AIPD, TPRM, PCA/PRA, comitologie, KPI/KRI.
-                </div>
+                <div className="focus-title">{t.about.focus.riskTitle}</div>
+                <div className="focus-desc">{t.about.focus.riskDesc}</div>
               </div>
               <div className="focus">
                 <span className="focus-icon">⚙️</span>
-                <div className="focus-title">DevSecOps</div>
-                <div className="focus-desc">
-                  Docker, K8s (GKE), GitHub Actions, Ansible, scanners.
-                </div>
+                <div className="focus-title">{t.about.focus.devsecopsTitle}</div>
+                <div className="focus-desc">{t.about.focus.devsecopsDesc}</div>
               </div>
               <div className="focus">
                 <span className="focus-icon">🛡️</span>
-                <div className="focus-title">Pentest &amp; CTI</div>
-                <div className="focus-desc">
-                  Burp, Nmap, sqlmap, Metasploit, OpenVAS, Nessus, MITRE ATT&amp;CK.
-                </div>
+                <div className="focus-title">{t.about.focus.pentestTitle}</div>
+                <div className="focus-desc">{t.about.focus.pentestDesc}</div>
               </div>
             </div>
           </div>
@@ -375,12 +396,9 @@ export function HomePage() {
       <section id="projects">
         <div className="container">
           <div className="section-head" data-reveal>
-            <span className="section-eyebrow">// 02. Projets</span>
-            <h2 className="section-title">Projets publiés.</h2>
-            <p className="section-sub">
-              Projets en environnement régulé (HDS / RGPD), CTI maison et travaux de pentest — filtrables
-              par domaine.
-            </p>
+            <span className="section-eyebrow">{t.projects.eyebrow}</span>
+            <h2 className="section-title">{t.projects.title}</h2>
+            <p className="section-sub">{t.projects.sub}</p>
           </div>
 
           <div className="filters" data-reveal>
@@ -390,10 +408,7 @@ export function HomePage() {
                 className={`filter-btn ${filter === f.id ? "active" : ""}`}
                 onClick={() => setFilter(f.id)}
               >
-                {f.label}{" "}
-                <span className="filter-count">
-                  ({filterCounts[f.id] ?? 0})
-                </span>
+                {f.label} <span className="filter-count">({filterCounts[f.id] ?? 0})</span>
               </button>
             ))}
           </div>
@@ -406,15 +421,16 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ============= GRC DELIVERABLES ============= */}
+      <GrcSection />
+
       {/* ============= EXPERIENCE ============= */}
       <section id="experience">
         <div className="container">
           <div className="section-head" data-reveal>
-            <span className="section-eyebrow">// 03. Expérience</span>
-            <h2 className="section-title">Parcours pro.</h2>
-            <p className="section-sub">
-              Trois stages complémentaires : audit M365 / RGPD, DevSecOps Kubernetes, audit pentest.
-            </p>
+            <span className="section-eyebrow">{t.experience.eyebrow}</span>
+            <h2 className="section-title">{t.experience.title}</h2>
+            <p className="section-sub">{t.experience.sub}</p>
           </div>
 
           <div className="timeline">
@@ -449,11 +465,9 @@ export function HomePage() {
       <section id="skills">
         <div className="container">
           <div className="section-head" data-reveal>
-            <span className="section-eyebrow">// 04. Stack technique</span>
-            <h2 className="section-title">Compétences techniques.</h2>
-            <p className="section-sub">
-              Normes, analyse de risques, audit, sécurité applicative, outils de pentest et DevSecOps.
-            </p>
+            <span className="section-eyebrow">{t.skills.eyebrow}</span>
+            <h2 className="section-title">{t.skills.title}</h2>
+            <p className="section-sub">{t.skills.sub}</p>
           </div>
 
           <div className="skills-grid">
@@ -478,11 +492,9 @@ export function HomePage() {
       <section id="certifications">
         <div className="container">
           <div className="section-head" data-reveal>
-            <span className="section-eyebrow">// 05. Formation &amp; certifications</span>
-            <h2 className="section-title">Parcours académique &amp; certifs.</h2>
-            <p className="section-sub">
-              Cursus diplômant en France et au Maroc + certifications cyber en cours.
-            </p>
+            <span className="section-eyebrow">{t.certs.eyebrow}</span>
+            <h2 className="section-title">{t.certs.title}</h2>
+            <p className="section-sub">{t.certs.sub}</p>
           </div>
 
           <div className="certs">
@@ -492,7 +504,7 @@ export function HomePage() {
                 <div>
                   <div className="cert-title">
                     {c.title}
-                    {c.in_progress && <span className="cert-badge">En cours</span>}
+                    {c.in_progress && <span className="cert-badge">{t.certs.inProgress}</span>}
                   </div>
                   <div className="cert-sub">{c.subtitle}</div>
                   <div className="cert-desc">{c.description}</div>
@@ -507,8 +519,8 @@ export function HomePage() {
       <section id="interests">
         <div className="container">
           <div className="section-head" data-reveal>
-            <span className="section-eyebrow">// 06. Centres d'intérêt</span>
-            <h2 className="section-title">Hors clavier.</h2>
+            <span className="section-eyebrow">{t.interests.eyebrow}</span>
+            <h2 className="section-title">{t.interests.title}</h2>
           </div>
 
           <div className="interests">
@@ -527,21 +539,18 @@ export function HomePage() {
       <section id="contact">
         <div className="container">
           <div className="contact-card" data-reveal>
-            <h2 className="contact-title">On échange ?</h2>
-            <p className="contact-sub">
-              Alternance Cybersécurité GRC dès septembre 2026 · rythme 3 sem. entreprise / 1 sem. école.
-              Disponible pour des entretiens en visio ou sur Paris.
-            </p>
+            <h2 className="contact-title">{t.contact.title}</h2>
+            <p className="contact-sub">{t.contact.sub}</p>
             <div className="contact-actions">
               <a
-                href={`mailto:${profile.email}?subject=Alternance%20Cybers%C3%A9curit%C3%A9%20GRC`}
+                href={`mailto:${profile.email}?subject=${encodeURIComponent(t.contact.mailSubject)}`}
                 className="btn btn-primary"
               >
                 ✉ {profile.email}
               </a>
               {cvUrl && (
                 <a href={cvUrl} download className="btn btn-ghost">
-                  📄 Télécharger mon CV
+                  {t.contact.ctaCV}
                 </a>
               )}
               {profile.linkedin_url && (
@@ -567,7 +576,6 @@ export function HomePage() {
             </div>
             <div className="contact-meta">
               {profile.address && <span>📍 {profile.address}</span>}
-              {profile.phone && <span>📞 {profile.phone}</span>}
               {profile.location && <span>🎓 {profile.location}</span>}
             </div>
           </div>
@@ -595,7 +603,7 @@ export function HomePage() {
             <a href={`mailto:${profile.email}`}>Email</a>
             {cvUrl && (
               <a href={cvUrl} download>
-                CV (PDF)
+                {t.footer.cv}
               </a>
             )}
           </div>
@@ -609,22 +617,174 @@ export function HomePage() {
   );
 }
 
+// ============================================================
+//  GRC SECTION — composant interne, traduit via useT()
+// ============================================================
+function GrcSection() {
+  const t = useT();
+  const c = t.grc.cards;
+  return (
+    <section id="grc">
+      <div className="container">
+        <div className="section-head" data-reveal>
+          <span className="section-eyebrow">{t.grc.eyebrow}</span>
+          <h2 className="section-title">
+            {t.grc.titleStart} <span className="grad">{t.grc.titleEnd}</span>
+          </h2>
+          <p className="section-sub">{t.grc.sub}</p>
+        </div>
+
+        <div className="certs">
+          <a
+            className="cert"
+            href="/grc/iso-27001-control-matrix.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-reveal
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <div className="cert-icon">📋</div>
+            <div>
+              <div className="cert-title">
+                {c.isoTitle} <span className="cert-badge">{c.isoBadge}</span>
+              </div>
+              <div className="cert-sub">{c.isoSub}</div>
+              <div className="cert-desc">
+                {c.isoDesc}{" "}
+                <span style={{ display: "inline-block", marginTop: 4 }}>
+                  <a
+                    href="/grc/iso-27001-control-matrix.md"
+                    style={{ color: "var(--accent)" }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {c.isoLinkMd}
+                  </a>
+                  {" · "}
+                  <a
+                    href="/grc/iso-27001-control-matrix.csv"
+                    style={{ color: "var(--accent)" }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {c.isoLinkCsv}
+                  </a>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a
+            className="cert"
+            href="/grc/ebios-rm-template.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-reveal
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <div className="cert-icon">🎯</div>
+            <div>
+              <div className="cert-title">
+                {c.ebiosTitle} <span className="cert-badge">{c.ebiosBadge}</span>
+              </div>
+              <div className="cert-sub">{c.ebiosSub}</div>
+              <div className="cert-desc">{c.ebiosDesc}</div>
+            </div>
+          </a>
+
+          <a
+            className="cert"
+            href="/grc/registre-traitements-rgpd.csv"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-reveal
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <div className="cert-icon">🔐</div>
+            <div>
+              <div className="cert-title">
+                {c.rgpdTitle} <span className="cert-badge">{c.rgpdBadge}</span>
+              </div>
+              <div className="cert-sub">{c.rgpdSub}</div>
+              <div className="cert-desc">{c.rgpdDesc}</div>
+            </div>
+          </a>
+
+          <a
+            className="cert"
+            href="/grc/pssi-modele.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-reveal
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <div className="cert-icon">🛡️</div>
+            <div>
+              <div className="cert-title">
+                {c.pssiTitle} <span className="cert-badge">{c.pssiBadge}</span>
+              </div>
+              <div className="cert-sub">{c.pssiSub}</div>
+              <div className="cert-desc">{c.pssiDesc}</div>
+            </div>
+          </a>
+        </div>
+
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: 28,
+            color: "var(--text-mute)",
+            fontSize: 13,
+          }}
+        >
+          📂 {t.grc.browseAll} :{" "}
+          <a
+            href="/grc/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "var(--accent)",
+              fontFamily: "'JetBrains Mono', monospace",
+            }}
+          >
+            grc/
+          </a>{" "}
+          ·{" "}
+          <a
+            href="https://github.com/AGL2304/Mon_Portfolio/tree/main/grc"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "var(--accent)",
+              fontFamily: "'JetBrains Mono', monospace",
+            }}
+          >
+            {t.grc.alsoOnGithub}
+          </a>
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function enrichBio(text: string): string {
-  // met en gras quelques mots clés régulations pour aérer la lecture
+  // met en gras quelques mots cles regulations pour aerer la lecture
   const KEY = [
     "ISO 27001",
+    "ISO/IEC 27001",
     "HDS",
     "DORA",
     "NIS 2",
     "RGPD",
+    "GDPR",
     "EBIOS",
     "GRC",
     "PSSI",
+    "ISSP",
     "OWASP",
     "TPRM",
     "Cyber Resilience Act",
     "Mastère Architectures Systèmes, Réseaux & Sécurité",
     "Architectures Systèmes",
+    "Systems, Networks & Security Architecture",
     "IRFA-APISUP",
     "TryHackMe",
   ];

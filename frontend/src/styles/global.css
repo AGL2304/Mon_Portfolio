@@ -41,7 +41,11 @@ html {
 }
 
 body {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -70,7 +74,8 @@ button {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image: linear-gradient(rgba(139, 92, 246, 0.06) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(139, 92, 246, 0.06) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
@@ -143,7 +148,9 @@ button {
   border-radius: 50%;
   object-fit: cover;
   background: var(--grad);
-  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.35), 0 4px 16px rgba(139, 92, 246, 0.3);
+  box-shadow:
+    0 0 0 2px rgba(139, 92, 246, 0.35),
+    0 4px 16px rgba(139, 92, 246, 0.3);
 }
 .brand small {
   display: block;
@@ -179,7 +186,9 @@ button {
   color: #0a0a12 !important;
   font-weight: 600;
   box-shadow: 0 4px 18px rgba(139, 92, 246, 0.35);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 .nav-cta:hover {
   transform: translateY(-1px);
@@ -195,7 +204,10 @@ button {
   display: grid;
   place-items: center;
   font-size: 16px;
-  transition: color 0.2s, border-color 0.2s, transform 0.3s;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.3s;
 }
 .nav-admin:hover {
   color: var(--accent);
@@ -247,7 +259,11 @@ button {
   font-weight: 600;
   font-size: 14px;
   border: 1px solid transparent;
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    background 0.2s,
+    border-color 0.2s;
   font-family: "Inter", sans-serif;
   cursor: pointer;
 }
@@ -320,7 +336,9 @@ button {
   height: 110px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5), 0 0 0 6px rgba(139, 92, 246, 0.12),
+  box-shadow:
+    0 0 0 2px rgba(139, 92, 246, 0.5),
+    0 0 0 6px rgba(139, 92, 246, 0.12),
     0 12px 30px rgba(0, 0, 0, 0.4);
   background: var(--grad);
 }
@@ -335,7 +353,9 @@ button {
   font-weight: 700;
   font-size: 2.6rem;
   color: #0a0a12;
-  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5), 0 0 0 6px rgba(139, 92, 246, 0.12),
+  box-shadow:
+    0 0 0 2px rgba(139, 92, 246, 0.5),
+    0 0 0 6px rgba(139, 92, 246, 0.12),
     0 12px 30px rgba(0, 0, 0, 0.4);
 }
 .hero-avatar-online {
@@ -630,7 +650,9 @@ section {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.02);
-  transition: border-color 0.25s, transform 0.25s;
+  transition:
+    border-color 0.25s,
+    transform 0.25s;
 }
 .focus:hover {
   border-color: var(--border-strong);
@@ -712,7 +734,10 @@ section {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1), border-color 0.25s, box-shadow 0.3s;
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1),
+    border-color 0.25s,
+    box-shadow 0.3s;
 }
 .project::before {
   content: "";
@@ -722,7 +747,9 @@ section {
   padding: 1px;
   background: var(--grad);
   opacity: 0;
-  -webkit-mask: linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff);
+  -webkit-mask:
+    linear-gradient(#fff, #fff) content-box,
+    linear-gradient(#fff, #fff);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
@@ -868,12 +895,16 @@ section {
   box-shadow: 0 0 0 4px var(--bg);
 }
 .tl-item.is-current::before {
-  box-shadow: 0 0 0 4px var(--bg), 0 0 0 8px rgba(16, 185, 129, 0.3);
+  box-shadow:
+    0 0 0 4px var(--bg),
+    0 0 0 8px rgba(16, 185, 129, 0.3);
   animation: pulseGreen 2s infinite;
 }
 @keyframes pulseGreen {
   50% {
-    box-shadow: 0 0 0 4px var(--bg), 0 0 0 12px rgba(16, 185, 129, 0);
+    box-shadow:
+      0 0 0 4px var(--bg),
+      0 0 0 12px rgba(16, 185, 129, 0);
   }
 }
 .tl-head {
@@ -949,7 +980,9 @@ section {
   border-radius: var(--radius);
   background: linear-gradient(180deg, rgba(28, 28, 54, 0.3), rgba(15, 15, 26, 0.4));
   padding: 22px;
-  transition: border-color 0.25s, transform 0.25s;
+  transition:
+    border-color 0.25s,
+    transform 0.25s;
 }
 .skill-card:hover {
   border-color: var(--border-strong);
@@ -1072,7 +1105,9 @@ section {
   padding: 18px;
   background: rgba(255, 255, 255, 0.02);
   text-align: center;
-  transition: transform 0.25s, border-color 0.25s;
+  transition:
+    transform 0.25s,
+    border-color 0.25s;
 }
 .interest:hover {
   transform: translateY(-4px);
@@ -1097,7 +1132,8 @@ section {
 .contact-card {
   border: 1px solid var(--border-strong);
   border-radius: 20px;
-  background: radial-gradient(ellipse at 0% 0%, rgba(139, 92, 246, 0.18), transparent 60%),
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(139, 92, 246, 0.18), transparent 60%),
     radial-gradient(ellipse at 100% 100%, rgba(34, 211, 238, 0.14), transparent 60%),
     rgba(15, 15, 26, 0.6);
   padding: 50px 40px;
@@ -1159,7 +1195,9 @@ section {
   gap: 6px;
   padding: 6px 12px;
   border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
+  transition:
+    color 0.2s,
+    background 0.2s;
 }
 .socials a:hover {
   color: var(--text);
@@ -1250,7 +1288,10 @@ section {
   font-family: "Inter", sans-serif;
   white-space: nowrap;
   border-bottom: 2px solid transparent;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s;
 }
 .admin-tab:hover {
   color: var(--text);
@@ -1312,7 +1353,9 @@ section {
   color: var(--text);
   font-family: "Inter", sans-serif;
   font-size: 14px;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 .field-textarea {
   font-family: "JetBrains Mono", monospace;
@@ -1461,7 +1504,9 @@ section {
   z-index: 200;
   transform: translateY(20px);
   opacity: 0;
-  transition: transform 0.25s, opacity 0.25s;
+  transition:
+    transform 0.25s,
+    opacity 0.25s;
 }
 .toast.show {
   transform: translateY(0);

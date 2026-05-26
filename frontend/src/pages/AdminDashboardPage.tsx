@@ -136,11 +136,7 @@ export function AdminDashboardPage() {
             <Link to="/" className="btn btn-ghost btn-sm">
               ← Voir le site
             </Link>
-            <button
-              className="btn btn-primary btn-sm"
-              onClick={handleSave}
-              disabled={!dirty}
-            >
+            <button className="btn btn-primary btn-sm" onClick={handleSave} disabled={!dirty}>
               💾 Enregistrer{dirty ? " *" : ""}
             </button>
             <button className="btn btn-ghost btn-sm" onClick={handleLogout}>
@@ -253,8 +249,8 @@ function ProfileTab({
     <div className="admin-section">
       <h2>Informations personnelles</h2>
       <p className="section-help">
-        Toutes ces données apparaissent dans le hero, le footer et la section contact. Le CV et la photo
-        s'éditent dans l'onglet « Photo &amp; CV ».
+        Toutes ces données apparaissent dans le hero, le footer et la section contact. Le CV et la
+        photo s'éditent dans l'onglet « Photo &amp; CV ».
       </p>
       <div className="admin-grid">
         <Field label="Nom complet" value={p.full_name} onChange={(v) => set("full_name", v)} />
@@ -276,18 +272,32 @@ function ProfileTab({
           textarea
           full
         />
-        <Field label="À propos (long)" value={p.about} onChange={(v) => set("about", v)} textarea full />
+        <Field
+          label="À propos (long)"
+          value={p.about}
+          onChange={(v) => set("about", v)}
+          textarea
+          full
+        />
         <Field label="Email" value={p.email} onChange={(v) => set("email", v)} />
         <Field label="Téléphone" value={p.phone} onChange={(v) => set("phone", v)} />
         <Field label="Adresse" value={p.address} onChange={(v) => set("address", v)} full />
-        <Field label="Localisation (résumée)" value={p.location} onChange={(v) => set("location", v)} />
+        <Field
+          label="Localisation (résumée)"
+          value={p.location}
+          onChange={(v) => set("location", v)}
+        />
         <Field
           label="Niveau d'anglais"
           value={p.english_level}
           onChange={(v) => set("english_level", v)}
         />
         <Field label="URL GitHub" value={p.github_url} onChange={(v) => set("github_url", v)} />
-        <Field label="URL LinkedIn" value={p.linkedin_url} onChange={(v) => set("linkedin_url", v)} />
+        <Field
+          label="URL LinkedIn"
+          value={p.linkedin_url}
+          onChange={(v) => set("linkedin_url", v)}
+        />
         <Field
           label="URL TryHackMe"
           value={p.tryhackme_url}
@@ -432,7 +442,8 @@ function MediaTab({
       <div className="admin-section">
         <h2>CV (PDF)</h2>
         <p className="section-help">
-          Fichier PDF (max 10 MB). Le bouton « Télécharger mon CV » du site pointera vers ce fichier.
+          Fichier PDF (max 10 MB). Le bouton « Télécharger mon CV » du site pointera vers ce
+          fichier.
         </p>
 
         <div className={`cv-status ${content.profile.cv_url ? "" : "empty"}`}>
@@ -449,11 +460,7 @@ function MediaTab({
                   voir
                 </a>
               </span>
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={handleCvDelete}
-                disabled={cvBusy}
-              >
+              <button className="btn btn-danger btn-sm" onClick={handleCvDelete} disabled={cvBusy}>
                 🗑 Supprimer
               </button>
             </>
@@ -547,8 +554,16 @@ function ExperiencesTab({
               value={exp.company}
               onChange={(v) => patch(exp.id, { company: v })}
             />
-            <Field label="Ville" value={exp.location} onChange={(v) => patch(exp.id, { location: v })} />
-            <Field label="Période" value={exp.period} onChange={(v) => patch(exp.id, { period: v })} />
+            <Field
+              label="Ville"
+              value={exp.location}
+              onChange={(v) => patch(exp.id, { location: v })}
+            />
+            <Field
+              label="Période"
+              value={exp.period}
+              onChange={(v) => patch(exp.id, { period: v })}
+            />
             <div>
               <label className="field-label">En cours ?</label>
               <label style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 8 }}>
@@ -655,8 +670,8 @@ function ProjectsTab({
       <h2>Projets</h2>
       <p className="section-help">
         Catégories possibles : <code>grc</code>, <code>security</code>, <code>devops</code>,{" "}
-        <code>web</code>, <code>game</code>. Séparer par des virgules. Si <em>URL du repo</em> est vide, le
-        projet apparaîtra comme « privé » avec la note privée.
+        <code>web</code>, <code>game</code>. Séparer par des virgules. Si <em>URL du repo</em> est
+        vide, le projet apparaîtra comme « privé » avec la note privée.
       </p>
       <div className="add-item-row">
         <button className="btn btn-primary btn-sm" onClick={add}>
@@ -680,7 +695,10 @@ function ProjectsTab({
               value={p.categories.join(", ")}
               onChange={(v) =>
                 patch(p.id, {
-                  categories: v.split(",").map((s) => s.trim()).filter(Boolean),
+                  categories: v
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter(Boolean),
                 })
               }
             />
@@ -696,7 +714,10 @@ function ProjectsTab({
               value={p.technologies.join(", ")}
               onChange={(v) =>
                 patch(p.id, {
-                  technologies: v.split(",").map((s) => s.trim()).filter(Boolean),
+                  technologies: v
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter(Boolean),
                 })
               }
               full
@@ -766,7 +787,12 @@ function SkillsTab({
                 className="field-textarea"
                 value={s.items.join("\n")}
                 onChange={(e) =>
-                  patch(s.id, { items: e.target.value.split("\n").map((x) => x.trim()).filter(Boolean) })
+                  patch(s.id, {
+                    items: e.target.value
+                      .split("\n")
+                      .map((x) => x.trim())
+                      .filter(Boolean),
+                  })
                 }
               />
             </div>
@@ -822,7 +848,12 @@ function CertificationsTab({
           <div className="admin-grid">
             <Field label="ID" value={c.id} onChange={(v) => patch(c.id, { id: v })} />
             <Field label="Titre" value={c.title} onChange={(v) => patch(c.id, { title: v })} />
-            <Field label="Sous-titre" value={c.subtitle} onChange={(v) => patch(c.id, { subtitle: v })} full />
+            <Field
+              label="Sous-titre"
+              value={c.subtitle}
+              onChange={(v) => patch(c.id, { subtitle: v })}
+              full
+            />
             <Field
               label="Description"
               value={c.description}
@@ -884,7 +915,12 @@ function InterestsTab({
           style={{ minHeight: 160 }}
           value={heroTags.join("\n")}
           onChange={(e) =>
-            onHeroTags(e.target.value.split("\n").map((x) => x.trim()).filter(Boolean))
+            onHeroTags(
+              e.target.value
+                .split("\n")
+                .map((x) => x.trim())
+                .filter(Boolean),
+            )
           }
         />
       </div>
@@ -1009,4 +1045,3 @@ function Field({
     </div>
   );
 }
-

@@ -24,7 +24,7 @@ CORS / cookies, etc.), **merci de ne pas ouvrir d'issue publique**.
 
 Précisez si possible :
 
-- Le composant impacté (`backend`, `frontend`, `portfolio.html`, Docker, CI…)
+- Le composant impacté (`backend`, `frontend`, `grc/`, Docker, CI…)
 - Une preuve de concept reproductible (commande, requête HTTP, capture)
 - L'impact estimé (CVSS si vous l'avez)
 - Vos coordonnées pour un crédit éventuel
@@ -42,7 +42,7 @@ Précisez si possible :
 
 Sont **dans le périmètre** :
 
-- Code applicatif (`backend/`, `frontend/`, `portfolio.html`)
+- Code applicatif (`backend/`, `frontend/`)
 - Configuration Docker / CI exposant des secrets
 - Dépendances avec CVE connues (rapport via GitHub Dependabot bienvenu)
 - Mauvaises pratiques d'auth / session / CSRF / CORS

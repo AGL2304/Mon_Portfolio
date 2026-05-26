@@ -11,9 +11,7 @@ def test_login_success_with_email_and_password(client):
 
 def test_login_failure_without_email(client):
     # L'email est obligatoire : sans email -> 401.
-    response = client.post(
-        "/api/auth/login", json={"password": "test-admin-password"}
-    )
+    response = client.post("/api/auth/login", json={"password": "test-admin-password"})
     assert response.status_code in (401, 422)
 
 

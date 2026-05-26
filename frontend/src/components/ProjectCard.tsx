@@ -73,9 +73,7 @@ export function ProjectCard({ project, delayMs = 0 }: ProjectCardProps) {
           </>
         ) : (
           <>
-            <span className="project-private">
-              🔒 {project.private_note || "Projet privé"}
-            </span>
+            <span className="project-private">🔒 {project.private_note || "Projet privé"}</span>
             <span className="project-stars">privé</span>
           </>
         )}

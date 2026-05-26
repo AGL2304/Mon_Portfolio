@@ -69,9 +69,7 @@ export async function fetchPublicContent(): Promise<PortfolioContent> {
   return content;
 }
 
-export async function fetchAdminContent(
-  token: string | null,
-): Promise<PortfolioContent> {
+export async function fetchAdminContent(token: string | null): Promise<PortfolioContent> {
   return request<PortfolioContent>("/admin/content", {}, token);
 }
 
@@ -139,17 +137,11 @@ async function uploadFile(
   return data;
 }
 
-export function uploadCV(
-  token: string | null,
-  file: File,
-): Promise<UploadResponse> {
+export function uploadCV(token: string | null, file: File): Promise<UploadResponse> {
   return uploadFile("/admin/cv", token, file);
 }
 
-export function uploadPhoto(
-  token: string | null,
-  file: File,
-): Promise<UploadResponse> {
+export function uploadPhoto(token: string | null, file: File): Promise<UploadResponse> {
   return uploadFile("/admin/photo", token, file);
 }
 

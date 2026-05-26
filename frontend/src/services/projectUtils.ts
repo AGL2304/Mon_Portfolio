@@ -20,4 +20,3 @@ export function removeProject(content: PortfolioContent, projectId: string): Por
     projects: content.projects.filter((project) => project.id !== projectId),
   };
 }
-

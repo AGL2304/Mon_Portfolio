@@ -27,9 +27,7 @@ export default defineConfig({
     video: "retain-on-failure",
   },
 
-  projects: [
-    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
-  ],
+  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
 
   webServer: {
     command: "npm run dev",

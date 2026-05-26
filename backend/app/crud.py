@@ -33,6 +33,7 @@ def update_portfolio_content(db: Session, content: PortfolioContent) -> Portfoli
 
 # --- CV ------------------------------------------------------------------
 
+
 def upsert_cv(db: Session, data: bytes, filename: str, content_type: str) -> CVDocument:
     cv = db.query(CVDocument).first()
     if cv is None:
@@ -52,6 +53,7 @@ def get_cv(db: Session) -> CVDocument | None:
 
 
 # --- Photo ---------------------------------------------------------------
+
 
 def upsert_profile_image(
     db: Session, data: bytes, filename: str, content_type: str

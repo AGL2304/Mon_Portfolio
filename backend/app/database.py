@@ -1,6 +1,6 @@
+from collections.abc import Generator
 from functools import lru_cache
 from pathlib import Path
-from typing import Generator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, declarative_base, sessionmaker

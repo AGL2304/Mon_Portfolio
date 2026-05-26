@@ -7,7 +7,9 @@ test.describe("Admin login flow", () => {
   test("redirige vers /admin/login quand non authentifie", async ({ page }) => {
     await page.goto("/admin/dashboard");
     await expect(page).toHaveURL(/\/admin\/login$/);
-    await expect(page.getByRole("heading", { name: /administrateur|admin/i }).first()).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /administrateur|admin/i }).first(),
+    ).toBeVisible();
   });
 
   test("rejette des identifiants invalides", async ({ page }) => {

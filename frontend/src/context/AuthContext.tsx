@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setToken(null);
       },
     }),
-    [token]
+    [token],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
