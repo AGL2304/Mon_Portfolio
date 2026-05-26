@@ -1,3 +1,8 @@
+/* eslint-disable react-refresh/only-export-components --
+ * Pattern Provider + hook(s) dans le meme fichier : volontaire.
+ * Le hook useAuth() est expose a cote de AuthProvider pour garder la
+ * cohesion. Impact = full reload au lieu de HMR sur ce fichier en dev.
+ */
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 import { loginAdmin } from "../services/api";
 

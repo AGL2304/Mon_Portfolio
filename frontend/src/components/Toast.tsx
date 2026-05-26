@@ -1,3 +1,8 @@
+/* eslint-disable react-refresh/only-export-components --
+ * Le composant Toast et le hook useToast() vivent volontairement dans le
+ * meme fichier (couple etroit). Impact = full reload au lieu de HMR sur
+ * ce fichier en dev, acceptable pour un composant aussi petit.
+ */
 import { useEffect, useState } from "react";
 
 export interface ToastMessage {
