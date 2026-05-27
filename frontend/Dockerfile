@@ -1,22 +1,19 @@
 # ------------------------------------------------------------
 #  Build stage : compile l'app React (Vite)
 # ------------------------------------------------------------
-# IMPORTANT : ce Dockerfile suppose que le BUILD CONTEXT est la
-# RACINE du repo (cf. docker-compose.yml -> context: .).
-# Cela permet de copier dans l'image nginx finale :
-#   - assets/  (CV, photo, favicon, screenshots)
-#   - grc/     (livrables Gouvernance Risques Conformite)
+# Le BUILD CONTEXT est le dossier frontend/ (cf. compose.yml -> context: .)
+# assets/ et grc/ sont désormais dans frontend/ et copiés directement.
 # ------------------------------------------------------------
 FROM node:20-alpine AS build
 
 WORKDIR /app
 
-COPY frontend/package.json frontend/package-lock.json* ./
+COPY package.json package-lock.json* ./
 RUN npm install --no-audit --no-fund
 
-COPY frontend/tsconfig.json frontend/tsconfig.app.json frontend/tsconfig.node.json \
-     frontend/vite.config.ts frontend/index.html ./
-COPY frontend/src ./src
+COPY tsconfig.json tsconfig.app.json tsconfig.node.json \
+     vite.config.ts index.html ./
+COPY src ./src
 
 ARG VITE_API_URL=/api
 ENV VITE_API_URL=$VITE_API_URL
@@ -28,7 +25,7 @@ RUN npm run build
 # ------------------------------------------------------------
 FROM nginx:1.27-alpine
 
-COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Fichiers statiques additionnels :

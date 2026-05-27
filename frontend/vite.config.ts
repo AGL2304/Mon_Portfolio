@@ -6,10 +6,18 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     port: 5173,
+    proxy: {
+      "/api": {
+        target: "http://localhost:8000",
+        rewrite: (path:string) => path.replace(/^\/api/, ""),
+        changeOrigin: true,
+      },
+    },
   },
   test: {
     globals: true,
     environment: "node",
     include: ["src/**/*.test.ts"],
   },
+  
 });

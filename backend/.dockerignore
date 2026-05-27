@@ -1,0 +1,42 @@
+# Python artefacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+.eggs/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+coverage.xml
+.coverage
+
+# Tests (inutiles dans l'image runtime)
+tests/
+
+# Données locales
+data/
+*.db
+*.sqlite3
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Repo metadata
+.git
+.github
+.gitlab-ci.yml
+.gitignore
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md

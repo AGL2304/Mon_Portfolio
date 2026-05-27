@@ -1,14 +1,10 @@
-stages:
-  - test
-  - build
-
-backend_tests:
+backend:test:
   stage: test
   image: python:3.12
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   cache:
-    key: "pip-cache"
+    key: "pip-backend"
     paths:
       - .cache/pip
   before_script:
@@ -16,21 +12,11 @@ backend_tests:
     - pip install -r backend/requirements.txt
   script:
     - pytest backend/tests -q
+  rules:
+    - changes:
+        - backend/**/*
 
-frontend_tests:
-  stage: test
-  image: node:20
-  cache:
-    key: "npm-cache"
-    paths:
-      - frontend/node_modules/
-  before_script:
-    - cd frontend
-    - npm install
-  script:
-    - npm run test
-
-build_images:
+backend:build:
   stage: build
   image: docker:27
   services:
@@ -39,5 +25,6 @@ build_images:
     DOCKER_TLS_CERTDIR: "/certs"
   script:
     - docker build -t portfolio-backend ./backend
-    - docker build -t portfolio-frontend ./frontend
-
+  rules:
+    - changes:
+        - backend/**/*
