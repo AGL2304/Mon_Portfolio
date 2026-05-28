@@ -35,7 +35,7 @@ export const MOCK_CONTENT = {
     github_url: "https://github.com/AGL2304",
     linkedin_url: "https://www.linkedin.com/in/test",
     tryhackme_url: "https://tryhackme.com/p/agl23",
-    cv_url: "/assets/CV_Georges_Lionel_ANANI_GRC.pdf",
+    cv_url: "/api/public/cv",
     profile_image: "",
     english_level: "C1",
   },

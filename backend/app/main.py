@@ -1,6 +1,9 @@
+from pathlib import Path
+
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 
 from .config import get_settings
@@ -247,3 +250,37 @@ def get_photo(db: Session = Depends(get_db)) -> Response:
         media_type=img.content_type or "image/jpeg",
         headers={"Cache-Control": "public, max-age=3600"},
     )
+
+
+# ============================================================
+#  STATIC FILES : /grc/ — livrables Gouvernance Risques & Conformite
+# ============================================================
+#  Servis directement par FastAPI via StaticFiles. Le frontend
+#  (nginx ou Vercel) proxie /grc/* vers ce backend.
+#
+#  Chemin : backend/grc/ contient les .md et .csv publies.
+# ============================================================
+GRC_DIR = Path(__file__).resolve().parent.parent / "grc"
+if GRC_DIR.is_dir():
+    app.mount(
+        "/grc",
+        StaticFiles(directory=str(GRC_DIR), html=False, check_dir=True),
+        name="grc",
+    )
+
+
+# JSON endpoint pour lister les livrables GRC (utile au frontend)
+@app.get("/api/grc/files")
+def list_grc_files() -> dict[str, list[dict[str, str]]]:
+    if not GRC_DIR.is_dir():
+        return {"files": []}
+    files = [
+        {
+            "name": path.name,
+            "url": f"/grc/{path.name}",
+            "size_bytes": str(path.stat().st_size),
+        }
+        for path in sorted(GRC_DIR.glob("*"))
+        if path.is_file()
+    ]
+    return {"files": files}
