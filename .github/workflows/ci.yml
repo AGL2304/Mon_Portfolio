@@ -12,6 +12,13 @@ on:
 #  Le workflow lui-meme (ce fichier) declenche TOUS les jobs.
 # ============================================================
 
+# Force Node.js 24 pour TOUTES les actions JavaScript du workflow.
+# Eteint les warnings de deprecation Node 20 (cf GitHub Actions
+# deprecation Sep 2026). A retirer quand toutes les actions
+# (dorny/paths-filter, docker/build-push-action) auront migre.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   # ------------------------------------------------------------
   #  DB : verifier que l'image Postgres+init build correctement
@@ -94,8 +101,6 @@ jobs:
     name: Backend · build image
     runs-on: ubuntu-latest
     needs: [backend-tests]
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - uses: actions/checkout@v5
 
@@ -173,8 +178,6 @@ jobs:
     name: Frontend · build image
     runs-on: ubuntu-latest
     needs: [frontend-tests]
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - uses: actions/checkout@v5
 
