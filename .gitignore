@@ -53,3 +53,7 @@ backend/data/
 frontend/tsconfig.app.tsbuildinfo
 frontend/tsconfig.node.tsbuildinfo
 
+# Artifacts TypeScript -> JS (Vite lit directement vite.config.ts)
+frontend/vite.config.js
+frontend/vite.config.d.ts
+
