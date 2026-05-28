@@ -116,14 +116,10 @@ jobs:
           push: false
           tags: portfolio-backend:ci
 
-      # Le frontend a besoin du REPO COMPLET comme contexte (pas seulement
-      # frontend/) parce que le Dockerfile copie aussi assets/ et grc/.
-      # Voir docker-compose.yml -> service frontend (meme convention).
       - name: Build frontend image
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: ./frontend/Dockerfile
+          context: ./frontend
           push: false
           tags: portfolio-frontend:ci
           build-args: |
