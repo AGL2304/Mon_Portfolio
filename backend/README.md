@@ -1,129 +1,87 @@
-# Portfolio Backend
+# Backend — Portfolio (FastAPI)
 
-> **API REST FastAPI** + livrables GRC publics (Markdown/CSV).
-> Service autonome, deployable independamment du frontend et de la DB.
+Tier logique métier de l'architecture n-tiers. API REST construite avec FastAPI et SQLAlchemy, exposée sur le port 8000.
 
 ## Stack
 
-- **Python 3.12** + FastAPI 0.115 + SQLAlchemy 2.0 + JWT (python-jose)
-- **PostgreSQL 16** (compatible SQLite pour les tests)
-- **Tests** : pytest
-- **Qualité** : ruff (lint + format)
+| Outil | Version | Rôle |
+|---|---|---|
+| FastAPI | 0.115 | Framework API |
+| SQLAlchemy | 2.0 | ORM |
+| psycopg2 | 2.9 | Driver PostgreSQL |
+| python-jose | 3.3 | JWT |
+| Uvicorn | 0.34 | Serveur ASGI |
+| pytest | 8.3 | Tests |
+| ruff | 0.8 | Lint / format |
 
 ## Structure
 
 ```
 backend/
 ├── app/
-│   ├── main.py             # routes API + mount /grc/ (StaticFiles)
-│   ├── config.py           # Settings via pydantic-settings
-│   ├── database.py         # SQLAlchemy engine + session
-│   ├── models.py           # tables ORM
-│   ├── schemas.py          # Pydantic DTOs
-│   ├── crud.py             # accès DB
-│   ├── security.py         # JWT + auth admin
-│   └── seed_data.py        # contenu initial
-├── grc/                    # livrables Markdown/CSV servis sur /grc/
-├── seed/                   # CV PDFs + photo de demarrage (uploads admin)
-├── tests/                  # pytest
+│   ├── main.py        # Routes FastAPI (auth, content, uploads, health)
+│   ├── config.py      # Pydantic settings
+│   ├── models.py      # Modèles SQLAlchemy
+│   ├── schemas.py     # Schémas Pydantic
+│   ├── database.py    # Moteur SQLAlchemy, session
+│   ├── security.py    # JWT, vérification credentials
+│   ├── crud.py        # Opérations CRUD
+│   └── seed_data.py   # Données par défaut
+├── tests/
+│   ├── conftest.py
+│   ├── test_auth.py
+│   └── test_content.py
 ├── Dockerfile
-├── docker-compose.yml      # standalone (backend seul, DB externe)
-├── pyproject.toml          # config ruff
+├── compose.yml        # Service backend standalone
 ├── requirements.txt
-├── .env.example
-└── README.md
+└── pyproject.toml     # Config ruff + pytest
 ```
 
-## Lancement standalone
+## Démarrage rapide
 
-### Avec Docker (recommandé)
-
-```bash
-cd backend
-cp .env.example .env
-# Editer ADMIN_PASSWORD, JWT_SECRET, DATABASE_URL
-docker compose up --build
-```
-
-**Prérequis** : une base PostgreSQL accessible via `DATABASE_URL`. Tu peux :
-- Lancer `cd ../db && docker compose up -d` en parallèle
-- Pointer vers Supabase / Neon / RDS / autre service managé
-- Utiliser SQLite pour les tests (cf `tests/conftest.py`)
-
-### Sans Docker (dev local)
+### Développement local
 
 ```bash
-cd backend
-python -m venv venv
-source venv/bin/activate          # Linux/macOS
-# venv\Scripts\activate           # Windows
 pip install -r requirements.txt
-
-export DATABASE_URL="postgresql+psycopg2://portfolio:portfolio@localhost:5432/portfolio"
-export ADMIN_EMAIL="admin@test.local"
-export ADMIN_PASSWORD="test-admin-password"
-export JWT_SECRET="dev-secret"
-export CORS_ORIGINS='["http://localhost:5173"]'
-
-uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload   # http://localhost:8000
 ```
 
-## Endpoints
+### Docker standalone
+
+> Pré-requis : réseau `portfolio-net` existant (`cd ../db && docker compose up -d`)
+
+```bash
+docker compose up -d
+```
+
+### Tests
+
+```bash
+pytest tests -q
+ruff check .
+ruff format --check .
+```
+
+## Variables d'environnement
+
+| Variable | Obligatoire | Description |
+|---|---|---|
+| `ADMIN_EMAIL` | oui | Email de l'admin |
+| `ADMIN_PASSWORD` | oui | Mot de passe admin |
+| `JWT_SECRET` | oui | Clé de signature JWT |
+| `DATABASE_URL` | oui | URL PostgreSQL (ou SQLite pour les tests) |
+| `APP_BASE_URL` | non | URL publique de base (pour URLs absolues) |
+| `CORS_ORIGINS` | non | JSON array des origines autorisées |
+
+## Routes API
 
 | Méthode | Route | Auth | Description |
 |---|---|---|---|
-| GET | `/api/health` | — | Healthcheck |
-| POST | `/api/auth/login` | — | Login admin (JWT) |
-| GET | `/api/public/content` | — | Contenu du portfolio public |
-| GET | `/api/public/cv` | — | Telecharger le CV PDF |
+| GET | `/api/health` | — | Health check |
+| POST | `/api/auth/login` | — | Obtenir un JWT |
+| GET | `/api/public/content` | — | Contenu du portfolio |
+| GET | `/api/public/cv` | — | Télécharger le CV |
 | GET | `/api/public/photo` | — | Photo de profil |
-| GET | `/api/grc/files` | — | Liste JSON des livrables GRC |
-| GET | `/grc/*` | — | Fichiers GRC statiques (md, csv) |
-| GET/PUT | `/api/admin/content` | JWT | Edition du contenu |
-| POST/DELETE | `/api/admin/cv` | JWT | Upload/delete CV |
-| POST/DELETE | `/api/admin/photo` | JWT | Upload/delete photo |
-
-Documentation interactive : `/docs` (Swagger) ou `/redoc`.
-
-## Tests
-
-```bash
-pytest -q
-ruff check .                 # lint
-ruff format --check .        # format check
-```
-
-## Déploiement
-
-| Provider | Type | Notes |
-|---|---|---|
-| **Railway** | Container Docker | `railway up` après config DATABASE_URL |
-| **Render** | Container Docker | Free tier OK pour démo |
-| **Fly.io** | Container Docker | `fly launch` puis `fly deploy` |
-| **Self-hosted** | Docker compose | Reverse proxy nginx/Caddy + Let's Encrypt |
-
-Variables d'environnement requises en prod : voir `.env.example`.
-
-## Sécurité
-
-- ⚠️ **Toujours** changer `ADMIN_PASSWORD` et `JWT_SECRET` en prod
-- Génerer un secret JWT fort : `python -c "import secrets; print(secrets.token_urlsafe(64))"`
-- Limiter `CORS_ORIGINS` aux domaines réels (pas `*`)
-- Cf [`../SECURITY.md`](../SECURITY.md) pour la politique de divulgation
-
-## Migration vers un repo séparé
-
-Quand tu veux extraire ce backend dans son propre repo GitHub :
-
-```bash
-# Depuis une copie temporaire du monorepo
-git clone <monorepo-url> /tmp/portfolio-backend-extract
-cd /tmp/portfolio-backend-extract
-git filter-repo --subdirectory-filter backend/
-# Push vers le nouveau repo
-git remote add origin git@github.com:portfolio-org/backend.git
-git push -u origin main
-```
-
-Le dossier `backend/` est conçu pour être self-contained : aucun fichier
-en dehors n'est requis (Dockerfile attend `./` comme contexte de build).
+| GET/PUT | `/api/admin/content` | JWT | Lire / modifier le contenu |
+| POST/DELETE | `/api/admin/cv` | JWT | Gérer le CV |
+| POST/DELETE | `/api/admin/photo` | JWT | Gérer la photo |

@@ -6,53 +6,7 @@ on:
   pull_request:
     branches: [main]
 
-# ============================================================
-#  Path filters : chaque job ne tourne que si ses fichiers changent.
-#  Permet de split en 3 repos plus tard sans changer la logique.
-#  Le workflow lui-meme (ce fichier) declenche TOUS les jobs.
-# ============================================================
-
-# Force Node.js 24 pour TOUTES les actions JavaScript du workflow.
-# Eteint les warnings de deprecation Node 20 (cf GitHub Actions
-# deprecation Sep 2026). A retirer quand toutes les actions
-# (dorny/paths-filter, docker/build-push-action) auront migre.
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
-
 jobs:
-  # ------------------------------------------------------------
-  #  DB : verifier que l'image Postgres+init build correctement
-  # ------------------------------------------------------------
-  db-build:
-    name: DB · build image
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Detect db changes
-        id: changes
-        uses: dorny/paths-filter@v3
-        with:
-          filters: |
-            db:
-              - 'db/**'
-              - '.github/workflows/ci.yml'
-
-      - name: Set up Docker Buildx
-        if: steps.changes.outputs.db == 'true'
-        uses: docker/setup-buildx-action@v4
-
-      - name: Build db image
-        if: steps.changes.outputs.db == 'true'
-        uses: docker/build-push-action@v6
-        with:
-          context: ./db
-          push: false
-          tags: portfolio-db:ci
-
-  # ------------------------------------------------------------
-  #  BACKEND : ruff + pytest + Docker build
-  # ------------------------------------------------------------
   backend-tests:
     name: Backend · ruff + pytest
     runs-on: ubuntu-latest
@@ -62,17 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Detect backend changes
-        id: changes
-        uses: dorny/paths-filter@v3
-        with:
-          filters: |
-            backend:
-              - 'backend/**'
-              - '.github/workflows/ci.yml'
-
       - name: Set up Python 3.12
-        if: steps.changes.outputs.backend == 'true'
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
@@ -80,43 +24,19 @@ jobs:
           cache-dependency-path: backend/requirements.txt
 
       - name: Install dependencies
-        if: steps.changes.outputs.backend == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Ruff lint
-        if: steps.changes.outputs.backend == 'true'
         run: ruff check .
 
       - name: Ruff format check
-        if: steps.changes.outputs.backend == 'true'
         run: ruff format --check .
 
       - name: Run tests
-        if: steps.changes.outputs.backend == 'true'
         run: pytest -q
 
-  backend-docker:
-    name: Backend · build image
-    runs-on: ubuntu-latest
-    needs: [backend-tests]
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
-
-      - name: Build backend image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./backend
-          push: false
-          tags: portfolio-backend:ci
-
-  # ------------------------------------------------------------
-  #  FRONTEND : eslint + prettier + vitest + build + E2E + Docker
-  # ------------------------------------------------------------
   frontend-tests:
     name: Frontend · eslint + vitest + build
     runs-on: ubuntu-latest
@@ -174,20 +94,36 @@ jobs:
       - name: Run Playwright tests
         run: npm run e2e
 
-  frontend-docker:
-    name: Frontend · build image
+  docker-build:
+    name: Docker · build images
     runs-on: ubuntu-latest
-    needs: [frontend-tests]
+    needs: [backend-tests, frontend-tests]
+    # docker/build-push-action@v6 est encore packagee avec Node.js 20
+    # (v7 pas encore release fin 2026). On force Node.js 24 via env var
+    # pour eteindre le warning de deprecation. A retirer quand v7 sort.
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - uses: actions/checkout@v5
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
+      - name: Build backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: false
+          tags: portfolio-backend:ci
+
+      # Le frontend a besoin du REPO COMPLET comme contexte (pas seulement
+      # frontend/) parce que le Dockerfile copie aussi assets/ et grc/.
+      # Voir docker-compose.yml -> service frontend (meme convention).
       - name: Build frontend image
         uses: docker/build-push-action@v6
         with:
-          context: ./frontend
+          context: .
+          file: ./frontend/Dockerfile
           push: false
           tags: portfolio-frontend:ci
           build-args: |

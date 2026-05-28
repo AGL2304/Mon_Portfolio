@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio-backend
+    restart: unless-stopped
+    environment:
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?ADMIN_EMAIL is required}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?ADMIN_PASSWORD is required}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL is required}
+      APP_BASE_URL: ${APP_BASE_URL:-}
+      CORS_ORIGINS: '${CORS_ORIGINS:-["http://localhost:5173","http://localhost:3000","http://localhost:4173"]}'
+    ports:
+      - "8000:8000"
+    networks:
+      - portfolio-net
+
+networks:
+  portfolio-net:
+    name: portfolio-net
+    external: true

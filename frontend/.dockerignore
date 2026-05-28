@@ -1,0 +1,31 @@
+# Build artefacts
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+.playwright/
+*.tsbuildinfo
+
+# Tests (inutiles dans l'image runtime)
+e2e/
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Repo metadata
+.git
+.github
+.gitlab-ci.yml
+.gitignore
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Documentation (sauf livrables GRC servis par nginx)
+*.md
+!grc/**/*.md
+!grc/README.md

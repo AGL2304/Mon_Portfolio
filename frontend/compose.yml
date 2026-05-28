@@ -1,0 +1,18 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-/api}
+    container_name: portfolio-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    networks:
+      - portfolio-net
+
+networks:
+  portfolio-net:
+    name: portfolio-net
+    external: true

@@ -1,0 +1,17 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Repo metadata
+.git
+.github
+.gitlab-ci.yml
+.gitignore
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
