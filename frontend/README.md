@@ -65,6 +65,7 @@ dans `.env`).
 ## Internationalisation (FR / EN)
 
 Toggle FR ↔ EN dans la nav :
+
 - Bascule **instantanément** toute l'UI sans rechargement
 - Met à jour `<html lang="…">` pour le SEO
 - Persiste dans `localStorage`
@@ -89,12 +90,12 @@ npm run build             # bundle production
 
 ## Déploiement
 
-| Provider | Type | Notes |
-|---|---|---|
-| **Vercel** | Static + SSR | `vercel --prod`. Rewrites pour proxy `/api/*` et `/grc/*` vers backend |
-| **Netlify** | Static | `_redirects` file pour proxy |
-| **Cloudflare Pages** | Static + Workers | Workers pour proxy si même domaine |
-| **Self-hosted** | Docker (nginx) | `docker compose up -d` derrière reverse proxy |
+| Provider             | Type             | Notes                                                                  |
+| -------------------- | ---------------- | ---------------------------------------------------------------------- |
+| **Vercel**           | Static + SSR     | `vercel --prod`. Rewrites pour proxy `/api/*` et `/grc/*` vers backend |
+| **Netlify**          | Static           | `_redirects` file pour proxy                                           |
+| **Cloudflare Pages** | Static + Workers | Workers pour proxy si même domaine                                     |
+| **Self-hosted**      | Docker (nginx)   | `docker compose up -d` derrière reverse proxy                          |
 
 ### Exemple `vercel.json` pour proxy
 
@@ -109,12 +110,12 @@ npm run build             # bundle production
 
 ## Variables d'environnement
 
-| Variable | Defaut | Description |
-|---|---|---|
-| `VITE_API_URL` | `/api` | Préfixe d'URL pour l'API (build-time) |
-| `BACKEND_HOST` | `host.docker.internal` | Hôte du backend (runtime nginx, envsubst) |
-| `BACKEND_PORT` | `8000` | Port du backend |
-| `FRONTEND_HOST_PORT` | `3000` | Port host pour nginx |
+| Variable             | Defaut                 | Description                               |
+| -------------------- | ---------------------- | ----------------------------------------- |
+| `VITE_API_URL`       | `/api`                 | Préfixe d'URL pour l'API (build-time)     |
+| `BACKEND_HOST`       | `host.docker.internal` | Hôte du backend (runtime nginx, envsubst) |
+| `BACKEND_PORT`       | `8000`                 | Port du backend                           |
+| `FRONTEND_HOST_PORT` | `3000`                 | Port host pour nginx                      |
 
 ## Migration vers un repo séparé
 
