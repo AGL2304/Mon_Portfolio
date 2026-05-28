@@ -6,11 +6,11 @@
 
 ## Versions supportées
 
-| Version | Support sécurité |
-|---|---|
-| `main` (branche par défaut) | ✅ |
-| Tags `v1.x` | ✅ correctifs critiques |
-| Branches archivées | ❌ |
+| Version                     | Support sécurité        |
+| --------------------------- | ----------------------- |
+| `main` (branche par défaut) | ✅                      |
+| Tags `v1.x`                 | ✅ correctifs critiques |
+| Branches archivées          | ❌                      |
 
 ## Signaler une vulnérabilité
 
@@ -31,12 +31,12 @@ Précisez si possible :
 
 ### Engagement de réponse
 
-| Étape | Délai cible |
-|---|---|
-| Accusé de réception | sous 72 h |
-| Triage initial + sévérité | sous 7 jours |
-| Correctif `main` (Haute/Critique) | sous 14 jours |
-| Publication d'un avis | après déploiement du correctif |
+| Étape                             | Délai cible                    |
+| --------------------------------- | ------------------------------ |
+| Accusé de réception               | sous 72 h                      |
+| Triage initial + sévérité         | sous 7 jours                   |
+| Correctif `main` (Haute/Critique) | sous 14 jours                  |
+| Publication d'un avis             | après déploiement du correctif |
 
 ## Périmètre
 

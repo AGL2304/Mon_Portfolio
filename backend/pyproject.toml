@@ -38,3 +38,4 @@ indent-style = "space"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "-q --strict-markers"
+pythonpath = ["."]

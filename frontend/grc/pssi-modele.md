@@ -27,7 +27,7 @@ stratégique. Elle s'engage à :
 - Approuver et faire respecter la présente PSSI
 - Promouvoir une culture de sécurité auprès de tous les collaborateurs
 
-> Signature du Directeur Général : ____________________ Date : __________
+> Signature du Directeur Général : **\*\*\*\***\_\_\_\_**\*\*\*\*** Date : \***\*\_\_\*\***
 
 ## 2. Périmètre
 
@@ -40,33 +40,33 @@ La PSSI s'applique à :
 
 ## 3. Référentiels applicables
 
-| Référentiel | Statut | Pilote |
-|---|---|---|
-| ISO/IEC 27001:2022 | Cadre cible (certif visée Q4 2027) | RSSI |
-| Hygiène ANSSI (42 mesures) | Socle obligatoire | RSSI |
-| RGPD | Obligation légale | DPO |
-| NIS 2 (si OSE/OES) | Obligation légale | RSSI + DPO |
-| HDS (si données de santé) | Selon traitement | DPO |
+| Référentiel                | Statut                             | Pilote     |
+| -------------------------- | ---------------------------------- | ---------- |
+| ISO/IEC 27001:2022         | Cadre cible (certif visée Q4 2027) | RSSI       |
+| Hygiène ANSSI (42 mesures) | Socle obligatoire                  | RSSI       |
+| RGPD                       | Obligation légale                  | DPO        |
+| NIS 2 (si OSE/OES)         | Obligation légale                  | RSSI + DPO |
+| HDS (si données de santé)  | Selon traitement                   | DPO        |
 
 ## 4. Gouvernance et rôles
 
-| Rôle | Mission principale |
-|---|---|
-| **Direction Générale** | Approuver la PSSI, arbitrer les risques résiduels |
-| **RSSI** | Décliner la PSSI, animer le SMSI, reporter au CODIR |
-| **DPO** | Conformité RGPD, registre des traitements, DPIA |
-| **DSI / IT Manager** | Mise en œuvre opérationnelle des mesures techniques |
-| **Métiers** | Propriétaires des données, classification, accès |
+| Rôle                        | Mission principale                                       |
+| --------------------------- | -------------------------------------------------------- |
+| **Direction Générale**      | Approuver la PSSI, arbitrer les risques résiduels        |
+| **RSSI**                    | Décliner la PSSI, animer le SMSI, reporter au CODIR      |
+| **DPO**                     | Conformité RGPD, registre des traitements, DPIA          |
+| **DSI / IT Manager**        | Mise en œuvre opérationnelle des mesures techniques      |
+| **Métiers**                 | Propriétaires des données, classification, accès         |
 | **Tous les collaborateurs** | Respecter la charte informatique, signaler les incidents |
 
 ## 5. Classification de l'information
 
-| Niveau | Description | Marquage | Exemple |
-|---|---|---|---|
-| **Public** | Diffusion libre | Aucun | Site web institutionnel |
-| **Interne** | Diffusion limitée à l'organisation | `[INTERNE]` | Note de service |
-| **Confidentiel** | Accès sur le besoin d'en connaître | `[CONFIDENTIEL]` | Données RH, contrats clients |
-| **Secret** | Diffusion strictement nominative | `[SECRET]` | Plans stratégiques, données R&D sensibles |
+| Niveau           | Description                        | Marquage         | Exemple                                   |
+| ---------------- | ---------------------------------- | ---------------- | ----------------------------------------- |
+| **Public**       | Diffusion libre                    | Aucun            | Site web institutionnel                   |
+| **Interne**      | Diffusion limitée à l'organisation | `[INTERNE]`      | Note de service                           |
+| **Confidentiel** | Accès sur le besoin d'en connaître | `[CONFIDENTIEL]` | Données RH, contrats clients              |
+| **Secret**       | Diffusion strictement nominative   | `[SECRET]`       | Plans stratégiques, données R&D sensibles |
 
 ## 6. Principes de sécurité
 
@@ -98,12 +98,12 @@ La PSSI s'applique à :
 
 ### 6.5 Gestion des vulnérabilités
 
-| Sévérité | Délai de remédiation |
-|---|---|
-| Critique (CVSS ≥ 9.0) | 7 jours |
-| Haute (7.0–8.9) | 30 jours |
-| Moyenne (4.0–6.9) | 90 jours |
-| Basse (< 4.0) | Best effort |
+| Sévérité              | Délai de remédiation |
+| --------------------- | -------------------- |
+| Critique (CVSS ≥ 9.0) | 7 jours              |
+| Haute (7.0–8.9)       | 30 jours             |
+| Moyenne (4.0–6.9)     | 90 jours             |
+| Basse (< 4.0)         | Best effort          |
 
 ### 6.6 Sécurité du développement
 
@@ -167,9 +167,9 @@ Le non-respect de la PSSI peut entraîner :
 
 ## 12. Historique des versions
 
-| Version | Date | Auteur | Modifications |
-|---|---|---|---|
-| 0.1 | `YYYY-MM-DD` | RSSI | Création initiale |
+| Version | Date         | Auteur | Modifications     |
+| ------- | ------------ | ------ | ----------------- |
+| 0.1     | `YYYY-MM-DD` | RSSI   | Création initiale |
 
 ---
 

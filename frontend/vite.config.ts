@@ -9,7 +9,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "http://localhost:8000",
-        rewrite: (path:string) => path.replace(/^\/api/, ""),
+        rewrite: (path: string) => path.replace(/^\/api/, ""),
         changeOrigin: true,
       },
     },
@@ -19,5 +19,4 @@ export default defineConfig({
     environment: "node",
     include: ["src/**/*.test.ts"],
   },
-  
 });

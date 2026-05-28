@@ -7,13 +7,13 @@
 
 ## 📄 Contenu
 
-| Fichier | Type | Usage |
-|---|---|---|
-| [`iso-27001-control-matrix.csv`](iso-27001-control-matrix.csv) | Matrice de contrôles | Suivi ISO/IEC 27001:2022 Annexe A (93 contrôles) avec statut, preuve, échéance, responsable |
-| [`iso-27001-control-matrix.md`](iso-27001-control-matrix.md) | Lecture humaine | Version lisible de la matrice ci-dessus, groupée par thème |
-| [`ebios-rm-template.md`](ebios-rm-template.md) | Template d'analyse | Squelette d'analyse EBIOS Risk Manager — 5 ateliers prêts à remplir |
-| [`registre-traitements-rgpd.csv`](registre-traitements-rgpd.csv) | Registre RGPD | Modèle de registre des activités de traitement (art. 30 RGPD) |
-| [`pssi-modele.md`](pssi-modele.md) | Politique de sécurité | Trame de Politique de Sécurité des Systèmes d'Information (PSSI) |
+| Fichier                                                          | Type                  | Usage                                                                                       |
+| ---------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------- |
+| [`iso-27001-control-matrix.csv`](iso-27001-control-matrix.csv)   | Matrice de contrôles  | Suivi ISO/IEC 27001:2022 Annexe A (93 contrôles) avec statut, preuve, échéance, responsable |
+| [`iso-27001-control-matrix.md`](iso-27001-control-matrix.md)     | Lecture humaine       | Version lisible de la matrice ci-dessus, groupée par thème                                  |
+| [`ebios-rm-template.md`](ebios-rm-template.md)                   | Template d'analyse    | Squelette d'analyse EBIOS Risk Manager — 5 ateliers prêts à remplir                         |
+| [`registre-traitements-rgpd.csv`](registre-traitements-rgpd.csv) | Registre RGPD         | Modèle de registre des activités de traitement (art. 30 RGPD)                               |
+| [`pssi-modele.md`](pssi-modele.md)                               | Politique de sécurité | Trame de Politique de Sécurité des Systèmes d'Information (PSSI)                            |
 
 ## 🎯 Pour qui ?
 

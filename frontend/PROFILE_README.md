@@ -1,7 +1,7 @@
-<!--
-========================================================
-  FICHIER À COPIER VERS LE REPO  AGL2304/AGL2304
-  (le repo "profile" qui s'affiche sur ta page GitHub)
+# <!--
+
+FICHIER À COPIER VERS LE REPO AGL2304/AGL2304
+(le repo "profile" qui s'affiche sur ta page GitHub)
 ========================================================
 -->
 
@@ -25,14 +25,14 @@
 
 ```yaml
 identity:
-  name:     Georges Lionel ANANI
-  role:     Alternant Cybersécurité GRC
+  name: Georges Lionel ANANI
+  role: Alternant Cybersécurité GRC
   location: Gentilly (94), France — École à Amiens
-  school:   École-IT — M1 Mastère Architectures Systèmes, Réseaux & Sécurité
-  current:  Stagiaire Transformation Numérique & Conformité @ IRFA-APISUP
-  target:   Alternance Cybersécurité GRC dès Septembre 2026
-  rhythm:   3 semaines entreprise / 1 semaine école
-  english:  C1 (certifié Gymglish)
+  school: École-IT — M1 Mastère Architectures Systèmes, Réseaux & Sécurité
+  current: Stagiaire Transformation Numérique & Conformité @ IRFA-APISUP
+  target: Alternance Cybersécurité GRC dès Septembre 2026
+  rhythm: 3 semaines entreprise / 1 semaine école
+  english: C1 (certifié Gymglish)
 ```
 
 ## 🎯 Approche
@@ -41,16 +41,16 @@ Je m'oriente vers les métiers **Gouvernance, Risques &amp; Conformité (GRC)**.
 gouvernance, traduire la réglementation en contrôles concrets, et automatiser leur vérification — pour
 que la sécurité tienne dans le temps, pas seulement le jour de l'audit.
 
-| 📋 **Audit &amp; Compliance** | 🎯 **Risques** | ⚙️ **DevSecOps** | 🛡️ **Pentest &amp; CTI** |
-|---|---|---|---|
-| ISO 27001 (SMSI) | EBIOS Risk Manager | Docker / Kubernetes (GKE) | Burp Suite, Nmap, sqlmap |
-| HDS, DORA, NIS 2 | AIPD / PIA · TPRM | GitHub Actions, GitLab CI | Metasploit, OpenVAS, Nessus |
-| RGPD / CNIL, CRA | PCA / PRA | Ansible · IaC | CTI · veille CVE · MITRE ATT&amp;CK |
-| NIST CSF | Comitologie, KPI / KRI | Trivy, Snyk, Semgrep | TryHackMe Top 1% · 185 salles |
+| 📋 **Audit &amp; Compliance** | 🎯 **Risques**         | ⚙️ **DevSecOps**          | 🛡️ **Pentest &amp; CTI**            |
+| ----------------------------- | ---------------------- | ------------------------- | ----------------------------------- |
+| ISO 27001 (SMSI)              | EBIOS Risk Manager     | Docker / Kubernetes (GKE) | Burp Suite, Nmap, sqlmap            |
+| HDS, DORA, NIS 2              | AIPD / PIA · TPRM      | GitHub Actions, GitLab CI | Metasploit, OpenVAS, Nessus         |
+| RGPD / CNIL, CRA              | PCA / PRA              | Ansible · IaC             | CTI · veille CVE · MITRE ATT&amp;CK |
+| NIST CSF                      | Comitologie, KPI / KRI | Trivy, Snyk, Semgrep      | TryHackMe Top 1% · 185 salles       |
 
 ## 💼 Expérience actuelle
 
-**Stagiaire Transformation Numérique &amp; Conformité** — *IRFA-APISUP, Amiens · depuis 01/2026*
+**Stagiaire Transformation Numérique &amp; Conformité** — _IRFA-APISUP, Amiens · depuis 01/2026_
 
 - Cartographié les usages M365 sur **~150 utilisateurs** et **8 entités** → matrice de risques RGPD priorisée en 3 vagues
 - Audité **~200 comptes** SharePoint / Teams → 12 écarts au moindre privilège + plan de remédiation 90 jours alignés PSSI
@@ -101,7 +101,7 @@ que la sécurité tienne dans le temps, pas seulement le jour de l'audit.
 ![GitHub Actions](https://img.shields.io/badge/-GitHub%20Actions-2088FF?style=flat&logo=githubactions&logoColor=white)
 ![GitLab](https://img.shields.io/badge/-GitLab%20CI-FC6D26?style=flat&logo=gitlab&logoColor=white)
 ![Ansible](https://img.shields.io/badge/-Ansible-EE0000?style=flat&logo=ansible&logoColor=white)
-![GCP](https://img.shields.io/badge/-GCP%20(GKE)-4285F4?style=flat&logo=googlecloud&logoColor=white)
+![GCP](<https://img.shields.io/badge/-GCP%20(GKE)-4285F4?style=flat&logo=googlecloud&logoColor=white>)
 
 **Sécurité &amp; Pentest**
 
@@ -118,14 +118,14 @@ que la sécurité tienne dans le temps, pas seulement le jour de l'audit.
 
 ## 🚀 Projets phares
 
-| Projet | Description | Stack |
-|---|---|---|
-| **Workflow n8n — Pharmacie** 🔒 | Orchestration CRUD Notion ↔ Google Workspace pour ~200 patients (HDS / RGPD) | n8n · Notion API · Google Workspace |
-| **Portail interne IRFA-APISUP** 🔒 | Dashboard KPI/KRI, fiches réflexes, FAQ cyber/RGPD pour ~40 collaborateurs | SharePoint · Power BI · React · M365 Graph |
-| [**CVE Tracker** — CTI maison](https://github.com/AGL2304/Projet_CVE_Trackers) | Collecte &amp; qualification de ~50 CVE/jour depuis NVD &amp; MITRE ATT&amp;CK | Next.js 15 · Prisma · Docker · NVD API |
-| [**Secure Chat E2E**](https://github.com/AGL2304/Secure_Chat) | Messagerie chiffrée bout-en-bout (clé privée navigateur, WebSockets) | FastAPI · WebSocket · JWT · bcrypt |
-| [**SecureVault**](https://github.com/AGL2304/securevault) | Gestionnaire de secrets chiffrés, JWT, audit log | Python · FastAPI · PostgreSQL · Chiffrement |
-| **Keystroke Security Auditor** 🔒 | Étude vecteurs d'attaque entrées clavier &amp; contre-mesures | Python · Endpoint Security |
+| Projet                                                                         | Description                                                                    | Stack                                       |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------- |
+| **Workflow n8n — Pharmacie** 🔒                                                | Orchestration CRUD Notion ↔ Google Workspace pour ~200 patients (HDS / RGPD)   | n8n · Notion API · Google Workspace         |
+| **Portail interne IRFA-APISUP** 🔒                                             | Dashboard KPI/KRI, fiches réflexes, FAQ cyber/RGPD pour ~40 collaborateurs     | SharePoint · Power BI · React · M365 Graph  |
+| [**CVE Tracker** — CTI maison](https://github.com/AGL2304/Projet_CVE_Trackers) | Collecte &amp; qualification de ~50 CVE/jour depuis NVD &amp; MITRE ATT&amp;CK | Next.js 15 · Prisma · Docker · NVD API      |
+| [**Secure Chat E2E**](https://github.com/AGL2304/Secure_Chat)                  | Messagerie chiffrée bout-en-bout (clé privée navigateur, WebSockets)           | FastAPI · WebSocket · JWT · bcrypt          |
+| [**SecureVault**](https://github.com/AGL2304/securevault)                      | Gestionnaire de secrets chiffrés, JWT, audit log                               | Python · FastAPI · PostgreSQL · Chiffrement |
+| **Keystroke Security Auditor** 🔒                                              | Étude vecteurs d'attaque entrées clavier &amp; contre-mesures                  | Python · Endpoint Security                  |
 
 → Et **15 autres projets** sur [mon GitHub](https://github.com/AGL2304?tab=repositories).
 

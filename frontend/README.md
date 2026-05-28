@@ -4,14 +4,14 @@ Tier présentation de l'architecture n-tiers. Construit avec React 18, TypeScrip
 
 ## Stack
 
-| Outil | Version | Rôle |
-|---|---|---|
-| React | 18 | UI |
-| TypeScript | 5 | Typage |
-| Vite | 5 | Build |
-| Nginx | 1.27 | Serveur statique + proxy `/api` |
-| Vitest | 2 | Tests unitaires |
-| Playwright | 1.49 | Tests E2E |
+| Outil      | Version | Rôle                            |
+| ---------- | ------- | ------------------------------- |
+| React      | 18      | UI                              |
+| TypeScript | 5       | Typage                          |
+| Vite       | 5       | Build                           |
+| Nginx      | 1.27    | Serveur statique + proxy `/api` |
+| Vitest     | 2       | Tests unitaires                 |
+| Playwright | 1.49    | Tests E2E                       |
 
 ## Structure
 
@@ -59,8 +59,8 @@ npm run lint         # ESLint + Prettier
 
 ## Variables d'environnement
 
-| Variable | Défaut | Description |
-|---|---|---|
+| Variable       | Défaut | Description               |
+| -------------- | ------ | ------------------------- |
 | `VITE_API_URL` | `/api` | URL de l'API (build-time) |
 
 ## Fonctionnalités
