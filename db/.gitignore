@@ -1,0 +1,12 @@
+# Environment variables (.env, .env.local, .env.production, etc.)
+.env*
+*.env
+!.env.example
+
+# PostgreSQL dumps & backups
+*.sql
+*.dump
+*.backup
+
+# Local volume data (si jamais monté hors Docker)
+pgdata/
