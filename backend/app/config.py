@@ -1,7 +1,8 @@
 from functools import lru_cache
+from typing import Annotated
 
 from pydantic import field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -25,16 +26,22 @@ class Settings(BaseSettings):
     # Limites uploads (octets)
     max_cv_size: int = 10 * 1024 * 1024  # 10 MB
     max_photo_size: int = 5 * 1024 * 1024  # 5 MB
-    allowed_photo_mimetypes: list[str] = [
+    # NoDecode = on court-circuite le JSON-decode automatique de pydantic-settings
+    # pour ces listes. Le validateur parse_list ci-dessous gere les 3 formats :
+    #   - vide  -> []
+    #   - JSON  -> ["a","b"]
+    #   - CSV   -> a,b,c   (PRATIQUE en prod : evite les " a escaper sur Render)
+    allowed_photo_mimetypes: Annotated[list[str], NoDecode] = [
         "image/jpeg",
         "image/png",
         "image/webp",
     ]
 
-    cors_origins: list[str] = [
+    cors_origins: Annotated[list[str], NoDecode] = [
         "http://localhost:5173",
         "http://localhost:3000",
         "http://localhost:4173",
+        "https://mon-portfolio-mocha-ten.vercel.app",
     ]
 
     model_config = SettingsConfigDict(
