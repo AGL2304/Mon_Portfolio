@@ -5,8 +5,7 @@
 
 [![CI](https://github.com/AGL2304/Mon_Portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/AGL2304/Mon_Portfolio/actions/workflows/ci.yml)
 [![Made with](https://img.shields.io/badge/stack-React%20%2B%20FastAPI-8B5CF6)](#-stack)
-[![License](https://img.shields.io/badge/license-MIT-10B981)](LICENSE)
-[![Security](https://img.shields.io/badge/security-policy-EF4444)](SECURITY.md)
+[![License](https://img.shields.io/badge/license-MIT-10B981)](frontend/LICENSE)
 
 ---
 
@@ -16,13 +15,13 @@
 - 🧪 **Admin** — _déploiement à venir_ → `https://portfolio.agl-anani.dev/admin/login`
 - 📂 **Livrables GRC** — _déploiement à venir_ → `https://portfolio.agl-anani.dev/grc/`
 
-> 💡 Les URLs ci-dessus sont des **placeholders** : remplacer par l'URL Vercel / Cloudflare Pages après déploiement.
+> 💡 Les URLs ci-dessus sont des **placeholders** : remplacer par l'URL Vercel après déploiement.
 
 | Hero français | Hero anglais |
 |---|---|
-| ![Hero FR](assets/screenshots/portfolio-hero-fr.png) | ![Hero EN](assets/screenshots/portfolio-hero-en.png) |
+| ![Hero FR](frontend/assets/screenshots/portfolio-hero-fr.png) | ![Hero EN](frontend/assets/screenshots/portfolio-hero-en.png) |
 
-> ℹ️ Les screenshots ci-dessus illustrent le design (la nouvelle app React utilise le même CSS et le même hero — bascule FR↔EN désormais native, sans rechargement).
+> ℹ️ Les screenshots ci-dessus illustrent le design (bascule FR↔EN native, sans rechargement).
 
 ---
 
@@ -34,12 +33,12 @@ Ce repo héberge **deux livrables complémentaires** :
    - Site public **bilingue FR / EN** (toggle sans rechargement, persisté en `localStorage`)
    - Interface d'administration **JWT** pour éditer profil / projets / expériences / compétences à chaud
    - Section **GRC** intégrée pointant vers les livrables `/grc/`
-2. **Dossier [`grc/`](grc/)** — livrables types Gouvernance Risques & Conformité (matrice ISO 27001 Annexe A, template EBIOS RM, registre RGPD, modèle PSSI) — open-source, MIT.
+2. **Dossier [`frontend/grc/`](frontend/grc/)** — livrables types Gouvernance Risques & Conformité (matrice ISO 27001 Annexe A, template EBIOS RM, registre RGPD, modèle PSSI) — open-source, MIT.
 
 | Composant | Cible | Quand l'utiliser |
 |---|---|---|
 | App React + FastAPI | Visiteurs · recruteurs · édition à chaud | Production |
-| Livrables GRC (`grc/`) | Recruteurs, étudiants, PME sans RSSI | Réutiliser comme socle de mission |
+| Livrables GRC (`frontend/grc/`) | Recruteurs, étudiants, PME sans RSSI | Réutiliser comme socle de mission |
 
 ---
 
@@ -47,76 +46,98 @@ Ce repo héberge **deux livrables complémentaires** :
 
 - **Frontend** : React 18 + TypeScript + Vite + CSS modulaire · **i18n maison** (FR/EN, sans dépendance externe)
 - **Backend** : FastAPI + SQLAlchemy + PostgreSQL (SQLite en tests) + JWT
-- **Conteneurisation** : Docker + Docker Compose · nginx sert React + `/grc/` + `/assets/` + proxy `/api/`
-- **CI/CD** : GitHub Actions (`.github/workflows/ci.yml`) · GitLab CI miroir (`.gitlab-ci.yml`)
+- **Conteneurisation** : Docker + Docker Compose par tier · nginx sert React + `/grc/` + `/assets/` + proxy `/api/`
+- **CI/CD** : GitHub Actions (`.github/workflows/ci.yml`)
 - **Tests** : `pytest` (backend) · `vitest` (frontend unitaire) · **Playwright** (E2E)
-- **Qualité** : `ruff` (Python) · `eslint` + `prettier` (TS/JS) · `pre-commit` + `gitleaks`
+- **Qualité** : `ruff` (Python) · `eslint` + `prettier` (TS/JS)
 - **SEO** : JSON-LD `Person` + `ProfilePage` · OpenGraph + Twitter Cards · favicon SVG dégradé · meta `lang` dynamique
-- **Déploiement** : Vercel (frontend) · Railway (backend) — config présente
-- **Sécurité** : voir [SECURITY.md](SECURITY.md) pour la politique de divulgation responsable
+- **Déploiement** : Vercel (frontend · `frontend/vercel.json`)
 
 ```
 .
-├── assets/                       # statiques (photo, CV, favicon, screenshots)
-│   ├── profile.jpg
-│   ├── favicon.svg               # logo dégradé violet→cyan
-│   ├── screenshots/              # captures pour README
-│   ├── CV_Georges_Lionel_ANANI_GRC.pdf
-│   └── CV_Georges_Lionel_ANANI_GRC_complet.pdf
-├── backend/                # FastAPI + SQLAlchemy + JWT
+├── .github/
+│   └── workflows/
+│       └── ci.yml                  # CI GitHub Actions
+├── backend/                        # FastAPI + SQLAlchemy + JWT
 │   ├── app/
-│   │   ├── main.py         # routes API
-│   │   ├── seed_data.py    # contenu par défaut
-│   │   ├── models.py       # SQLAlchemy
-│   │   ├── schemas.py      # Pydantic
-│   │   └── security.py     # JWT, hashing
-│   ├── tests/              # pytest
-│   ├── pyproject.toml      # ruff config
+│   │   ├── main.py                 # routes API (auth, content, uploads, health)
+│   │   ├── config.py               # Pydantic settings
+│   │   ├── models.py               # SQLAlchemy
+│   │   ├── schemas.py              # Pydantic
+│   │   ├── database.py             # moteur SQLAlchemy, session
+│   │   ├── security.py             # JWT, hashing
+│   │   ├── crud.py                 # opérations CRUD
+│   │   └── seed_data.py            # données par défaut
+│   ├── tests/
+│   │   ├── conftest.py
+│   │   ├── test_auth.py
+│   │   └── test_content.py
+│   ├── grc/                        # livrables GRC (miroir de frontend/grc/)
+│   ├── pyproject.toml              # ruff + pytest config
+│   ├── compose.yml
 │   ├── Dockerfile
 │   └── requirements.txt
-├── frontend/               # React 18 + TS + Vite
+├── db/                             # PostgreSQL 15 + Adminer
+│   └── compose.yml
+├── frontend/                       # React 18 + TS + Vite + Nginx
 │   ├── src/
-│   │   ├── pages/          # HomePage, AdminDashboardPage, AdminLoginPage
-│   │   ├── components/     # ProjectCard, ProtectedRoute, Terminal, Toast
-│   │   ├── context/        # AuthContext, LanguageContext
-│   │   ├── i18n/           # translations.ts (dictionnaire FR + EN typé)
-│   │   ├── services/       # API client
-│   │   └── styles/         # global.css
-│   ├── e2e/                # tests Playwright
-│   ├── Dockerfile          # build context = racine du repo
-│   ├── eslint.config.js
-│   └── nginx.conf
-├── grc/                    # livrables GRC publics (ISO 27001, EBIOS RM, RGPD, PSSI)
-│   ├── README.md
-│   ├── iso-27001-control-matrix.{md,csv}
-│   ├── ebios-rm-template.md
-│   ├── registre-traitements-rgpd.csv
-│   └── pssi-modele.md
-├── PROFILE_README.md       # README à copier vers AGL2304/AGL2304
-├── LICENSE                 # MIT
-├── SECURITY.md             # politique de divulgation responsable
-├── docker-compose.yml
-├── .pre-commit-config.yaml # hooks lint + secrets scanner
-├── .github/workflows/      # CI GitHub Actions
-└── .gitlab-ci.yml          # miroir GitLab
+│   │   ├── pages/                  # HomePage, AdminDashboardPage, AdminLoginPage
+│   │   ├── components/             # ProjectCard, ProtectedRoute, Terminal, Toast
+│   │   ├── context/                # AuthContext, LanguageContext
+│   │   ├── i18n/                   # translations.ts (dictionnaire FR + EN typé)
+│   │   ├── services/               # api.ts, utilitaires
+│   │   ├── types/                  # Interfaces TypeScript
+│   │   └── styles/                 # global.css
+│   ├── e2e/                        # tests Playwright
+│   ├── assets/                     # photo, CV PDF, favicon, screenshots
+│   │   ├── profile.jpg
+│   │   ├── favicon.svg             # logo dégradé violet→cyan
+│   │   ├── screenshots/            # captures pour README
+│   │   ├── CV_Georges_Lionel_ANANI_GRC.pdf
+│   │   └── CV_Georges_Lionel_ANANI_GRC_complet.pdf
+│   ├── grc/                        # livrables GRC publics (ISO 27001, EBIOS RM, RGPD, PSSI)
+│   │   ├── README.md
+│   │   ├── iso-27001-control-matrix.{md,csv}
+│   │   ├── ebios-rm-template.md
+│   │   ├── registre-traitements-rgpd.csv
+│   │   └── pssi-modele.md
+│   ├── Dockerfile                  # build multi-stage Node → Nginx
+│   ├── compose.yml
+│   ├── nginx.conf
+│   └── vercel.json
+└── README.md
 ```
 
 ---
 
 ## ⚡ Démarrage rapide
 
-### Option A — Stack complète avec Docker Compose (recommandé)
+### Option A — Stack par tier avec Docker Compose
 
 ```bash
-cp .env.example .env
-# édite ADMIN_EMAIL, ADMIN_PASSWORD, JWT_SECRET, POSTGRES_PASSWORD
-docker compose up --build
+# 1. Créer le réseau Docker partagé
+docker network create portfolio-net
+
+# 2. Base de données (PostgreSQL + Adminer)
+cd db && docker compose up -d
+
+# 3. Backend (adapter les variables d'environnement)
+cd ../backend
+ADMIN_EMAIL=admin@example.com \
+ADMIN_PASSWORD=changeme \
+JWT_SECRET=$(python3 -c "import secrets; print(secrets.token_urlsafe(64))") \
+DATABASE_URL=postgresql://portfolio:portfolio@portfolio-db:5432/portfolio \
+docker compose up -d
+
+# 4. Frontend
+cd ../frontend && docker compose up -d
 ```
 
 - 🌐 **Site** : http://localhost:3000 (clic sur `EN` dans la nav pour basculer en anglais)
 - 📂 **Livrables GRC** : http://localhost:3000/grc/ (listing nginx)
 - 🔌 **API** : http://localhost:8000/api
 - 🔐 **Admin** : http://localhost:3000/admin/login
+- 🗄️ **Adminer** : http://localhost:8080
 
 ### Option B — En local sans Docker
 
@@ -175,15 +196,15 @@ L'interface `/admin/login` permet (après authentification JWT) de modifier en d
 
 ---
 
-## 📂 Livrables GRC (`grc/`)
+## 📂 Livrables GRC (`frontend/grc/`)
 
 Documents types réutilisables (MIT), accessibles depuis :
 
 - la **section dédiée** dans la HomePage React (`#grc`)
 - le listing nginx `http://localhost:3000/grc/`
-- directement sur [GitHub](https://github.com/AGL2304/Mon_Portfolio/tree/main/grc)
+- directement sur [GitHub](https://github.com/AGL2304/Mon_Portfolio/tree/main/frontend/grc)
 
-Voir [grc/README.md](grc/README.md) pour le détail du contenu (5 livrables).
+Voir [frontend/grc/README.md](frontend/grc/README.md) pour le détail du contenu (5 livrables).
 
 ---
 
@@ -209,10 +230,8 @@ npm run e2e
 | Cible | Config | Branche |
 |---|---|---|
 | Frontend → **Vercel** | `frontend/vercel.json` | `main` |
-| Backend → **Railway** | `railway.json` | `main` |
-| Tous services → **Docker** | `docker-compose.yml` | n/a |
+| Tous services → **Docker** | `db/compose.yml` · `backend/compose.yml` · `frontend/compose.yml` | n/a |
 | CI/CD → **GitHub Actions** | `.github/workflows/ci.yml` | `main` |
-| CI/CD → **GitLab** (miroir) | `.gitlab-ci.yml` | n/a |
 
 ---
 

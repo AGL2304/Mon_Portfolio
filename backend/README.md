@@ -48,9 +48,16 @@ uvicorn app.main:app --reload   # http://localhost:8000
 
 ### Docker standalone
 
-> Pré-requis : réseau `portfolio-net` existant (`cd ../db && docker compose up -d`)
+> Pré-requis : réseau `portfolio-net` existant et base de données démarrée.
 
 ```bash
+# Créer le réseau s'il n'existe pas encore
+docker network create portfolio-net
+
+# Démarrer la base de données (depuis db/)
+cd ../db && docker compose up -d && cd ../backend
+
+# Démarrer le backend
 docker compose up -d
 ```
 

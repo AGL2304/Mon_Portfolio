@@ -53,7 +53,7 @@ docker compose up -d
 
 ```bash
 npm run test         # Vitest (unitaires)
-npm run test:e2e     # Playwright (E2E, nécessite le backend)
+npm run e2e          # Playwright (E2E, nécessite le backend)
 npm run lint         # ESLint + Prettier
 ```
 

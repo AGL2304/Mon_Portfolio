@@ -1,12 +1,13 @@
 # DB — Portfolio (PostgreSQL)
 
-Tier données de l'architecture n-tiers. Base PostgreSQL 16, gérée via Docker Compose.
+Tier données de l'architecture n-tiers. Base PostgreSQL 15, gérée via Docker Compose.
 
 ## Stack
 
 | Outil | Version | Rôle |
 |---|---|---|
-| PostgreSQL | 16-alpine | Base de données relationnelle |
+| PostgreSQL | 15-alpine | Base de données relationnelle |
+| Adminer | 4 | Interface web d'administration de la base |
 
 ## Schéma
 
@@ -21,12 +22,17 @@ Les tables sont créées automatiquement par SQLAlchemy au démarrage du backend
 ## Démarrage rapide
 
 ```bash
-# Démarre PostgreSQL et crée le réseau portfolio-net
+# Pré-requis : réseau portfolio-net existant
+docker network create portfolio-net
+
+# Démarre PostgreSQL et Adminer
 docker compose up -d
 
 # Vérifier que la base est prête
 docker compose exec db pg_isready -U portfolio
 ```
+
+- 🗄️ **Adminer** : http://localhost:8080 (serveur : `portfolio-db`, utilisateur : `portfolio`)
 
 ## Variables d'environnement
 
@@ -36,18 +42,23 @@ docker compose exec db pg_isready -U portfolio
 | `POSTGRES_PASSWORD` | `portfolio` | Mot de passe |
 | `POSTGRES_DB` | `portfolio` | Nom de la base |
 
-Copier `.env.example` à la racine du repo en `.env` et adapter les valeurs avant de lancer.
+Adapter ces valeurs via des variables d'environnement shell ou un fichier `.env` local avant de lancer.
 
 ## Réseau
 
-Ce compose crée le réseau Docker `portfolio-net`. Les tiers `backend` et `frontend` le rejoignent comme réseau externe.
+Le réseau Docker `portfolio-net` est déclaré **externe** dans ce compose — il doit être créé manuellement avant de démarrer les tiers :
+
+```bash
+docker network create portfolio-net
+```
+
+Les tiers `backend` et `frontend` rejoignent ce même réseau externe.
 
 Ordre de démarrage recommandé (standalone) :
 
 ```bash
+docker network create portfolio-net
 cd db       && docker compose up -d
-cd backend  && docker compose up -d
-cd frontend && docker compose up -d
+cd ../backend  && docker compose up -d
+cd ../frontend && docker compose up -d
 ```
-
-Pour démarrer la stack complète en une commande, utiliser le `compose.yml` à la racine du repo.
