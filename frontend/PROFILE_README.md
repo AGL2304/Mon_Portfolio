@@ -1,7 +1,7 @@
-<!--
-========================================================
-  FICHIER A COPIER VERS LE REPO  AGL2304/AGL2304
-  (le repo "profile" qui s'affiche sur ta page GitHub)
+# <!--
+
+FICHIER A COPIER VERS LE REPO AGL2304/AGL2304
+(le repo "profile" qui s'affiche sur ta page GitHub)
 ========================================================
 -->
 
@@ -36,15 +36,15 @@
 
 ```yaml
 identity:
-  name:        Georges Lionel ANANI
-  role:        Purple Team Engineer (in training)
-  school:      Ecole-IT, Amiens — M1 Mastere Architectures Systemes, Reseaux & Securite
-  current:     Stagiaire Transformation Numerique & Conformite @ IRFA-APISUP
-  location:    Ile-de-France (mobile) · Ecole a Amiens
-  target:      Alternance Purple Team / GRC — Septembre 2026
-  rhythm:      3 semaines entreprise / 1 semaine ecole
-  english:     C1 (certifie Gymglish)
-  tryhackme:   agl23 — Top 1% mondial · 185 salles · 5 parcours certifies
+  name: Georges Lionel ANANI
+  role: Purple Team Engineer (in training)
+  school: Ecole-IT, Amiens — M1 Mastere Architectures Systemes, Reseaux & Securite
+  current: Stagiaire Transformation Numerique & Conformite @ IRFA-APISUP
+  location: Ile-de-France (mobile) · Ecole a Amiens
+  target: Alternance Purple Team / GRC — Septembre 2026
+  rhythm: 3 semaines entreprise / 1 semaine ecole
+  english: C1 (certifie Gymglish)
+  tryhackme: agl23 — Top 1% mondial · 185 salles · 5 parcours certifies
 ```
 
 ---
@@ -55,7 +55,7 @@ Etudiant en **Mastere Expert Architectures Systemes, Reseaux & Securite** a l'[E
 
 Le **Purple Team** n'est pas un compromis entre l'attaque et la defense — c'est une vision unifiee de la securite. Je construis des competences a la fois en **Red Team** (penetration, exploitation, simulation adverse) et en **Blue Team** (detection, monitoring, reponse a incident), avec une couche **GRC** (audit, conformite, gestion des risques) pour traduire le technique en gouvernance.
 
-> *"To defeat an attacker, you must think like one — and then build defenses that stop yourself."*
+> _"To defeat an attacker, you must think like one — and then build defenses that stop yourself."_
 
 ---
 
@@ -140,7 +140,7 @@ Le **Purple Team** n'est pas un compromis entre l'attaque et la defense — c'es
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
 ![GitLab CI](https://img.shields.io/badge/GitLab_CI-FC6D26?style=for-the-badge&logo=gitlab&logoColor=white)
 ![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=for-the-badge&logo=ansible&logoColor=white)
-![GCP](https://img.shields.io/badge/GCP_(GKE)-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)
+![GCP](<https://img.shields.io/badge/GCP_(GKE)-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white>)
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
 
 </div>
@@ -189,32 +189,32 @@ Le **Purple Team** n'est pas un compromis entre l'attaque et la defense — c'es
 
 ### 🔴🔵 Securite
 
-| Repo | Description | Stack |
-|---|---|---|
-| [Red_Teams_VS_Blue_Teams](https://github.com/AGL2304/Red_Teams_VS_Blue_Teams) | Simulation d'affrontement Red vs Blue — scenarios d'attaque et contre-mesures defensives | TypeScript · Node.js · Docker |
-| [Projet_CVE_Trackers](https://github.com/AGL2304/Projet_CVE_Trackers) | Plateforme CTI maison — collecte et qualification de ~50 CVE/jour depuis NVD + MITRE ATT&CK | Next.js 15 · Prisma · Docker |
-| [Secure_Chat](https://github.com/AGL2304/Secure_Chat) | Messagerie chiffree bout-en-bout — cle privee navigateur, WebSockets, JWT | FastAPI · WebSocket · bcrypt |
-| [securevault](https://github.com/AGL2304/securevault) | Gestionnaire de secrets chiffres — JWT, audit log, RBAC | Python · FastAPI · PostgreSQL |
-| 🔒 Keystroke Security Auditor | Etude des vecteurs d'attaque entrees clavier + contre-mesures | Python · Endpoint Security |
+| Repo                                                                          | Description                                                                                 | Stack                         |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ----------------------------- |
+| [Red_Teams_VS_Blue_Teams](https://github.com/AGL2304/Red_Teams_VS_Blue_Teams) | Simulation d'affrontement Red vs Blue — scenarios d'attaque et contre-mesures defensives    | TypeScript · Node.js · Docker |
+| [Projet_CVE_Trackers](https://github.com/AGL2304/Projet_CVE_Trackers)         | Plateforme CTI maison — collecte et qualification de ~50 CVE/jour depuis NVD + MITRE ATT&CK | Next.js 15 · Prisma · Docker  |
+| [Secure_Chat](https://github.com/AGL2304/Secure_Chat)                         | Messagerie chiffree bout-en-bout — cle privee navigateur, WebSockets, JWT                   | FastAPI · WebSocket · bcrypt  |
+| [securevault](https://github.com/AGL2304/securevault)                         | Gestionnaire de secrets chiffres — JWT, audit log, RBAC                                     | Python · FastAPI · PostgreSQL |
+| 🔒 Keystroke Security Auditor                                                 | Etude des vecteurs d'attaque entrees clavier + contre-mesures                               | Python · Endpoint Security    |
 
 ### ⚙️ DevOps & Cloud
 
-| Repo | Description | Stack |
-|---|---|---|
-| [cloudninja_agl](https://github.com/AGL2304/cloudninja_agl-) | Scripts d'automatisation cloud + CI GitHub Actions | Node.js · Bash |
-| [MonProjetDevOps](https://github.com/AGL2304/MonProjetDevOps) | Stack Docker pour orchestration et environnements multi-conteneurs | Dockerfile · Compose |
-| [Projet_DevOps](https://github.com/AGL2304/Projet_DevOps) | Infrastructure DevOps complete — containerisation, orchestration, CI/CD | Docker · K8s · Jenkins |
+| Repo                                                          | Description                                                             | Stack                  |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------- | ---------------------- |
+| [cloudninja_agl](https://github.com/AGL2304/cloudninja_agl-)  | Scripts d'automatisation cloud + CI GitHub Actions                      | Node.js · Bash         |
+| [MonProjetDevOps](https://github.com/AGL2304/MonProjetDevOps) | Stack Docker pour orchestration et environnements multi-conteneurs      | Dockerfile · Compose   |
+| [Projet_DevOps](https://github.com/AGL2304/Projet_DevOps)     | Infrastructure DevOps complete — containerisation, orchestration, CI/CD | Docker · K8s · Jenkins |
 
 ### 🌐 Web & GRC
 
-| Repo | Description | Stack |
-|---|---|---|
-| [Mon_Portfolio](https://github.com/AGL2304/Mon_Portfolio) | Portfolio multi-services (db + backend + frontend) + livrables GRC publics ISO 27001 / EBIOS RM | FastAPI · React · Postgres |
-| [CodeArena_EcoleIT_Pisc](https://github.com/AGL2304/CodeArena_EcoleIT_Pisc) | Plateforme de competition de code temps reel — sandbox Docker, leaderboard Socket.io | Vue 3 · Node.js · MongoDB |
-| [Travel_Guides](https://github.com/AGL2304/Travel_Guides) | Guides de voyage collaboratifs avec carte interactive | Symfony · Twig · PostgreSQL |
-| [parcours_qr_code](https://github.com/AGL2304/parcours_qr_code) | Parcours de visite via QR codes (musees, tourisme culturel) | Laravel · Blade · MySQL |
-| [Reservations_AGL](https://github.com/AGL2304/Reservations_AGL) | Systeme de reservation en ligne | PHP · MySQL · Bootstrap |
-| 🔒 Portail IRFA-APISUP | Dashboard KPI/KRI + fiches reflexes + FAQ cyber pour 40 collaborateurs | SharePoint · Power BI · React |
+| Repo                                                                        | Description                                                                                     | Stack                         |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------- |
+| [Mon_Portfolio](https://github.com/AGL2304/Mon_Portfolio)                   | Portfolio multi-services (db + backend + frontend) + livrables GRC publics ISO 27001 / EBIOS RM | FastAPI · React · Postgres    |
+| [CodeArena_EcoleIT_Pisc](https://github.com/AGL2304/CodeArena_EcoleIT_Pisc) | Plateforme de competition de code temps reel — sandbox Docker, leaderboard Socket.io            | Vue 3 · Node.js · MongoDB     |
+| [Travel_Guides](https://github.com/AGL2304/Travel_Guides)                   | Guides de voyage collaboratifs avec carte interactive                                           | Symfony · Twig · PostgreSQL   |
+| [parcours_qr_code](https://github.com/AGL2304/parcours_qr_code)             | Parcours de visite via QR codes (musees, tourisme culturel)                                     | Laravel · Blade · MySQL       |
+| [Reservations_AGL](https://github.com/AGL2304/Reservations_AGL)             | Systeme de reservation en ligne                                                                 | PHP · MySQL · Bootstrap       |
+| 🔒 Portail IRFA-APISUP                                                      | Dashboard KPI/KRI + fiches reflexes + FAQ cyber pour 40 collaborateurs                          | SharePoint · Power BI · React |
 
 → Et **15+ autres** sur [mon profil GitHub](https://github.com/AGL2304?tab=repositories).
 
@@ -245,17 +245,17 @@ Le **Purple Team** n'est pas un compromis entre l'attaque et la defense — c'es
 
 ## 🏆 Certifications & formations
 
-| Formation / Certification | Organisme | Statut |
-|---|---|:-:|
-| Mastere Expert Architectures Systemes, Reseaux & Securite | Ecole-IT, Amiens | 🔄 En cours (M1, 2025-2026) |
-| Bachelor Informatique — specialite DevOps | Ecole-IT, Amiens | ✅ 2024-2025 |
-| Licence Informatique (Maths & Info) | Ibn Tofail, Kenitra (Maroc) | ✅ 2023-2024 |
-| TryHackMe — Top 1% mondial · 185 salles · 22 badges | TryHackMe | 🟢 Actif (`agl23`) |
-| EBIOS Risk Manager | Formation ecole — Mastere | 🔄 En cours |
-| ISO 27001 Lead Implementer | Auto-formation | 🔄 En cours |
-| eJPT — Junior Penetration Tester | eLearnSecurity (INE) | 🎯 En preparation |
-| AWS Cloud Practitioner | AWS | 🎯 En preparation |
-| Anglais C1 — certifie Gymglish | Gymglish | ✅ Actif |
+| Formation / Certification                                 | Organisme                   |           Statut            |
+| --------------------------------------------------------- | --------------------------- | :-------------------------: |
+| Mastere Expert Architectures Systemes, Reseaux & Securite | Ecole-IT, Amiens            | 🔄 En cours (M1, 2025-2026) |
+| Bachelor Informatique — specialite DevOps                 | Ecole-IT, Amiens            |        ✅ 2024-2025         |
+| Licence Informatique (Maths & Info)                       | Ibn Tofail, Kenitra (Maroc) |        ✅ 2023-2024         |
+| TryHackMe — Top 1% mondial · 185 salles · 22 badges       | TryHackMe                   |     🟢 Actif (`agl23`)      |
+| EBIOS Risk Manager                                        | Formation ecole — Mastere   |         🔄 En cours         |
+| ISO 27001 Lead Implementer                                | Auto-formation              |         🔄 En cours         |
+| eJPT — Junior Penetration Tester                          | eLearnSecurity (INE)        |      🎯 En preparation      |
+| AWS Cloud Practitioner                                    | AWS                         |      🎯 En preparation      |
+| Anglais C1 — certifie Gymglish                            | Gymglish                    |          ✅ Actif           |
 
 ---
 
@@ -263,11 +263,11 @@ Le **Purple Team** n'est pas un compromis entre l'attaque et la defense — c'es
 
 <div align="center">
 
-| Type | Domaine | Rythme | Disponibilite |
-|:-:|:-:|:-:|:-:|
-| **Alternance** | Purple Team · Pentest · DevSecOps · GRC | 3 sem entreprise / 1 sem ecole | 🟢 Septembre 2026 |
-| **Projets open-source** | Securite · Outils d'audit · CTI | — | 🟢 Ouvert |
-| **CTF collaboratif** | Red vs Blue · Challenges | — | 🟢 Toujours partant |
+|          Type           |                 Domaine                 |             Rythme             |    Disponibilite    |
+| :---------------------: | :-------------------------------------: | :----------------------------: | :-----------------: |
+|     **Alternance**      | Purple Team · Pentest · DevSecOps · GRC | 3 sem entreprise / 1 sem ecole |  🟢 Septembre 2026  |
+| **Projets open-source** |     Securite · Outils d'audit · CTI     |               —                |      🟢 Ouvert      |
+|  **CTF collaboratif**   |        Red vs Blue · Challenges         |               —                | 🟢 Toujours partant |
 
 </div>
 
@@ -287,7 +287,7 @@ Le **Purple Team** n'est pas un compromis entre l'attaque et la defense — c'es
 
 <div align="center">
 
-*"The best defense is a good offense — and understanding both is what makes a Purple Teamer."*
+_"The best defense is a good offense — and understanding both is what makes a Purple Teamer."_
 
 [![TryHackMe](https://tryhackme-badges.s3.amazonaws.com/agl23.png)](https://tryhackme.com/p/agl23)
 
