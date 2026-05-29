@@ -1,3 +1,16 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://mon-portfolio-5ati.onrender.com/api/:path*"
+    },
+    {
+      "source": "/grc/:path*",
+      "destination": "https://mon-portfolio-5ati.onrender.com/grc/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
