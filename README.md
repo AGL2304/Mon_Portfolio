@@ -9,19 +9,25 @@
 
 ---
 
-## 🌐 Démo en ligne
+## 🌐 Démo en ligne (LIVE 🟢)
 
-- 🌍 **Site** (FR/EN switch dans la nav) — _déploiement à venir_ → `https://portfolio.agl-anani.dev/`
-- 🧪 **Admin** — _déploiement à venir_ → `https://portfolio.agl-anani.dev/admin/login`
-- 📂 **Livrables GRC** — _déploiement à venir_ → `https://portfolio.agl-anani.dev/grc/`
+- 🌍 **Site** (FR/EN switch dans la nav) → **https://mon-portfolio-mocha-ten.vercel.app/**
+- 🧪 **Admin** → https://mon-portfolio-mocha-ten.vercel.app/admin/login
+- 📂 **Livrables GRC** → https://mon-portfolio-mocha-ten.vercel.app/grc/
+- 🔌 **API backend** (Render) → https://mon-portfolio-5ati.onrender.com/docs
 
-> 💡 Les URLs ci-dessus sont des **placeholders** : remplacer par l'URL Vercel après déploiement.
+### Architecture 3 tiers en production
 
-| Hero français | Hero anglais |
-|---|---|
-| ![Hero FR](frontend/assets/screenshots/portfolio-hero-fr.png) | ![Hero EN](frontend/assets/screenshots/portfolio-hero-en.png) |
+```
+Navigateur
+    │
+    ▼
+Vercel (frontend React) ──rewrites /api/* + /grc/*──▶ Render (FastAPI) ──▶ Neon.tech (Postgres serverless)
+```
 
-> ℹ️ Les screenshots ci-dessus illustrent le design (bascule FR↔EN native, sans rechargement).
+![Screenshot prod live](frontend/public/screenshots/prod-vercel-home.png)
+
+> ℹ️ Capture du site en production le `2026-05-29` — bascule FR↔EN native sans rechargement, section GRC, terminal animé.
 
 ---
 
