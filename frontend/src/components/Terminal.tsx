@@ -10,7 +10,7 @@ interface TerminalProps {
  * Affiche un terminal animé qui se "tape" tout seul une fois visible.
  * Les lignes peuvent contenir du HTML (utilisé pour la coloration syntaxique).
  */
-export function Terminal({ lines, delayMs = 220, title = "~/profile.sh — zsh" }: TerminalProps) {
+export function Terminal({ lines, delayMs = 220, title = "~/profile.sh - zsh" }: TerminalProps) {
   const [visibleLines, setVisibleLines] = useState<string[]>([]);
   const [started, setStarted] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);

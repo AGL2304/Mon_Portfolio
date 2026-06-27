@@ -129,7 +129,7 @@ export function AdminDashboardPage() {
           <div>
             <h1>Administration Portfolio</h1>
             <small>
-              {content.profile.full_name} · {content.profile.email}
+              {content.profile.full_name} | {content.profile.email}
             </small>
           </div>
           <div className="admin-actions">
@@ -216,7 +216,7 @@ export function AdminDashboardPage() {
                   const parsed = JSON.parse(jsonDraft) as PortfolioContent;
                   setContent(parsed);
                   setDirty(true);
-                  show("JSON appliqué — clique Enregistrer pour persister");
+                  show("JSON appliqué - clique Enregistrer pour persister");
                 } catch (err) {
                   show(err instanceof Error ? err.message : "JSON invalide", "err");
                 }
@@ -516,7 +516,7 @@ function ExperiencesTab({
         title: "Nouveau poste",
         company: "Entreprise",
         location: "",
-        period: "Mois Année — Mois Année",
+        period: "Mois Année - Mois Année",
         current: false,
         highlights: ["Réalisation 1"],
       },
@@ -539,7 +539,7 @@ function ExperiencesTab({
         <div key={exp.id} className="list-item-card">
           <div className="list-item-head">
             <h3>
-              {exp.title} · {exp.company}
+              {exp.title} | {exp.company}
               {exp.current && <span className="cert-badge">En cours</span>}
             </h3>
             <button className="btn btn-danger btn-sm" onClick={() => remove(exp.id)}>
@@ -909,7 +909,7 @@ function InterestsTab({
     <>
       <div className="admin-section">
         <h2>Hero tags</h2>
-        <p className="section-help">Tags affichés sous le titre du hero — un par ligne.</p>
+        <p className="section-help">Tags affichés sous le titre du hero - un par ligne.</p>
         <textarea
           className="field-textarea"
           style={{ minHeight: 160 }}

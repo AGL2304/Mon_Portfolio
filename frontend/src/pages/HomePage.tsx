@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { CountUp } from "../components/CountUp";
+import { CustomCursor } from "../components/CustomCursor";
+import { HeroCanvas } from "../components/HeroCanvas";
+import { InteractiveCards } from "../components/InteractiveCards";
 import { ProjectCard } from "../components/ProjectCard";
+import { ScrollProgress } from "../components/ScrollProgress";
+import { TechMarquee } from "../components/TechMarquee";
 import { Terminal } from "../components/Terminal";
 import { useLanguage, useT } from "../context/LanguageContext";
 import type { TranslationDict } from "../i18n/translations";
@@ -31,12 +37,12 @@ function buildTerminalLines(content: PortfolioContent, t: TranslationDict): stri
     "",
     `<span class="t-prompt">${tt.promptHost}</span>:<span class="t-key">~</span>$ <span class="t-cmd">${tt.cmdProfile}</span>`,
     '<span class="t-out">{</span>',
-    `<span class="t-out">  "target":   "<span class="t-key">${escapeHtml(tt.targetLabel)}</span> · ${escapeHtml(tt.targetSuffix)}",</span>`,
+    `<span class="t-out">  "target":   "<span class="t-key">${escapeHtml(tt.targetLabel)}</span> | ${escapeHtml(tt.targetSuffix)}",</span>`,
     `<span class="t-out">  "rhythm":   "${escapeHtml(tt.rhythm)}",</span>`,
     `<span class="t-out">  "status":   "${escapeHtml(content.profile.availability || "")}",</span>`,
     `<span class="t-out">  "english":  "${escapeHtml(content.profile.english_level || "")}",</span>`,
     '<span class="t-out">  "norms":    ["ISO 27001", "HDS", "DORA", "NIS 2", "RGPD"],</span>',
-    '<span class="t-out">  "tryhackme":"<span class="t-key">Top 1%</span> · agl23"</span>',
+    '<span class="t-out">  "tryhackme":"<span class="t-key">Top 1%</span> | agl23"</span>',
     '<span class="t-out">}</span>',
     "",
     `<span class="t-prompt">${tt.promptHost}</span>:<span class="t-key">~</span>$ <span class="t-cmd">${tt.cmdStatus}</span>`,
@@ -68,6 +74,14 @@ export function HomePage() {
   const [error, setError] = useState<string>("");
   const [filter, setFilter] = useState<string>("all");
   const [navOpen, setNavOpen] = useState(false);
+  const [navScrolled, setNavScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setNavScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -88,22 +102,30 @@ export function HomePage() {
 
   useEffect(() => {
     if (!content) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            (e.target as HTMLElement).style.opacity = "1";
-            (e.target as HTMLElement).style.transform = "translateY(0)";
-            obs.unobserve(e.target);
+            const el = e.target as HTMLElement;
+            const delay = el.dataset.revealDelay ?? "0";
+            el.style.transitionDelay = `${delay}ms`;
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+            el.style.filter = "blur(0)";
+            obs.unobserve(el);
           }
         });
       },
-      { threshold: 0.12 },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
     );
-    document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+    document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el, i) => {
+      if (reduced) return;
       el.style.opacity = "0";
-      el.style.transform = "translateY(24px)";
-      el.style.transition = "opacity .7s ease, transform .7s ease";
+      el.style.transform = "translateY(28px)";
+      el.style.filter = "blur(8px)";
+      el.style.transition = "opacity .8s ease, transform .8s ease, filter .8s ease";
+      if (!el.dataset.revealDelay) el.dataset.revealDelay = String((i % 4) * 60);
       obs.observe(el);
     });
     return () => obs.disconnect();
@@ -166,11 +188,14 @@ export function HomePage() {
 
   return (
     <>
+      <ScrollProgress />
+      <CustomCursor />
+      <InteractiveCards />
       <div className="ornament-grid" />
       <div className="ornament-glow-1" />
       <div className="ornament-glow-2" />
 
-      <nav className="site-nav">
+      <nav className={`site-nav ${navScrolled ? "scrolled" : ""}`}>
         <div className="nav-inner">
           <a href="#top" className="brand">
             {photoUrl ? (
@@ -249,6 +274,7 @@ export function HomePage() {
 
       {/* ============= HERO ============= */}
       <section className="hero" id="top">
+        <HeroCanvas />
         <div className="container hero-grid">
           <div>
             <div className="hero-id">
@@ -295,11 +321,11 @@ export function HomePage() {
             </div>
 
             <div className="hero-cta">
-              <a href="#projects" className="btn btn-primary">
+              <a href="#projects" className="btn btn-primary" data-magnetic>
                 {t.hero.ctaProjects}
               </a>
               {cvUrl && (
-                <a href={cvUrl} download className="btn btn-ghost">
+                <a href={cvUrl} download className="btn btn-ghost" data-magnetic>
                   {t.hero.ctaCV}
                 </a>
               )}
@@ -309,6 +335,7 @@ export function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-ghost"
+                  data-magnetic
                 >
                   ⌗ GitHub
                 </a>
@@ -317,15 +344,21 @@ export function HomePage() {
 
             <div className="hero-metrics">
               <div className="metric">
-                <div className="metric-num">{content.projects.length}+</div>
+                <div className="metric-num">
+                  <CountUp end={content.projects.length} suffix="+" />
+                </div>
                 <div className="metric-label">{t.hero.metricProjects}</div>
               </div>
               <div className="metric">
-                <div className="metric-num">{content.experiences.length}</div>
+                <div className="metric-num">
+                  <CountUp end={content.experiences.length} />
+                </div>
                 <div className="metric-label">{t.hero.metricInternships}</div>
               </div>
               <div className="metric">
-                <div className="metric-num">185</div>
+                <div className="metric-num">
+                  <CountUp end={185} />
+                </div>
                 <div className="metric-label">{t.hero.metricThm}</div>
               </div>
               <div className="metric">
@@ -335,9 +368,12 @@ export function HomePage() {
             </div>
           </div>
 
-          <Terminal lines={buildTerminalLines(content, t)} title="~/grc-profile.sh — zsh" />
+          <Terminal lines={buildTerminalLines(content, t)} title="~/grc-profile.sh - zsh" />
         </div>
       </section>
+
+      {/* ============= TECH MARQUEE ============= */}
+      <TechMarquee />
 
       {/* ============= ABOUT ============= */}
       <section id="about">
@@ -445,7 +481,7 @@ export function HomePage() {
                     <div className="tl-title">{exp.title}</div>
                     <div className="tl-company">
                       {exp.company}
-                      {exp.location && <span className="tl-loc">— {exp.location}</span>}
+                      {exp.location && <span className="tl-loc">- {exp.location}</span>}
                     </div>
                   </div>
                   <div className={`tl-period ${exp.current ? "current" : ""}`}>{exp.period}</div>
@@ -545,6 +581,7 @@ export function HomePage() {
               <a
                 href={`mailto:${profile.email}?subject=${encodeURIComponent(t.contact.mailSubject)}`}
                 className="btn btn-primary"
+                data-magnetic
               >
                 ✉ {profile.email}
               </a>
@@ -560,7 +597,7 @@ export function HomePage() {
                   rel="noopener noreferrer"
                   className="btn btn-ghost"
                 >
-                  in · LinkedIn
+                  in | LinkedIn
                 </a>
               )}
               {profile.tryhackme_url && (
@@ -608,7 +645,7 @@ export function HomePage() {
             )}
           </div>
           <div>
-            © {new Date().getFullYear()} {profile.full_name} · {profile.headline} ·{" "}
+            © {new Date().getFullYear()} {profile.full_name} | {profile.headline} |{" "}
             {profile.location.split("·")[0]?.trim() || profile.location}
           </div>
         </div>
@@ -618,7 +655,7 @@ export function HomePage() {
 }
 
 // ============================================================
-//  GRC SECTION — composant interne, traduit via useT()
+//  GRC SECTION - composant interne, traduit via useT()
 // ============================================================
 function GrcSection() {
   const t = useT();
@@ -659,7 +696,7 @@ function GrcSection() {
                   >
                     {c.isoLinkMd}
                   </a>
-                  {" · "}
+                  {" | "}
                   <a
                     href="/grc/iso-27001-control-matrix.csv"
                     style={{ color: "var(--accent)" }}
@@ -747,7 +784,7 @@ function GrcSection() {
           >
             grc/
           </a>{" "}
-          ·{" "}
+          |{" "}
           <a
             href="https://github.com/AGL2304/Mon_Portfolio/tree/main/grc"
             target="_blank"

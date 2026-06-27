@@ -1,5 +1,5 @@
 /* ============================================================
-   Portfolio · Premium Dark-Tech Design System
+   Portfolio | Premium Dark-Tech Design System
    ============================================================ */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap");
@@ -74,12 +74,20 @@ button {
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  /* Purple Team : matrice de points violette (A855F7) sur une trame indigo discrete,
+     avec une brume violette centrale ou le rouge et le bleu fusionnent. */
   background-image:
-    linear-gradient(rgba(139, 92, 246, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.06) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    radial-gradient(rgba(168, 85, 247, 0.16) 1.1px, transparent 1.7px),
+    linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 50% 36%, rgba(124, 58, 237, 0.1), transparent 60%);
+  background-size:
+    32px 32px,
+    96px 96px,
+    96px 96px,
+    100% 100%;
+  mask-image: radial-gradient(ellipse 78% 58% at 50% 32%, #000 22%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 78% 58% at 50% 32%, #000 22%, transparent 80%);
 }
 .ornament-glow-1,
 .ornament-glow-2 {
@@ -90,18 +98,20 @@ button {
   opacity: 0.5;
 }
 .ornament-glow-1 {
+  /* Blue Team */
   top: -120px;
   left: -120px;
   width: 460px;
   height: 460px;
-  background: #8b5cf6;
+  background: #1e3a8a;
 }
 .ornament-glow-2 {
+  /* Red Team */
   bottom: -120px;
   right: -120px;
   width: 460px;
   height: 460px;
-  background: #22d3ee;
+  background: #b91c1c;
 }
 
 .container {
@@ -307,6 +317,19 @@ button {
    ============================================================ */
 .hero {
   padding: 70px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
+  mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, #000 35%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, #000 35%, transparent 85%);
 }
 .hero-grid {
   display: grid;
@@ -429,10 +452,12 @@ button {
   margin-bottom: 20px;
 }
 .hero-title .grad {
-  background: var(--grad);
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 35%, #22d3ee 70%, #8b5cf6 100%);
+  background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gradShift 8s ease infinite;
 }
 .hero-sub {
   color: var(--text-soft);
@@ -609,7 +634,9 @@ section {
   margin-bottom: 14px;
 }
 .section-title .grad {
-  background: var(--grad);
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 35%, #22d3ee 70%, #8b5cf6 100%);
+  background-size: 250% 100%;
+  animation: gradShift 8s ease infinite;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1551,6 +1578,318 @@ section {
   gap: 14px;
 }
 
+/* ============================================================
+   PREMIUM ANIMATIONS (ajouts)
+   ============================================================ */
+
+/* --- Barre de progression de lecture --- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  z-index: 100;
+  background: var(--grad);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+  pointer-events: none;
+  transition: width 0.08s linear;
+}
+
+/* --- Nav : élévation au scroll --- */
+.site-nav {
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.site-nav.scrolled {
+  background: rgba(10, 10, 18, 0.88);
+  border-bottom-color: var(--border-strong);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Titre dégradé animé --- */
+.grad {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 35%, #22d3ee 70%, #8b5cf6 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradShift 8s ease infinite;
+}
+@keyframes gradShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* --- Boutons : balayage lumineux au survol + magnétisme --- */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+.btn:hover::after {
+  left: 130%;
+}
+[data-magnetic] {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* --- Curseur personnalisé --- */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-100px, -100px);
+  margin-left: 0;
+  margin-top: 0;
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  background: #fff;
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    margin 0.2s ease,
+    background 0.2s ease;
+}
+.cursor-ring.is-active {
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  background: rgba(139, 92, 246, 0.18);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+body.has-custom-cursor,
+body.has-custom-cursor a,
+body.has-custom-cursor button,
+body.has-custom-cursor [role="button"] {
+  cursor: none;
+}
+
+/* --- Bandeau de logos (marquee, 2 rangées sens opposés) --- */
+.marquee {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.05), rgba(34, 211, 238, 0.05));
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.marquee-row {
+  overflow: hidden;
+}
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  animation: marqueeScroll 46s linear infinite;
+  will-change: transform;
+}
+.marquee-track.reverse {
+  animation-direction: reverse;
+  animation-duration: 54s;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+.mq-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 14px;
+  padding: 10px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-soft);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.mq-chip svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+  flex: none;
+}
+.mq-logo {
+  display: inline-flex;
+  color: var(--text-soft);
+  transition:
+    color 0.3s ease,
+    filter 0.3s ease;
+}
+.mq-name {
+  line-height: 1;
+}
+.mq-chip:hover {
+  transform: translateY(-3px) scale(1.05);
+  border-color: var(--accent);
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--text);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(139, 92, 246, 0.25),
+    0 0 22px rgba(139, 92, 246, 0.28);
+}
+.mq-chip:hover .mq-logo {
+  color: var(--accent-3);
+  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.55));
+}
+.mq-badge .mq-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  color: var(--accent);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(34, 211, 238, 0.12));
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+.mq-badge .mq-glyph svg {
+  width: 18px;
+  height: 18px;
+}
+.mq-badge:hover .mq-glyph {
+  color: #fff;
+  border-color: var(--accent-3);
+}
+.mq-abbr {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
+.mq-abbr strong {
+  font-size: 0.95rem;
+  letter-spacing: 0.4px;
+}
+.mq-abbr em {
+  font-style: normal;
+  font-size: 0.66rem;
+  color: var(--text-dim);
+  font-family: "JetBrains Mono", monospace;
+}
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Halo lumineux qui suit le curseur (cartes) --- */
+.project,
+.skill-card,
+.focus,
+.cert,
+.interest,
+.contact-card {
+  position: relative;
+}
+.project::after,
+.skill-card::after,
+.focus::after,
+.cert::after,
+.interest::after,
+.contact-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(150, 130, 255, 0.16),
+    transparent 60%
+  );
+}
+.project:hover::after,
+.skill-card:hover::after,
+.focus:hover::after,
+.cert:hover::after,
+.interest:hover::after,
+.contact-card:hover::after {
+  opacity: 1;
+}
+
+/* --- Cartes : élévation au survol --- */
+.project,
+.skill-card,
+.focus,
+.cert,
+.interest,
+.tl-item {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+.project:hover,
+.skill-card:hover,
+.focus:hover,
+.cert:hover,
+.interest:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-strong);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(139, 92, 246, 0.18);
+}
+
 /* --- Reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
   .ornament-glow-1,
@@ -1559,5 +1898,33 @@ section {
   }
   html {
     scroll-behavior: auto;
+  }
+  .grad {
+    animation: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .btn::after {
+    display: none;
+  }
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+  .project:hover,
+  .skill-card:hover,
+  .focus:hover,
+  .cert:hover,
+  .interest:hover {
+    transform: none;
+  }
+}
+
+/* --- Pas de curseur custom sur tactile / petit écran --- */
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
   }
 }
