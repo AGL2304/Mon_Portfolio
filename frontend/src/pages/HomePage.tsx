@@ -7,14 +7,13 @@ import { CustomCursor } from "../components/CustomCursor";
 import { HeroCanvas } from "../components/HeroCanvas";
 import { InteractiveCards } from "../components/InteractiveCards";
 import { MusicPlayer } from "../components/MusicPlayer";
-import { ProjectCard } from "../components/ProjectCard";
 import { ScrollProgress } from "../components/ScrollProgress";
 import { TechMarquee } from "../components/TechMarquee";
 import { Terminal } from "../components/Terminal";
 import { useLanguage, useT } from "../context/LanguageContext";
 import type { TranslationDict } from "../i18n/translations";
 import { fetchPublicContent } from "../services/api";
-import type { Experience, PortfolioContent } from "../types/portfolio";
+import type { Experience, PortfolioContent, Project } from "../types/portfolio";
 
 const SKILL_ICONS: Record<string, string> = {
   "normes-reglementations": "📜",
@@ -67,6 +66,225 @@ function escapeHtml(s: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+// ============================================================
+//  WORK LIST - projets en liste accordeon (titres XXL + panneau)
+//  Au survol / clic, la ligne se deploie : visuel accent + desc + tags.
+// ============================================================
+const WORK_CAT_TOKEN: Record<string, string> = {
+  grc: "GRC",
+  security: "SECURITY",
+  devops: "DEVSECOPS",
+  web: "WEB",
+  game: "LAB",
+};
+const WORK_ACCENT: Record<string, string> = {
+  security: "v-purple",
+  devops: "v-red",
+  grc: "v-blue",
+  web: "v-blue",
+  game: "v-green",
+};
+const WORK_PRIORITY = ["grc", "security", "devops", "game", "web"];
+const CIRCLED = ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩"];
+
+function workPrimaryCat(cats: string[]): string {
+  for (const c of WORK_PRIORITY) if (cats.includes(c)) return c;
+  return cats[0] ?? "web";
+}
+function workAccent(cats: string[]): string {
+  return WORK_ACCENT[workPrimaryCat(cats)] ?? "v-blue";
+}
+function workLabel(p: Project): string {
+  const token = WORK_CAT_TOKEN[workPrimaryCat(p.categories)] ?? "PROJECT";
+  return `${token} // ${p.technologies.slice(0, 4).join(" ")}`.toUpperCase();
+}
+
+function WorkList({ projects }: { projects: Project[] }) {
+  const t = useT();
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  return (
+    <ul className="work__list">
+      {projects.map((p, i) => {
+        const open = openId === p.id;
+        const cats = p.categories.map((c) => WORK_CAT_TOKEN[c] ?? c.toUpperCase()).join(", ");
+        const meta = `${p.date} | ${cats} | ${p.repository_url ? t.projects.openSource : t.projects.privateLabel}`;
+        return (
+          <li key={p.id} className={`work__row ${open ? "is-open" : ""}`} data-reveal>
+            <button
+              type="button"
+              className="work__head"
+              aria-expanded={open}
+              onClick={() => setOpenId(open ? null : p.id)}
+            >
+              <span className="work__num">{CIRCLED[i] ?? `${i + 1}`}</span>
+              <span className="work__name">{p.title}</span>
+              <span className="work__arrow" aria-hidden="true">
+                ↗
+              </span>
+            </button>
+            <div className="work__body">
+              <div className="work__body-inner">
+                <div className="work__grid">
+                  <div className={`work__visual ${workAccent(p.categories)}`}>
+                    <span className="work__visual-grid" aria-hidden="true" />
+                    <span className="work__visual-scan" aria-hidden="true" />
+                    <span className="work__visual-label">{workLabel(p)}</span>
+                  </div>
+                  <div className="work__info">
+                    <p className="work__desc">{p.description}</p>
+                    {p.technologies.length > 0 && (
+                      <ul className="work__tags">
+                        {p.technologies.map((tech) => (
+                          <li key={tech}>{tech}</li>
+                        ))}
+                      </ul>
+                    )}
+                    <p className="work__metaline">{meta}</p>
+                    {p.repository_url ? (
+                      <a
+                        className="work__cta"
+                        href={p.repository_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t.projects.viewRepo} <span aria-hidden="true">↗</span>
+                      </a>
+                    ) : (
+                      <span className="work__cta is-private">
+                        🔒 {p.private_note || t.projects.privateLabel}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+// ============================================================
+//  PURPLE TEAM - spotlight + terminal scripte (attaque -> defense)
+//  Le terminal se tape tout seul a l'entree dans le viewport, en boucle.
+// ============================================================
+function termLineHtml(kind: string, text: string): string {
+  const safe = escapeHtml(text);
+  if (kind === "prompt") {
+    return `<span class="t-prompt">$</span> <span class="t-cmd">${safe}</span>`;
+  }
+  return `<span class="t-${kind}">${safe}</span>`;
+}
+
+function PurpleTerminal({ script, title }: { script: { k: string; c: string }[]; title: string }) {
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const bodyRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    const body = bodyRef.current;
+    if (!root || !body) return;
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      body.innerHTML = script
+        .map((s) => `<div class="t-line">${termLineHtml(s.k, s.c)}</div>`)
+        .join("");
+      return;
+    }
+
+    let cancelled = false;
+    const timers: number[] = [];
+    const wait = (fn: () => void, ms: number) => {
+      timers.push(window.setTimeout(fn, ms));
+    };
+
+    let li = 0;
+    const typeLine = () => {
+      if (cancelled) return;
+      if (li >= script.length) {
+        wait(() => {
+          if (cancelled) return;
+          body.innerHTML = "";
+          li = 0;
+          typeLine();
+        }, 3200);
+        return;
+      }
+      const item = script[li];
+      const line = document.createElement("div");
+      line.className = "t-line";
+      body.appendChild(line);
+      let i = 0;
+      const ch = () => {
+        if (cancelled) return;
+        line.innerHTML =
+          termLineHtml(item.k, item.c.slice(0, i)) + '<span class="t-cursor"></span>';
+        if (i < item.c.length) {
+          i += 1;
+          wait(ch, item.k === "prompt" ? 34 : 14);
+        } else {
+          line.innerHTML = termLineHtml(item.k, item.c);
+          li += 1;
+          body.scrollTop = body.scrollHeight;
+          wait(typeLine, item.k === "prompt" ? 360 : 180);
+        }
+      };
+      ch();
+    };
+
+    let started = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !started) {
+            started = true;
+            typeLine();
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(root);
+
+    return () => {
+      cancelled = true;
+      timers.forEach((tmr) => window.clearTimeout(tmr));
+      io.disconnect();
+    };
+  }, [script]);
+
+  return (
+    <div className="spot-term" ref={rootRef}>
+      <div className="spot-term__bar">
+        <span className="spot-term__dot r" />
+        <span className="spot-term__dot y" />
+        <span className="spot-term__dot g" />
+        <span className="spot-term__title">{title}</span>
+      </div>
+      <div className="spot-term__body" ref={bodyRef} aria-hidden="true" />
+    </div>
+  );
+}
+
+function PurpleTeamSection() {
+  const t = useT();
+  return (
+    <section id="spot" className="spot">
+      <div className="spot__glow" aria-hidden="true" />
+      <div className="container spot__stage" data-reveal>
+        <p className="spot__coming">{t.spot.eyebrow}</p>
+        <h2 className="spot__wordmark">{t.spot.title}</h2>
+        <PurpleTerminal script={t.spot.script} title={t.spot.termTitle} />
+        <p className="spot__pitch" dangerouslySetInnerHTML={{ __html: t.spot.pitch }} />
+      </div>
+    </section>
+  );
 }
 
 export function HomePage() {
@@ -454,13 +672,12 @@ export function HomePage() {
             ))}
           </div>
 
-          <div className="projects">
-            {filteredProjects.map((p, i) => (
-              <ProjectCard key={p.id} project={p} delayMs={i * 40} />
-            ))}
-          </div>
+          <WorkList projects={filteredProjects} />
         </div>
       </section>
+
+      {/* ============= PURPLE TEAM (spotlight + terminal scripte) ============= */}
+      <PurpleTeamSection />
 
       {/* ============= GRC DELIVERABLES ============= */}
       <GrcSection />
