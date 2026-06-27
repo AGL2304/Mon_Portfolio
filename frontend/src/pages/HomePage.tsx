@@ -103,7 +103,13 @@ function workLabel(p: Project): string {
 
 function WorkList({ projects }: { projects: Project[] }) {
   const t = useT();
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [openId, setOpenId] = useState<string | null>(projects[0]?.id ?? null);
+
+  // Ouvre la premiere ligne par defaut (apercu immediat) et re-ouvre la
+  // premiere a chaque changement de filtre (la liste filtree change de reference).
+  useEffect(() => {
+    setOpenId(projects[0]?.id ?? null);
+  }, [projects]);
 
   return (
     <ul className="work__list">
@@ -180,18 +186,27 @@ function termLineHtml(kind: string, text: string): string {
   return `<span class="t-${kind}">${safe}</span>`;
 }
 
-function PurpleTerminal({ script, title }: { script: { k: string; c: string }[]; title: string }) {
+type TermScenario = { title: string; script: { k: string; c: string }[] };
+
+function PurpleTerminal({ scenarios }: { scenarios: TermScenario[] }) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const bodyRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     const root = rootRef.current;
     const body = bodyRef.current;
-    if (!root || !body) return;
+    if (!root || !body || scenarios.length === 0) return;
+
+    const setTitle = (txt: string) => {
+      if (titleRef.current) titleRef.current.textContent = txt;
+    };
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
-      body.innerHTML = script
+      // Repli : affiche le premier scenario en entier, sans animation.
+      setTitle(scenarios[0].title);
+      body.innerHTML = scenarios[0].script
         .map((s) => `<div class="t-line">${termLineHtml(s.k, s.c)}</div>`)
         .join("");
       return;
@@ -203,12 +218,19 @@ function PurpleTerminal({ script, title }: { script: { k: string; c: string }[];
       timers.push(window.setTimeout(fn, ms));
     };
 
-    let li = 0;
+    let si = 0; // index scenario courant
+    let li = 0; // index ligne dans le scenario
+    let script = scenarios[0].script;
+
     const typeLine = () => {
       if (cancelled) return;
       if (li >= script.length) {
+        // Fin du scenario : pause, puis on enchaine sur le suivant (boucle).
         wait(() => {
           if (cancelled) return;
+          si = (si + 1) % scenarios.length;
+          script = scenarios[si].script;
+          setTitle(scenarios[si].title);
           body.innerHTML = "";
           li = 0;
           typeLine();
@@ -257,7 +279,7 @@ function PurpleTerminal({ script, title }: { script: { k: string; c: string }[];
       timers.forEach((tmr) => window.clearTimeout(tmr));
       io.disconnect();
     };
-  }, [script]);
+  }, [scenarios]);
 
   return (
     <div className="spot-term" ref={rootRef}>
@@ -265,7 +287,9 @@ function PurpleTerminal({ script, title }: { script: { k: string; c: string }[];
         <span className="spot-term__dot r" />
         <span className="spot-term__dot y" />
         <span className="spot-term__dot g" />
-        <span className="spot-term__title">{title}</span>
+        <span className="spot-term__title" ref={titleRef}>
+          {scenarios[0]?.title}
+        </span>
       </div>
       <div className="spot-term__body" ref={bodyRef} aria-hidden="true" />
     </div>
@@ -274,13 +298,22 @@ function PurpleTerminal({ script, title }: { script: { k: string; c: string }[];
 
 function PurpleTeamSection() {
   const t = useT();
+  // Deux scenarios joues en boucle : pentest (attaque -> defense) puis
+  // threat-hunting / CTI. Memoise pour ne pas relancer le moteur a chaque rendu.
+  const scenarios = useMemo<TermScenario[]>(
+    () => [
+      { title: t.spot.termTitle, script: t.spot.script },
+      { title: t.spot.termTitle2, script: t.spot.script2 },
+    ],
+    [t],
+  );
   return (
     <section id="spot" className="spot">
       <div className="spot__glow" aria-hidden="true" />
       <div className="container spot__stage" data-reveal>
         <p className="spot__coming">{t.spot.eyebrow}</p>
         <h2 className="spot__wordmark">{t.spot.title}</h2>
-        <PurpleTerminal script={t.spot.script} title={t.spot.termTitle} />
+        <PurpleTerminal scenarios={scenarios} />
         <p className="spot__pitch" dangerouslySetInnerHTML={{ __html: t.spot.pitch }} />
       </div>
     </section>
