@@ -1,7 +1,8 @@
-# Mon_Portfolio — Georges Lionel ANANI
+# Mon_Portfolio - Georges Lionel ANANI
 
 > Portfolio full-stack **React + FastAPI** pour un **Alternant Cybersécurité GRC** (Gouvernance, Risques & Conformité).
 > Page publique bilingue FR/EN + back-office d'administration JWT. CV PDF téléchargeable, design premium dark-tech, livrables GRC open-source.
+> Expérience immersive maison : ambiance audio générative, fond audio-réactif, timeline d'expériences en fil sinueux et formulaire de contact.
 
 [![CI](https://github.com/AGL2304/Mon_Portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/AGL2304/Mon_Portfolio/actions/workflows/ci.yml)
 [![Made with](https://img.shields.io/badge/stack-React%20%2B%20FastAPI-8B5CF6)](#-stack)
@@ -27,7 +28,7 @@ Vercel (frontend React) ──rewrites /api/* + /grc/*──▶ Render (FastAPI)
 
 ![Screenshot prod live](frontend/public/screenshots/prod-vercel-home.png)
 
-> ℹ️ Capture du site en production le `2026-05-29` — bascule FR↔EN native sans rechargement, section GRC, terminal animé.
+> ℹ️ Capture du site en production le `2026-05-29` | bascule FR↔EN native sans rechargement, section GRC, terminal animé.
 
 ---
 
@@ -39,25 +40,26 @@ Ce repo héberge **deux livrables complémentaires** :
    - Site public **bilingue FR / EN** (toggle sans rechargement, persisté en `localStorage`)
    - Interface d'administration **JWT** pour éditer profil / projets / expériences / compétences à chaud
    - Section **GRC** intégrée pointant vers les livrables `/grc/`
-2. **Dossier [`frontend/grc/`](frontend/grc/)** — livrables types Gouvernance Risques & Conformité (matrice ISO 27001 Annexe A, template EBIOS RM, registre RGPD, modèle PSSI) — open-source, MIT.
+   - **Expérience UI immersive** : ambiance audio générative (Web Audio), fond audio-réactif, timeline en fil sinueux, formulaire de contact mailto
+2. **Dossier [`frontend/grc/`](frontend/grc/)** : livrables types Gouvernance Risques & Conformité (matrice ISO 27001 Annexe A, template EBIOS RM, registre RGPD, modèle PSSI), open-source, MIT.
 
 | Composant | Cible | Quand l'utiliser |
 |---|---|---|
-| App React + FastAPI | Visiteurs · recruteurs · édition à chaud | Production |
+| App React + FastAPI | Visiteurs / recruteurs / édition à chaud | Production |
 | Livrables GRC (`frontend/grc/`) | Recruteurs, étudiants, PME sans RSSI | Réutiliser comme socle de mission |
 
 ---
 
 ## 🧱 Stack
 
-- **Frontend** : React 18 + TypeScript + Vite + CSS modulaire · **i18n maison** (FR/EN, sans dépendance externe)
+- **Frontend** : React 18 + TypeScript + Vite + CSS modulaire | **i18n maison** (FR/EN, sans dépendance externe) | **UI immersive maison** (Web Audio API, Canvas 2D, SVG inline)
 - **Backend** : FastAPI + SQLAlchemy + PostgreSQL (SQLite en tests) + JWT
-- **Conteneurisation** : Docker + Docker Compose par tier · nginx sert React + `/grc/` + `/assets/` + proxy `/api/`
+- **Conteneurisation** : Docker + Docker Compose par tier | nginx sert React + `/grc/` + `/assets/` + proxy `/api/`
 - **CI/CD** : GitHub Actions (`.github/workflows/ci.yml`)
-- **Tests** : `pytest` (backend) · `vitest` (frontend unitaire) · **Playwright** (E2E)
-- **Qualité** : `ruff` (Python) · `eslint` + `prettier` (TS/JS)
-- **SEO** : JSON-LD `Person` + `ProfilePage` · OpenGraph + Twitter Cards · favicon SVG dégradé · meta `lang` dynamique
-- **Déploiement** : Vercel (frontend · `frontend/vercel.json`)
+- **Tests** : `pytest` (backend) | `vitest` (frontend unitaire) | **Playwright** (E2E)
+- **Qualité** : `ruff` (Python) | `eslint` + `prettier` (TS/JS)
+- **SEO** : JSON-LD `Person` + `ProfilePage` | OpenGraph + Twitter Cards | favicon SVG dégradé | meta `lang` dynamique
+- **Déploiement** : Vercel (frontend | `frontend/vercel.json`)
 
 ```
 .
@@ -88,7 +90,8 @@ Ce repo héberge **deux livrables complémentaires** :
 ├── frontend/                       # React 18 + TS + Vite + Nginx
 │   ├── src/
 │   │   ├── pages/                  # HomePage, AdminDashboardPage, AdminLoginPage
-│   │   ├── components/             # ProjectCard, ProtectedRoute, Terminal, Toast
+│   │   ├── components/             # ProjectCard, Terminal, MusicPlayer, AudioReactiveBackground, HeroCanvas, CustomCursor, ScrollProgress, TechMarquee, CountUp, InteractiveCards
+│   │   ├── audio/                  # audioEngine.ts (Web Audio génératif, AnalyserNode partagé)
 │   │   ├── context/                # AuthContext, LanguageContext
 │   │   ├── i18n/                   # translations.ts (dictionnaire FR + EN typé)
 │   │   ├── services/               # api.ts, utilitaires
@@ -118,7 +121,7 @@ Ce repo héberge **deux livrables complémentaires** :
 
 ## ⚡ Démarrage rapide
 
-### Option A — Stack par tier avec Docker Compose
+### Option A : Stack par tier avec Docker Compose
 
 ```bash
 # 1. Créer le réseau Docker partagé
@@ -145,7 +148,7 @@ cd ../frontend && docker compose up -d
 - 🔐 **Admin** : http://localhost:3000/admin/login
 - 🗄️ **Adminer** : http://localhost:8080
 
-### Option B — En local sans Docker
+### Option B : En local sans Docker
 
 **Backend**
 
@@ -185,6 +188,24 @@ Provider + hook : [frontend/src/context/LanguageContext.tsx](frontend/src/contex
 
 ---
 
+## 🎧 Expérience UI immersive
+
+Tout est fait **maison**, sans aucune dépendance d'animation, d'audio ou d'icônes : Web Audio API, Canvas 2D, SVG inline et IntersectionObserver. Chaque effet respecte `prefers-reduced-motion`.
+
+| Brique | Ce que ça fait | Tech |
+|---|---|---|
+| **Ambiance audio** ([MusicPlayer](frontend/src/components/MusicPlayer.tsx)) | Dock flottant play/pause + volume. Ambiance **générative** synthétisée à la volée, **zéro fichier audio**. Mini-égaliseur live alimenté par l'`AnalyserNode` partagé. | Web Audio API |
+| **Moteur audio** ([audioEngine.ts](frontend/src/audio/audioEngine.ts)) | Synthèse temps réel, gestion volume/état, `AnalyserNode` partagé entre le dock et le fond. | Web Audio API |
+| **Fond audio-réactif** ([AudioReactiveBackground](frontend/src/components/AudioReactiveBackground.tsx)) | 3 rideaux d'aurore (bleu / violet / rouge = **Purple Team**) qui ondulent et s'intensifient avec la musique. Dérive douce à l'arrêt. | Canvas 2D + `AnalyserNode` |
+| **Timeline en fil sinueux** ([HomePage](frontend/src/pages/HomePage.tsx)) | Spline **Catmull-Rom** qui passe par chaque nœud d'expérience avec un balancement alterné : un vrai "fil déposé sur la table". | SVG path + ResizeObserver |
+| **Formulaire de contact** | Envoi par `mailto:` (pré-rempli, sujet inclus). Pas de backend mail, donc rien à héberger. | mailto natif |
+| **Logos sociaux** | GitHub, LinkedIn, TryHackMe (logo officiel CC0), Email, CV en **SVG inline**, hover par marque. | SVG inline |
+| **UI vivante** | Curseur personnalisé + boutons magnétiques, réseau de nœuds en hero, bandeau techno défilant, compteurs animés, barre de progression de scroll. | Canvas + IntersectionObserver |
+
+> 🎚️ Le dock audio démarre l'`AudioContext` au **premier clic** (politique autoplay des navigateurs). Le fond reste actif en dérive douce même sans son.
+
+---
+
 ## 🔐 Espace admin
 
 L'interface `/admin/login` permet (après authentification JWT) de modifier en direct :
@@ -217,13 +238,13 @@ Voir [frontend/grc/README.md](frontend/grc/README.md) pour le détail du contenu
 ## 🧪 Tests
 
 ```bash
-# Backend — unitaires + intégration
+# Backend - unitaires + intégration
 cd backend && pytest -q
 
-# Frontend — unitaires
+# Frontend - unitaires
 cd frontend && npm test
 
-# Frontend — E2E (Playwright)
+# Frontend - E2E (Playwright)
 cd frontend
 npm run e2e:install   # première fois
 npm run e2e
@@ -236,22 +257,22 @@ npm run e2e
 | Cible | Config | Branche |
 |---|---|---|
 | Frontend → **Vercel** | `frontend/vercel.json` | `main` |
-| Tous services → **Docker** | `db/compose.yml` · `backend/compose.yml` · `frontend/compose.yml` | n/a |
+| Tous services → **Docker** | `db/compose.yml` / `backend/compose.yml` / `frontend/compose.yml` | n/a |
 | CI/CD → **GitHub Actions** | `.github/workflows/ci.yml` | `main` |
 
 ---
 
 ## 📖 À propos
 
-Réalisé par **Georges Lionel ANANI** — Étudiant M1 Architecte des SI à l'École-IT (option DevOps & Cybersécurité).
+Réalisé par **Georges Lionel ANANI** | Étudiant M1 Architecte des SI à l'École-IT (option DevOps & Cybersécurité).
 
 - 🐙 GitHub : [@AGL2304](https://github.com/AGL2304)
 - 💼 LinkedIn : [Georges Lionel ANANI](https://www.linkedin.com/in/georges-lionel-c-a-anani-35256618b)
 - ✉️ Email : [charbelazon23@gmail.com](mailto:charbelazon23@gmail.com)
-- 📍 Île-de-France · École à Amiens
+- 📍 Île-de-France | École à Amiens
 
 ---
 
 <div align="center">
-  <sub>Construit avec ♥ et un peu de café · MIT License</sub>
+  <sub>Construit avec ♥ et un peu de café | MIT License</sub>
 </div>
