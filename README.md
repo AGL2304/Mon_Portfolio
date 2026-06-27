@@ -28,7 +28,7 @@ Vercel (frontend React) ──rewrites /api/* + /grc/*──▶ Render (FastAPI)
 
 ![Screenshot prod live](frontend/public/screenshots/prod-vercel-home.png)
 
-> ℹ️ Capture du site en production le `2026-05-29` | bascule FR↔EN native sans rechargement, section GRC, terminal animé.
+> ℹ️ Capture du site en production le `2026-06-27` | bascule FR↔EN native sans rechargement, section GRC, terminal animé.
 
 ---
 
